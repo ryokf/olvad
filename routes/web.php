@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IncomeController;
 use App\Http\Controllers\Admin\IngredientController;
 use App\Http\Controllers\Admin\OutcomeController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Models\Income;
@@ -30,6 +31,13 @@ Route::get('/admin/dashboard',[DashboardController::class,'index'])->name('dashb
 
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/admin', 'index');
+});
+
+Route::controller(ProductController::class)->group(function () {
+    Route::get('/admin/product', 'index');
+    Route::post('/admin/product', 'store');
+    Route::put('/admin/product/', 'update');
+    Route::delete('/admin/product/', 'destroy');
 });
 
 Route::controller(OutcomeController::class)->group(function () {
