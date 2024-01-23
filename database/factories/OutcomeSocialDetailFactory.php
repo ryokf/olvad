@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OutcomeSocialDetail>
+ */
+class OutcomeSocialDetailFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'outcome_detail_id' => fake()->numberBetween(71,100),
+            'outcome_social_id' => fake()->numberBetween(1,10),
+            'product_id' => fake()->numberBetween(1,10)
+        ];
+    }
+}
