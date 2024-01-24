@@ -29,13 +29,12 @@ class DatabaseSeeder extends Seeder
                 ProductFlavorSeeder::class,
                 ProductSizeSeeder::class,
                 CustomerSeeder::class,
-                OutcomeBuySeeder::class,
                 OutcomeSocialSeeder::class,
                 IncomeSeeder::class,
                 IncomeDetailSeeder::class,
-                OutcomeBuyDetailSeeder::class,
                 OutcomeSocialDetailSeeder::class,
+                OutcomeBuySeeder::class,
+                OutcomeBuyDetailSeeder::class,
             ]);
-
     }
 }
