@@ -17,7 +17,7 @@ class OutcomeBuyDetailFactory extends Factory
     public function definition(): array
     {
         return [
-            'outcome_detail_id' => fake()->numberBetween(1,70),
+            'outcome_detail_id' => fake()->unique()->numberBetween(1,70),
             'outcome_buy_id' => fake()->numberBetween(1,20),
             'ingredient_id' => fake()->numberBetween(1,20)
         ];

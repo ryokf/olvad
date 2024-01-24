@@ -17,7 +17,7 @@ class OutcomeSocialFactory extends Factory
     public function definition(): array
     {
         return [
-            'outcome_id' => $this->faker->numberBetween(21, 30),
+            'outcome_id' => fake()->unique()->numberBetween(21, 30),
             'customer_id' => $this->faker->numberBetween(1, 10),
         ];
     }
