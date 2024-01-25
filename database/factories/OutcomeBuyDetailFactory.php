@@ -31,7 +31,8 @@ class OutcomeBuyDetailFactory extends Factory
             // 'outcome_detail_id' => $this->faker->unique()->numberBetween(1,70),
             'outcome_detail_id' => self::$order++,
             'outcome_buy_id' => fake()->numberBetween(1, 20),
-            'ingredient_id' => fake()->numberBetween(1, 20)
+            'ingredient_id' => fake()->numberBetween(1, 20),
+            'price' => fake()->numberBetween(1,50) * 1000,
         ];
     }
 }

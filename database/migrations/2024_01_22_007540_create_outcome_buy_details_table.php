@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('outcome_detail_id')->constrained()->onDelete('cascade');
             $table->foreignId('outcome_buy_id')->constrained()->onDelete('cascade');
             $table->foreignId('ingredient_id')->constrained()->onDelete('cascade');
+            $table->integer('price')->unsigned();
             $table->timestamps();
         });
     }

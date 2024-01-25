@@ -19,7 +19,7 @@ class OutcomeDetailFactory extends Factory
         return [
             'unit_id' => fake()->numberBetween(1,2),
             'amount' => fake()->numberBetween(1,10),
-            'price' => fake()->numberBetween(1,50) * 1000,
+
         ];
     }
 }

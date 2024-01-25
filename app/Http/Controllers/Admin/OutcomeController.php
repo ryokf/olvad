@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Outcome\OutcomeBuyResource;
+use App\Http\Resources\Outcome\outcomeSocialResource;
 use App\Models\Outcome;
 use App\Models\OutcomeBuy;
 use App\Models\OutcomeSocial;
@@ -13,14 +15,14 @@ use Inertia\Inertia;
 
 class OutcomeController extends Controller
 {
-    public function index(OutcomeBuy $outcomeBuy, Product $product, Outcome $outcome, OutcomeSocial $outcomeSocial)
+    public function index(OutcomeBuy $outcomeBuy, OutcomeSocial $outcomeSocial)
     {
-        $outcomeBuys = $outcomeBuy->with('outcome')->get();
-        $outcomeSocials = $outcomeSocial->with('outcome')->get();
+        $outcomeBuys = $outcomeBuy->with('outcome')->with('store')->get();
+        $outcomeSocials = $outcomeSocial->with('outcome')->with('customer')->get();
 
         $data = [
-            'outcomeBuys' => $outcomeBuys,
-            'outcomeSocials' => $outcomeSocials,
+            'outcomeBuys' => OutcomeBuyResource::collection($outcomeBuys),
+            'outcomeSocials' => outcomeSocialResource::collection($outcomeSocials),
         ];
 
         return Inertia::render('Admin/Outcome/Index', compact('data'));
