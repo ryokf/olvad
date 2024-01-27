@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('unit_id')->constrained()->onDelete('cascade');
             $table->integer('amount')->unsigned();
-
             $table->timestamps();
         });
     }

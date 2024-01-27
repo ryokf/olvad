@@ -14,7 +14,7 @@ class WalletSeeder extends Seeder
     public function run(): void
     {
         Wallet::factory()
-        ->count(10)
+        ->count(1)
         ->create();
     }
 }
