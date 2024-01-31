@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Flowbite, Sidebar } from 'flowbite-react';
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
 import { FaChartBar, FaStore  } from "react-icons/fa";
 import { RiCake3Fill } from "react-icons/ri";
 import { BsBoxArrowUpRight, BsBoxArrowInDownLeft } from "react-icons/bs";
