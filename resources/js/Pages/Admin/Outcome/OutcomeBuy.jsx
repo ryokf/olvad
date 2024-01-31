@@ -1,7 +1,7 @@
 import React from "react";
 import TableComp from "../../../Components/Table";
 import {Table} from 'flowbite-react';
-import AdminModalComp from "../../../Components/AdminModal";
+import DetailOutcomeBuy from "./DetailOutcomeBuy";
 
 const OutcomeBuyData = (data) => {
     console.log(window.location.search.split("=")[1])
@@ -16,7 +16,7 @@ const OutcomeBuyData = (data) => {
             <Table.Cell>{item.store}</Table.Cell>
             <Table.Cell>Rp{item.cost}</Table.Cell>
             <Table.Cell>
-                <AdminModalComp title={"detail"} data={item} headerTitle={"Detail Pengeluaran"}></AdminModalComp>
+                <DetailOutcomeBuy title={"detail"} data={item} headerTitle={"Detail Pengeluaran"}></DetailOutcomeBuy>
             </Table.Cell>
         </Table.Row>
     ))
