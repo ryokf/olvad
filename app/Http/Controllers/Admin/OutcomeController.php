@@ -28,7 +28,7 @@ class OutcomeController extends Controller
 
     public function index(OutcomeBuy $outcomeBuy, OutcomeSocial $outcomeSocial)
     {
-        $outcomeBuys = $outcomeBuy->with('outcome')->with('store')->get();
+        $outcomeBuys = $outcomeBuy->with('outcome')->with('store')->paginate(10);
         $outcomeSocials = $outcomeSocial->with('outcome')->with('customer')->get();
 
         $outcomeData = [

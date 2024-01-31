@@ -4,50 +4,47 @@
 import { Flowbite, Table, Dropdown } from 'flowbite-react';
 import { Label, TextInput } from 'flowbite-react';
 import React from 'react';
-
-'use client';
-
 import { Pagination } from 'flowbite-react';
 import { useState } from 'react';
 
-function pagination() {
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const onPageChange = (page) => setCurrentPage(page);
+function PaginationComp(data) {
+    const [currentPage, setCurrentPage] = useState(data.current_page);
+    const onPageChange = function (page) {
+        window.location.replace(`?page=${page}`)
+        setCurrentPage(page);
+    }
 
     return (
         <div className="flex overflow-x-auto sm:justify-center mb-6">
-            <Pagination currentPage={currentPage} totalPages={100} onPageChange={onPageChange} showIcons />
+            <Pagination currentPage={currentPage} totalPages={data.last_page} onPageChange={onPageChange} showIcons />
         </div>
     );
 }
 
-export default function TableComp({ head, tableContent, IsSearchable, optionButton, isPageable }) {
+export default function TableComp({ head, tableContent, IsSearchable, optionButton, isPageable, title, paginationData }) {
     return (
         <Flowbite theme={{ theme: customTheme }}>
             <div className="overflow-x-auto bg-white shadow-sm">
                 <div className="m-4 flex justify-between">
-                    <h1 className="text-xl font-medium">Data pengeluaran untuk pembelian</h1>
+                    <h1 className="text-xl font-medium">{title}</h1>
                     <div className="flex gap-2">
                         {optionButton}
                         {IsSearchable ? <div className="">
                             <TextInput id="email4" type="text" placeholder="cari..." required />
                         </div> : <></>}
                     </div>
-
                 </div>
                 <Table hoverable>
                     <Table.Head>
                         {head.map((item, index) => (
                             <Table.HeadCell key={item}>{item}</Table.HeadCell>
                         ))}
-                        {/* <Table.HeadCell>Product name</Table.HeadCell> */}
                     </Table.Head>
                     <Table.Body className="divide-y">
                         {tableContent}
                     </Table.Body>
                 </Table>
-                {isPageable ? pagination() : <></>}
+                {isPageable ? PaginationComp(paginationData) : <></>}
             </div>
         </Flowbite>
     );

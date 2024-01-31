@@ -4,15 +4,12 @@ import { Button, Flowbite } from 'flowbite-react';
 import Admin from "../../../Templates/Admin";
 import TableComp from "../../../Components/Table";
 import DateFormat from "../../../Helper/DateFormat";
-import {  Table } from 'flowbite-react';
+import { Table } from 'flowbite-react';
+import OutcomeModalComp from "../../../Components/AdminModal";
+import AdminModalComp from "../../../Components/AdminModal";
+import OutcomeBuy from "./OutcomeBuy";
 
 export default function Index({ outcomeData }) {
-
-    // outcomeData.outcomeSocials.data.map(item => {
-    //     console.log(item)
-    // })
-
-
     // const { data, setData, post, processing, errors } = useForm(
     //     {
     //         type: isBuyType ? 'buy' : 'social',
@@ -39,51 +36,21 @@ export default function Index({ outcomeData }) {
     //     post('/admin/outcome')
     // }
 
-    const [isBuyType, setIsBuyType] = useState(false);
-
-    let dataForTable = {
-
-    }
-
-    outcomeData.outcomeBuys.data.map(item => {
-        // console.log(item)
-
-        // data
-    })
-
-
+    const [isBuyType, setIsBuyType] = useState(true);
     const date = DateFormat();
-
-    const OutcomeBuyData = () => {
-        return outcomeData.outcomeBuys.data.map((item, index) => (
-            <Table.Row key={item} className="bg-white border-none dark:bg-gray-800">
-                <Table.Cell>{++index}</Table.Cell>
-                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                    {item.date}
-                </Table.Cell>
-                <Table.Cell>{item.description.slice(0, 50)}...</Table.Cell>
-                <Table.Cell>{item.store}</Table.Cell>
-                <Table.Cell>Rp{item.cost}</Table.Cell>
-                <Table.Cell>
-                    <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                        Edit
-                    </a>
-                </Table.Cell>
-            </Table.Row>
-        ))
-    }
-
 
     return (
         <>
             <Admin title="Pengeluaran" subtitle={`${date.day}, ${date.dateNumber} ${date.month} ${date.year}`}>
                 <div className="my-4 pl-4 flex gap-2">
                     <Flowbite theme={{ theme: customTheme }}>
-                        <Button color="blue">Pembelian</Button>
-                        <Button outline color="blue">Sosial</Button>
+                        <Button outline={!isBuyType} color="blue" onClick={() => setIsBuyType(true)}>Pembelian</Button>
+                        <Button outline={isBuyType} color="blue" onClick={() => setIsBuyType(false)}>Sosial</Button>
                     </Flowbite>
                 </div>
-                <TableComp head={["#", "tanggal", "deskripsi", "toko", "total", ""]} tableContent={OutcomeBuyData()} IsSearchable isPageable></TableComp>
+                {
+                    isBuyType ? <OutcomeBuy data={outcomeData.outcomeBuys.data} paginationData={outcomeData.outcomeBuys.meta}></OutcomeBuy> : <></>
+                }
             </Admin>
 
             {/* // <div className="w-screen">
