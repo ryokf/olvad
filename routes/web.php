@@ -41,7 +41,8 @@ Route::controller(ProductController::class)->group(function () {
 });
 
 Route::controller(OutcomeController::class)->group(function () {
-    Route::get('/admin/outcome', 'index')->name('admin.outcome.index');
+    Route::get('/admin/outcome/buy', 'index')->name('admin.outcome.index.buy');
+    Route::get('/admin/outcome/social', 'index')->name('admin.outcome.index.social');
     Route::post('/admin/outcome', 'store');
     Route::put('/admin/outcome/', 'update');
     Route::delete('/admin/outcome/', 'destroy');

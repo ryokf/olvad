@@ -3,16 +3,17 @@ import { Button, Flowbite, Modal, Table } from 'flowbite-react';
 import React, { useState } from 'react';
 import TableComp from '../../../Components/Table';
 import CustomTheme from '../../../theme/CustomTheme';
-// import TableComp from './Table';
 
 const DetailItemData = (data) => {
     return data.map(function (item, index) {
-
+        // console.log(data)
         return (
-            <Table.Row key={item} className="bg-white border-none dark:bg-gray-800">
+            <Table.Row key={item.id} className="bg-white border-none dark:bg-gray-800">
                 <Table.Cell>{++index}</Table.Cell>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                     {item.name}
+
+                    {/* {item.product['name']} */}
                 </Table.Cell>
                 <Table.Cell className="">
                     {item.detail_item.amount}
@@ -22,6 +23,7 @@ const DetailItemData = (data) => {
                 </Table.Cell>
                 <Table.Cell className="">
                     Rp{item.price}
+                    {/* Rp{item.product['price']} */}
                 </Table.Cell>
                 <Table.Cell className="">
                     Rp{item.detail_item.total}
@@ -30,7 +32,7 @@ const DetailItemData = (data) => {
         )
     })
 }
-export default function DetailOutcomeBuy({ title, headerTitle, data }) {
+export default function DetailOutcome({ title, headerTitle, data }) {
     const [openModal, setOpenModal] = useState(false);
 
     return (
@@ -42,7 +44,7 @@ export default function DetailOutcomeBuy({ title, headerTitle, data }) {
                 <Modal.Header>{headerTitle}</Modal.Header>
                 <Modal.Body>
                     <div className="font-medium">
-                        Toko : {data.store}
+                        {localStorage.getItem('isBuyType') ? "Toko" : "Penerima"} : {localStorage.getItem('isBuyType') ? data.store : data.customer}
                     </div>
                     <div className="font-medium">
                         Jenis : {data.reciepe != null ? "Pembelian" : "Sosial"}

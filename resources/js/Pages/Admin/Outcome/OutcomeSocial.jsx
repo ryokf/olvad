@@ -3,8 +3,8 @@ import TableComp from "../../../Components/Table";
 import {Table} from 'flowbite-react';
 import DetailOutcome from "./DetailOutcome";
 
-const OutcomeBuyData = (data) => {
-    // console.log(window.location.search.split("=")[1])
+const OutcomeSocialData = (data) => {
+    // console.log(data)
 
     return data.map((item, index) => (
         <Table.Row key={item.id} className="bg-white border-none dark:bg-gray-800">
@@ -13,7 +13,7 @@ const OutcomeBuyData = (data) => {
                 {item.date}
             </Table.Cell>
             <Table.Cell>{item.description.slice(0, 50)}...</Table.Cell>
-            <Table.Cell>{item.store}</Table.Cell>
+            <Table.Cell>{item.customer}</Table.Cell>
             <Table.Cell>Rp{item.cost}</Table.Cell>
             <Table.Cell>
                 <DetailOutcome title={"detail"} data={item} headerTitle={"Detail Pengeluaran"}></DetailOutcome>
@@ -22,10 +22,10 @@ const OutcomeBuyData = (data) => {
     ))
 }
 
-export default function OutcomeBuy({data, paginationData}) {
+export default function OutcomeSocial({data, paginationData}) {
     return (
         <div className="">
-            <TableComp title={"Data pengeluaran untuk pembelian"} head={["#", "tanggal", "deskripsi", "toko", "total", ""]} tableContent={OutcomeBuyData(data)} IsSearchable isPageable paginationData={paginationData}></TableComp>
+            <TableComp title={"Data pengeluaran untuk pembelian"} head={["#", "tanggal", "deskripsi", "penerima", "total", ""]} tableContent={OutcomeSocialData(data)} IsSearchable isPageable paginationData={paginationData}></TableComp>
         </div>
     )
 }

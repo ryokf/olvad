@@ -1,7 +1,5 @@
-import React from "react";
-
 'use client';
-
+import React from "react";
 import { Avatar, Dropdown, Flowbite, Navbar } from 'flowbite-react';
 import CustomTheme from "../theme/CustomTheme";
 
@@ -39,5 +37,3 @@ export default function AdminHeaderComp({ title, photo, subtitle }) {
         </Flowbite>
     );
 }
-
-// https://flowbite.com/docs/images/people/profile-picture-5.jpg

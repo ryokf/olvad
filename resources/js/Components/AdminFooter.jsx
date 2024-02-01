@@ -1,7 +1,5 @@
-import React from "react";
-
 'use client';
-
+import React from "react";
 import { Footer } from 'flowbite-react';
 
 export default function AdminFooterComp() {

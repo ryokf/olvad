@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 import React from "react";
 import { Flowbite, Sidebar } from 'flowbite-react';
@@ -20,8 +20,6 @@ const AdminSidebarComp = () => {
         { name: "Customer", href: "/admin/customer", icon: FaPeopleGroup },
     ];
 
-    console.log(window.location.pathname)
-
     return (
         <Flowbite theme={{ theme: CustomTheme }}>
             <Sidebar aria-label="Sidebar with logo branding example" className="fixed">
@@ -35,10 +33,10 @@ const AdminSidebarComp = () => {
                     <Sidebar.ItemGroup>
                         {route.map((item, index) => (
                             <Sidebar.Item
-                                key={item.href}
+                                key={index}
                                 href={item.href}
                                 icon={item.icon}
-                                {...(window.location.pathname === item.href ? { active: true } : {})}
+                                {...(window.location.pathname.split("/")[2] == item.name.toLowerCase() ? { active: true } : {})}
                             >
                                 {item.name}
                             </Sidebar.Item>
