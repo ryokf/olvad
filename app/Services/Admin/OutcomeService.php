@@ -2,6 +2,8 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Resources\Outcome\OutcomeBuyResource;
+use App\Http\Resources\Outcome\outcomeSocialResource;
 use App\Models\Outcome;
 use App\Models\OutcomeBuy;
 use App\Models\OutcomeBuyDetail;
@@ -13,10 +15,41 @@ use Illuminate\Support\Facades\DB;
 
 class OutcomeService
 {
+    public function getData($params, $outcomeBuy, $outcomeSocial)
+    {
+        $outcomeBuys = $outcomeBuy->with('outcome')->with('store');
+        $outcomeSocials = $outcomeSocial->with('outcome')->with('customer');
+
+        if (isset($params->sort)) {
+            if ($params->sort == 'desc' || $params->sort == '') {
+                $outcomeBuys = $outcomeBuys->latest();
+                $outcomeSocials = $outcomeSocials->latest();
+            } elseif ($params->sort == 'asc') {
+                $outcomeBuys = $outcomeBuys->oldest();
+                $outcomeSocials = $outcomeSocials->oldest();
+            } elseif ($params->sort == 'least') {
+                $outcomeBuys = $outcomeBuys->latest();
+                $outcomeSocials = $outcomeSocials->oldest();
+            } elseif ($params->sort == 'most') {
+                $outcomeBuys = $outcomeBuys->latest();
+                $outcomeSocials = $outcomeSocials->oldest();
+            } else {
+                dd('y');
+            }
+        }
+        $outcomeBuys = $outcomeBuys->paginate(10);
+        $outcomeSocials = $outcomeSocials->paginate(10);
+
+        return [
+            'outcomeBuys' => OutcomeBuyResource::collection($outcomeBuys),
+            'outcomeSocials' => outcomeSocialResource::collection($outcomeSocials),
+        ];
+    }
+
     public function storeBuy($request, $outcome, $outcomeBuy, $outcomeDetail)
     {
         DB::beginTransaction();
-        try{
+        try {
             Outcome::create([
                 'total_cost' => $request->total_cost,
                 'description' => $request->description,
@@ -30,7 +63,7 @@ class OutcomeService
 
             $outcomeDetailId = $outcomeDetail->select('id')->orderBy('id', 'desc')->first()->id;
 
-            foreach($request->detail_item as $item) {
+            foreach ($request->detail_item as $item) {
                 OutcomeDetail::create([
                     'amount' => $item['amount'],
                     'unit_id' => $item['unit_id'],
@@ -54,17 +87,16 @@ class OutcomeService
 
             DB::commit();
             return true;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
         }
-
     }
 
     public function storeSocial($request, $outcome, $outcomeSocial, $outcomeDetail)
     {
         DB::beginTransaction();
-        try{
+        try {
             Outcome::create([
                 'total_cost' => $request->total_cost,
                 'description' => $request->description,
@@ -78,7 +110,7 @@ class OutcomeService
 
             $outcomeDetailId = $outcomeDetail->select('id')->orderBy('id', 'desc')->first()->id;
 
-            foreach($request->detail_item as $item) {
+            foreach ($request->detail_item as $item) {
                 OutcomeDetail::create([
                     'amount' => $item['amount'],
                     'unit_id' => $item['unit_id'],
@@ -101,7 +133,7 @@ class OutcomeService
 
             DB::commit();
             return true;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
         }

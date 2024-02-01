@@ -5,11 +5,14 @@ import DetailOutcome from "./DetailOutcome";
 import DataOption from "./DataOption";
 
 const OutcomeBuyData = (data) => {
-    // console.log(window.location.search.split("=")[1])
+    const searchParams = new URLSearchParams(window.location.search);
+    // console.log(searchParams.has('page')); // price_descending
+
+    console.log(searchParams.get('page'))
 
     return data.map((item, index) => (
         <Table.Row key={item.id} className="bg-white border-none dark:bg-gray-800">
-            <Table.Cell>{++index + (window.location.search == "" ? 0 : 10 * (window.location.search.split("=")[1] - 1))}</Table.Cell>
+            <Table.Cell>{++index + (!searchParams.has('page') ? 0 : 10 * (searchParams.get('page') - 1))}</Table.Cell>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {item.date}
             </Table.Cell>
@@ -17,7 +20,7 @@ const OutcomeBuyData = (data) => {
             <Table.Cell>{item.store}</Table.Cell>
             <Table.Cell>Rp{item.cost}</Table.Cell>
             <Table.Cell>
-                <DetailOutcome title={"detail"} data={item} headerTitle={"Detail Pengeluaran"}></DetailOutcome>
+                <DetailOutcome title={"•••"} data={item} headerTitle={"Detail Pengeluaran"}></DetailOutcome>
             </Table.Cell>
         </Table.Row>
     ))

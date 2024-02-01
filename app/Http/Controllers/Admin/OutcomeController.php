@@ -26,15 +26,9 @@ class OutcomeController extends Controller
         $this->outcomeService = $outcomeService;
     }
 
-    public function index(OutcomeBuy $outcomeBuy, OutcomeSocial $outcomeSocial)
+    public function index(Request $request,OutcomeBuy $outcomeBuy, OutcomeSocial $outcomeSocial)
     {
-        $outcomeBuys = $outcomeBuy->with('outcome')->with('store')->paginate(10);
-        $outcomeSocials = $outcomeSocial->with('outcome')->with('customer')->paginate(10);
-
-        $outcomeData = [
-            'outcomeBuys' => OutcomeBuyResource::collection($outcomeBuys),
-            'outcomeSocials' => outcomeSocialResource::collection($outcomeSocials),
-        ];
+        $outcomeData = $this->outcomeService->getData($request ,$outcomeBuy, $outcomeSocial);
 
         return Inertia::render('Admin/Outcome/Index', compact('outcomeData'));
     }

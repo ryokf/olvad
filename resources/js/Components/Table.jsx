@@ -1,15 +1,16 @@
-
-'use client';
-
+import React from 'react';
 import { Flowbite, Table, TextInput, Pagination } from 'flowbite-react';
-import React, { useState } from 'react';
 import CustomTheme from '../theme/CustomTheme';
 
 function PaginationComp(data) {
-    const [currentPage, setCurrentPage] = useState(data.current_page);
+    const currentPage = data.current_page;
     const onPageChange = function (page) {
         window.location.replace(`?page=${page}`)
-        // setCurrentPage()
+        // if(window.location.search == "") {
+        //     window.location.replace(`?page=${page}`)
+        // } else {
+        //     window.location.replace(`${window.location.href}?page=${page}`)
+        // }
     }
 
     return (

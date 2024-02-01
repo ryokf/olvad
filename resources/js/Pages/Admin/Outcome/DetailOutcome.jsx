@@ -6,14 +6,13 @@ import CustomTheme from '../../../theme/CustomTheme';
 
 const DetailItemData = (data) => {
     return data.map(function (item, index) {
-        // console.log(data)
+        const isBuyType = window.location.pathname.split("/")[3] == "buy" ? true : false;
+
         return (
             <Table.Row key={item.id} className="bg-white border-none dark:bg-gray-800">
                 <Table.Cell>{++index}</Table.Cell>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                    {item.name}
-
-                    {/* {item.product['name']} */}
+                    {isBuyType ? item.name : item.product['name']}
                 </Table.Cell>
                 <Table.Cell className="">
                     {item.detail_item.amount}
@@ -22,8 +21,7 @@ const DetailItemData = (data) => {
                     {item.detail_item.unit}
                 </Table.Cell>
                 <Table.Cell className="">
-                    Rp{item.price}
-                    {/* Rp{item.product['price']} */}
+                    Rp{isBuyType ? item.price : item.product['price']}
                 </Table.Cell>
                 <Table.Cell className="">
                     Rp{item.detail_item.total}
@@ -38,7 +36,7 @@ export default function DetailOutcome({ title, headerTitle, data }) {
     return (
         <>
             <Flowbite theme={CustomTheme}>
-                <Button color='primary' onClick={() => setOpenModal(true)}>{title}</Button>
+                <Button color='primary' size={'xs'} onClick={() => setOpenModal(true)}>{title}</Button>
             </Flowbite>
             <Modal show={openModal} size={"5xl"} onClose={() => setOpenModal(false)}>
                 <Modal.Header>{headerTitle}</Modal.Header>

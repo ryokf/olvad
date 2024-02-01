@@ -33,7 +33,7 @@ const AdminSidebarComp = () => {
                     <Sidebar.ItemGroup>
                         {route.map((item, index) => (
                             <Sidebar.Item
-                                key={index}
+                                key={item.name}
                                 href={item.href}
                                 icon={item.icon}
                                 {...(window.location.pathname.split("/")[2] == item.name.toLowerCase() ? { active: true } : {})}
