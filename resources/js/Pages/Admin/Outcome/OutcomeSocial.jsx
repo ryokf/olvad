@@ -2,6 +2,7 @@ import React from "react";
 import TableComp from "../../../Components/Table";
 import {Table} from 'flowbite-react';
 import DetailOutcome from "./DetailOutcome";
+import DataOption from "./DataOption";
 
 const OutcomeSocialData = (data) => {
     // console.log(data)
@@ -25,7 +26,15 @@ const OutcomeSocialData = (data) => {
 export default function OutcomeSocial({data, paginationData}) {
     return (
         <div className="">
-            <TableComp title={"Data pengeluaran untuk pembelian"} head={["#", "tanggal", "deskripsi", "penerima", "total", ""]} tableContent={OutcomeSocialData(data)} IsSearchable isPageable paginationData={paginationData}></TableComp>
+            <TableComp
+            title={"Data pengeluaran untuk sosial"}
+            head={["#", "tanggal", "deskripsi", "penerima", "total", ""]}
+            tableContent={OutcomeSocialData(data)}
+            IsSearchable
+            isPageable
+            paginationData={paginationData}
+            optionButton={DataOption()}
+            />
         </div>
     )
 }

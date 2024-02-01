@@ -9,7 +9,7 @@ function PaginationComp(data) {
     const [currentPage, setCurrentPage] = useState(data.current_page);
     const onPageChange = function (page) {
         window.location.replace(`?page=${page}`)
-        setCurrentPage()
+        // setCurrentPage()
     }
 
     return (
