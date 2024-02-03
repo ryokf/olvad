@@ -7,35 +7,11 @@ import OutcomeBuy from "./OutcomeBuy";
 import CustomTheme from "../../../theme/CustomTheme";
 import OutcomeSocial from "./OutcomeSocial";
 
-export default function Index({ outcomeData }) {
-    // const { data, setData, post, processing, errors } = useForm(
-    //     {
-    //         type: isBuyType ? 'buy' : 'social',
-    //         description: 'sedekah bulanan',
-    //         total_cost: 20000,
-    //         customer_id: 1,
-    //         detail_item: [
-    //             {
-    //                 product_id: 2,
-    //                 amount: 10,
-    //                 unit_id: 1,
-    //             },
-    //             {
-    //                 product_id: 3,
-    //                 amount: 5,
-    //                 unit_id: 1,
-    //             },
-    //         ]
-    //     }
-    // )
-
-    // function submit(e) {
-    //     e.preventDefault()
-    //     post('/admin/outcome')
-    // }
-
+export default function Index({ outcomeData, store, ingredient, unit }) {
     const date = DateFormat();
     const outcomeType = window.location.pathname.split("/")[3] == "buy" ? true : false;
+
+    // console.log(store)
 
     return (
         <>
@@ -47,7 +23,7 @@ export default function Index({ outcomeData }) {
                     </Flowbite>
                 </div>
                 {
-                    outcomeType ? <OutcomeBuy data={outcomeData.outcomeBuys.data} paginationData={outcomeData.outcomeBuys.meta}></OutcomeBuy> : <OutcomeSocial data={outcomeData.outcomeSocials.data} paginationData={outcomeData.outcomeSocials.meta}></OutcomeSocial>
+                    outcomeType ? <OutcomeBuy dataGet={{ outcome: outcomeData.outcomeBuys.data, store: store, ingredient: ingredient, unit: unit }} paginationData={outcomeData.outcomeBuys.meta}></OutcomeBuy> : <OutcomeSocial data={outcomeData.outcomeSocials.data} paginationData={outcomeData.outcomeSocials.meta}></OutcomeSocial>
                 }
             </Admin>
 

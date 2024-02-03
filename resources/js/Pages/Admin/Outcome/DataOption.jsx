@@ -3,7 +3,7 @@ import { Dropdown } from 'flowbite-react';
 import { Link } from '@inertiajs/react'
 
 export default function DataOption() {
-    console.log(window.location.href)
+    // console.log(window.location.href)
     return (
         <>
             <Dropdown label="Urutkan" color="light" dismissOnClick={false}>

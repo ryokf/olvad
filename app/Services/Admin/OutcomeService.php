@@ -37,7 +37,7 @@ class OutcomeService
                 dd('y');
             }
         }
-        $outcomeBuys = $outcomeBuys->paginate(10);
+        $outcomeBuys = $outcomeBuys->get();
         $outcomeSocials = $outcomeSocials->paginate(10);
 
         return [
