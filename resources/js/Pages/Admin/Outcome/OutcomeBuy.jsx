@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TableComp from "../../../Components/Table";
-import { Table, Label, Select, Button, Checkbox, TextInput, FileInput, Flowbite } from 'flowbite-react';
+import { Table, Label, Select, Button, TextInput, Flowbite } from 'flowbite-react';
 import DetailOutcome from "./DetailOutcome";
 import DataOption from "./DataOption";
 import CustomTheme from "../../../theme/CustomTheme";
-import { FaMinusCircle, FaCheck } from "react-icons/fa";
 import { useForm } from '@inertiajs/react'
 import { RiDeleteBack2Fill } from "react-icons/ri";
 
@@ -100,6 +99,7 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                     <Label htmlFor="description" value="deskripsi" />
                                 </div>
                                 <TextInput id="description" type="text" placeholder="deskripsi pembelian" value={data.description} onChange={e => setData('description', e.target.value)} required />
+                                {errors.description && <div className="text-red-500 text-sm">{errors.description}</div>}
                             </div>
                             <div id="fileUpload" className="min-w-80">
                                 <div className="mb-2 block">
@@ -107,6 +107,7 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                 </div>
                                 {/* <FileInput id="reciepe" name="reciepe" /> */}
                                 <input className="rounded-lg border bg-gray-50" type="file" defaultValue={data.reciepe} onChange={e => setData('reciepe', e.target.files[0])} />
+                                {errors.reciepe && <div className="text-red-500 text-sm">{errors.reciepe}</div>}
                             </div>
                             <div className="min-w-60">
                                 <div className="mb-2 block">

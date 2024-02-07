@@ -41,7 +41,11 @@ class OutcomeController extends Controller
 
     public function store(Request $request, Outcome $outcome, OutcomeDetail $outcomeDetail, OutcomeBuy $outcomeBuy, OutcomeSocial $outcomeSocial)
     {
-        // dd($request->all());
+        $request->validate([
+            'type' => 'required',
+            'description' => 'required',
+            'reciepe' => $request->type == 'buy' ? 'required' : '',
+        ]);
 
         if($request->type == 'buy'){
             $this->outcomeService->storeBuy($request, $outcome,  $outcomeBuy, $outcomeDetail);

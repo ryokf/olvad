@@ -110,7 +110,7 @@ export default {
     },
     table: {
         root: {
-            base: "w-full text-left text-sm text-gray-500 dark:text-gray-400",
+            base: "w-full text-left text-sm text-gray-500 dark:text-gray-400 rounded-lg",
             shadow: "absolute bg-white dark:bg-black w-full h-full top-0 left-0 rounded-lg drop-shadow-md -z-10",
             wrapper: "relative",
         },

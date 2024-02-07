@@ -3,6 +3,7 @@ import { Flowbite, Table, TextInput, Pagination } from 'flowbite-react';
 import CustomTheme from '../theme/CustomTheme';
 
 function PaginationComp(data) {
+    console.log(data);
     const currentPage = data.current_page;
     const onPageChange = function (page) {
         window.location.replace(`?page=${page}`)
@@ -12,6 +13,7 @@ function PaginationComp(data) {
         //     window.location.replace(`${window.location.href}?page=${page}`)
         // }
     }
+
 
     return (
         <Flowbite theme={{ theme: CustomTheme }}>
@@ -23,6 +25,9 @@ function PaginationComp(data) {
 }
 
 export default function TableComp({ head, tableContent, IsSearchable, optionButton, isPageable, title, paginationData }) {
+    console.log(paginationData)
+    console.log(isPageable)
+
     return (
         <Flowbite theme={{ theme: CustomTheme }}>
             <div className="overflow-x-auto bg-white shadow-sm">
