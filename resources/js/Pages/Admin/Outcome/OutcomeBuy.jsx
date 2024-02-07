@@ -28,64 +28,6 @@ const OutcomeBuyData = (dataGet) => {
     ))
 }
 
-const addIngredientForm = (counter, data, eraseable, eraseFunc) => {
-    // console.log(data)
-    return (
-        <div className="flex gap-6 items-end mt-2">
-            <h1 className="pb-3 text-base font-medium ">barang {++counter}</h1>
-            <div className="min-w-60 max-w-md">
-                <div className="mb-2 block">
-                    <Label htmlFor="ingredient" value="pilih bahan" />
-                </div>
-                <Select className="" id="ingredient" name="ingredient_id" required>
-                    {
-                        data.ingredient.map((item) => (
-                            <option key={item.id} value={item.id}>{item.name}</option>
-                        ))
-                    }
-                </Select>
-            </div>
-            <div>
-                <div className="mb-2 block">
-                    <Label htmlFor="amount" value="jumlah" />
-                </div>
-                <TextInput id="amount" name="amount" type="number" placeholder="" required />
-            </div>
-            <div className="min-w-40 max-w-md">
-                <div className="mb-2 block">
-                    <Label htmlFor="unit" value="pilih satuan" />
-                </div>
-                <Select className="" id="unit" name="unit_id" required>
-                    {
-                        data.unit.map((item) => (
-                            <option key={item.id} value={item.id}>{item.unit}</option>
-                        ))
-                    }
-                </Select>
-            </div>
-            <div className="min-w-60">
-                <div className="mb-2 block">
-                    <Label htmlFor="price" value="harga" />
-                </div>
-                <TextInput id="price" name="price" type="number" placeholder="" required />
-            </div>
-            <div className="min-w-60">
-                <div className="mb-2 block">
-                    <Label htmlFor="total" value="total" />
-                </div>
-                <TextInput readOnly disabled id="total" value={"2000"} type="text" placeholder="" required />
-            </div>
-            {
-                eraseable &&
-                <div className="">
-                    <button className="text-2xl text-red-500" onClick={() => eraseFunc()}> <FaMinusCircle /> </button>
-                </div>
-            }
-
-        </div>
-    );
-}
-
 export default function OutcomeBuy({ dataGet, paginationData }) {
     let [addIngredientCount, setAddIngredientCount] = useState(1);
 
@@ -93,7 +35,6 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
         {
             type: 'buy',
             description: '',
-            total_cost: 0,
             store_id: 1,
             reciepe: '',
             detail_item: []
@@ -105,28 +46,22 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
     const [unitId, setUnitId] = useState(1)
     const [price, setPrice] = useState(0)
     const [readyToSave, setReadyToSave] = useState(false)
-    const [totalCost, setTotalCost] = useState(0)
 
     let total = data.detail_item.map((item) => item.price * item.amount)
     function addItem() {
         setAddIngredientCount(addIngredientCount + 1)
-        total = data.detail_item.map((item) => item.price * item.amount)
         setData('detail_item', [...data.detail_item, { ingredient_id: ingredientId, amount: amount, unit_id: unitId, price: price },])
     }
-
-    console.log(total.reduce((a, b) => a + b, 0))
     function finishData() {
         setReadyToSave(true)
-        setTotalCost(total.reduce((a, b) => a + b, 0))
-        console.log(totalCost)
         setData('detail_item', [...data.detail_item, { ingredient_id: ingredientId, amount: amount, unit_id: unitId, price: price },])
     }
     function submit(e) {
         e.preventDefault()
         post('/admin/outcome')
-        location.reload()
+        setReadyToSave(false)
+        setAddIngredientCount(1)
     }
-    // console.log(total)
 
     return (
         <>
