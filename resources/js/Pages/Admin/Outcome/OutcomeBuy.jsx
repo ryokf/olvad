@@ -6,6 +6,7 @@ import DataOption from "./DataOption";
 import CustomTheme from "../../../theme/CustomTheme";
 import { FaMinusCircle, FaCheck } from "react-icons/fa";
 import { useForm } from '@inertiajs/react'
+import { RiDeleteBack2Fill } from "react-icons/ri";
 
 const OutcomeBuyData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -93,31 +94,39 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
             type: 'buy',
             description: '',
             total_cost: 0,
-            store_id: 0,
+            store_id: 1,
             reciepe: '',
-            detail_item: [
-
-            ]
+            detail_item: []
         }
     )
 
-    const [ingredientId, setIngredientId] = useState(0)
+    const [ingredientId, setIngredientId] = useState(1)
     const [amount, setAmount] = useState(0)
-    const [unitId, setUnitId] = useState(0)
+    const [unitId, setUnitId] = useState(1)
     const [price, setPrice] = useState(0)
+    const [readyToSave, setReadyToSave] = useState(false)
+    const [totalCost, setTotalCost] = useState(0)
+
+    let total = data.detail_item.map((item) => item.price * item.amount)
     function addItem() {
         setAddIngredientCount(addIngredientCount + 1)
-
+        total = data.detail_item.map((item) => item.price * item.amount)
         setData('detail_item', [...data.detail_item, { ingredient_id: ingredientId, amount: amount, unit_id: unitId, price: price },])
     }
 
+    console.log(total.reduce((a, b) => a + b, 0))
+    function finishData() {
+        setReadyToSave(true)
+        setTotalCost(total.reduce((a, b) => a + b, 0))
+        console.log(totalCost)
+        setData('detail_item', [...data.detail_item, { ingredient_id: ingredientId, amount: amount, unit_id: unitId, price: price },])
+    }
     function submit(e) {
         e.preventDefault()
         post('/admin/outcome')
+        location.reload()
     }
-
-    console.log(data)
-    // console.log(data)
+    // console.log(total)
 
     return (
         <>
@@ -126,8 +135,8 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                     head={["#", "tanggal", "deskripsi", "toko", "total", ""]}
                     tableContent={OutcomeBuyData(dataGet.outcome)}
                     IsSearchable
-                    // isPageable
-                    // paginationData={paginationData}
+                    isPageable
+                    paginationData={paginationData}
                     optionButton={DataOption()}
                 />
             </div>
@@ -161,26 +170,26 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                 <div className="mb-2 block">
                                     <Label htmlFor="reciepe" value="upload nota" />
                                 </div>
-                                <FileInput id="reciepe" name="reciepe" />
+                                {/* <FileInput id="reciepe" name="reciepe" /> */}
+                                <input className="rounded-lg border bg-gray-50" type="file" defaultValue={data.reciepe} onChange={e => setData('reciepe', e.target.files[0])} />
                             </div>
                             <div className="min-w-60">
                                 <div className="mb-2 block">
                                     <Label htmlFor="" value="total biaya semua bahan" />
                                 </div>
-                                <TextInput readOnly disabled id="" type="text" value={"Rp340000"} />
+                                <TextInput readOnly disabled id="" type="text" value={total.reduce((a, b) => a + b, 0)} />
                             </div>
                         </div>
                         <hr className="my-6" />
-                        <div className="">
+                        <div key={data.description} className="">
                             {Array.apply(0, Array(addIngredientCount)).map(function (x, i) {
-
                                 return <div key={x} className="flex gap-6 items-end mt-2">
                                     <h1 className="pb-3 text-base font-medium ">barang {++i}</h1>
                                     <div className="min-w-60 max-w-md">
                                         <div className="mb-2 block">
                                             <Label htmlFor="ingredient" value="pilih bahan" />
                                         </div>
-                                        <Select {...i != addIngredientCount ? { disabled: true } : {}} id="ingredient" value={data?.detail_item[i - 1]?.ingredient_id} onChange={e => setIngredientId(e.target.value)} required>
+                                        <Select {...i != addIngredientCount || readyToSave ? { disabled: true } : {}} id="ingredient" value={data?.detail_item[i - 1]?.ingredient_id} onChange={e => setIngredientId(e.target.value)} required>
                                             {
                                                 dataGet.ingredient.map((item) => (
                                                     <option key={item.id} value={item.id}>{item.name}</option>
@@ -192,13 +201,13 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                         <div className="mb-2 block">
                                             <Label htmlFor="amount" value="jumlah" />
                                         </div>
-                                        <TextInput {...i != addIngredientCount ? { disabled: true } : {}}  value={data?.detail_item[i - 1]?.amount} onChange={e => setAmount(e.target.value)} id="amount" type="number" placeholder="" required />
+                                        <TextInput {...i != addIngredientCount || readyToSave ? { disabled: true } : {}} value={data?.detail_item[i - 1]?.amount} onChange={function (e) { setAmount(e.target.value); setData('total_cost', total.reduce((a, b) => a + b, 0)) }} id="amount" type="number" placeholder="" required />
                                     </div>
                                     <div className="min-w-40 max-w-md">
                                         <div className="mb-2 block">
                                             <Label htmlFor="unit" value="pilih satuan" />
                                         </div>
-                                        <Select {...i != addIngredientCount ? { disabled: true } : {}} value={data?.detail_item[i - 1]?.unit_id} onChange={e => setUnitId(e.target.value)} className="" id="unit"  required>
+                                        <Select {...i != addIngredientCount || readyToSave ? { disabled: true } : {}} value={data?.detail_item[i - 1]?.unit_id} onChange={e => setUnitId(e.target.value)} className="" id="unit" required>
                                             {
                                                 dataGet.unit.map((item) => (
                                                     <option key={item.id} value={item.id}>{item.unit}</option>
@@ -210,27 +219,31 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                         <div className="mb-2 block">
                                             <Label htmlFor="price" value="harga" />
                                         </div>
-                                        <TextInput {...i != addIngredientCount ? { disabled: true } : {}} value={data?.detail_item[i - 1]?.price} onChange={e => setPrice(e.target.value)} id="price" type="number" placeholder="" required />
+                                        <TextInput {...i != addIngredientCount || readyToSave ? { disabled: true } : {}} value={data?.detail_item[i - 1]?.price} onChange={function (e) { setPrice(e.target.value); setData('total_cost', total.reduce((a, b) => a + b, 0)) }} id="price" type="number" placeholder="" required />
                                     </div>
                                     <div className="min-w-60">
                                         <div className="mb-2 block">
                                             <Label htmlFor="total" value="total" />
                                         </div>
-                                        <TextInput readOnly disabled id="total" value={(data?.detail_item[i - 1]?.price * data?.detail_item[i - 1]?.amount) == NaN ? 0 : (data?.detail_item[i - 1]?.price * data?.detail_item[i - 1]?.amount)} type="text" placeholder="" required />
+                                        <TextInput readOnly disabled id="total" value={addIngredientCount == i ? (price * amount) : (data?.detail_item[i - 1]?.amount * data?.detail_item[i - 1]?.price)} type="text" placeholder="" required />
                                     </div>
                                     {
-                                        i == addIngredientCount &&
+                                        i == addIngredientCount && !readyToSave &&
                                         <div className="">
-                                            {/* <button className="text-2xl text-red-500" onClick={() => setAddIngredientCount(addIngredientCount != 1 ? addIngredientCount - 1 : addIngredientCount)}> <FaMinusCircle /> </button> */}
+                                            <button className="text-2xl text-red-500" onClick={() => setAddIngredientCount(addIngredientCount != 1 ? addIngredientCount - 1 : addIngredientCount)}> <RiDeleteBack2Fill /> </button>
                                             {/* <button className="text-2xl text-secondary-light" onClick={() => { setData('detail_item', [...data.detail_item, { ingredient_id: ingredientId, amount: amount, unit_id: unitId, price: price }]) }}> <FaCheck /> </button> */}
                                         </div>
                                     }
                                 </div>;
                             })}
                         </div>
-                        <div className="flex justify-between">
-                            <button className="px-3 text-4xl font-bold " onClick={() => addItem()}>+</button>
-                            <Button color="primary">Simpan</Button>
+                        <div className="flex justify-between mt-6">
+                            <div className=""></div>
+                            {
+                                !readyToSave &&
+                                <button className="px-3 text-4xl font-bold " onClick={() => addItem()}>+</button>
+                            }
+                            <Button color="primary" onClick={readyToSave ? submit : function(){ finishData(); }}>{readyToSave ? 'simpan' : 'selesai'}</Button>
                         </div>
                     </form>
                 </div>

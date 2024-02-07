@@ -11,6 +11,7 @@ use App\Models\OutcomeDetail;
 use App\Models\OutcomeSocial;
 use App\Models\OutcomeSocialDetail;
 use App\Models\Wallet;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 
 class OutcomeService
@@ -36,8 +37,11 @@ class OutcomeService
             } else {
                 dd('y');
             }
+        } else {
+            $outcomeBuys = $outcomeBuys->latest();
+            $outcomeSocials = $outcomeSocials->latest();
         }
-        $outcomeBuys = $outcomeBuys->get();
+        $outcomeBuys = $outcomeBuys->paginate(10);
         $outcomeSocials = $outcomeSocials->paginate(10);
 
         return [
@@ -48,17 +52,26 @@ class OutcomeService
 
     public function storeBuy($request, $outcome, $outcomeBuy, $outcomeDetail)
     {
+        $total = 0;
+        foreach ($request->detail_item as $item) {
+            $total += $item['price'] * $item['amount'];
+        }
+
+        // dd($total);
+
         DB::beginTransaction();
         try {
             Outcome::create([
-                'total_cost' => $request->total_cost,
+                'total_cost' => $total,
                 'description' => $request->description,
             ]);
+
+            $path = "/storage/" . $request->file('reciepe')->store('reciepe', 'public');
 
             OutcomeBuy::create([
                 'outcome_id' => $outcome->select('id')->latest()->first()->id,
                 'store_id' => $request->store_id,
-                'reciepe' => 'ini foto',
+                'reciepe' => $path,
             ]);
 
             $outcomeDetailId = $outcomeDetail->select('id')->orderBy('id', 'desc')->first()->id;

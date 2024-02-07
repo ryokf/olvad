@@ -41,6 +41,8 @@ class OutcomeController extends Controller
 
     public function store(Request $request, Outcome $outcome, OutcomeDetail $outcomeDetail, OutcomeBuy $outcomeBuy, OutcomeSocial $outcomeSocial)
     {
+        // dd($request->all());
+
         if($request->type == 'buy'){
             $this->outcomeService->storeBuy($request, $outcome,  $outcomeBuy, $outcomeDetail);
         } elseif($request->type == 'social'){
@@ -49,6 +51,6 @@ class OutcomeController extends Controller
             return "data tidak valid";
         }
 
-        return redirect()->route('admin.outcome.index');
+        return redirect()->route('admin.outcome.index.buy');
     }
 }
