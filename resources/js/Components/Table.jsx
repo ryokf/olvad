@@ -25,14 +25,15 @@ function PaginationComp(data) {
 }
 
 export default function TableComp({ head, tableContent, IsSearchable, optionButton, isPageable, title, paginationData }) {
-    console.log(paginationData)
-    console.log(isPageable)
 
     return (
         <Flowbite theme={{ theme: CustomTheme }}>
             <div className="overflow-x-auto bg-white shadow-sm">
                 <div className="m-4 flex justify-between">
-                    <h1 className="text-xl font-medium">{title}</h1>
+                    {
+                        title != null &&
+                        <h1 className="text-xl font-medium">{title}</h1>
+                    }
                     <div className="flex gap-2">
                         {optionButton}
                         {IsSearchable ? <div className="">

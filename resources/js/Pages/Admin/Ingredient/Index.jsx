@@ -50,7 +50,7 @@ export default function Index({ ingredients }) {
                             isPageable
                             head={["#", "Bahan", ""]}
                             tableContent={IngredientData(ingredients.data)}
-                            title="" />
+                        />
                     </div>
                     <div className="w-1/3 p-4 h-modal bg-white rounded-lg shadow">
                         <h1 className=" text-xl font-bold mb-2">tambah daftar bahan</h1>

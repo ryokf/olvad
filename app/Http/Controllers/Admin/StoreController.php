@@ -15,4 +15,21 @@ class StoreController extends Controller
 
         return Inertia::render('Admin/Store/Index', compact('stores'));
     }
+
+    public function store(Request $request)
+    {
+        Store::create($request->all());
+
+        return redirect()->back()->with('success', 'Store created successfully.');
+    }
+
+    public function update(Store $store, Request $request)
+    {
+        $store->where('id', $request->id)->update($request->all());
+    }
+
+    public function destroy(Store $store, Request $request)
+    {
+        $store->where('id', $request->id)->delete();
+    }
 }
