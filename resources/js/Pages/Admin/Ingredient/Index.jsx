@@ -15,7 +15,10 @@ const IngredientData = (dataGet) => {
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {item.name}
             </Table.Cell>
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex gap-4">
+                {/* <Link href="/admin/ingredient" method="delete" data={{ id: item.id }}>
+                    <Button size={'sm'} color="failure" className="bg-red-500 hover:bg-red-600 text-white text-xl"><MdDelete /></Button>
+                </Link> */}
                 <Link href="/admin/ingredient" method="delete" data={{ id: item.id }}>
                     <Button size={'sm'} color="failure" className="bg-red-500 hover:bg-red-600 text-white text-xl"><MdDelete /></Button>
                 </Link>
@@ -26,7 +29,7 @@ const IngredientData = (dataGet) => {
 export default function Index({ ingredients }) {
     console.log(ingredients)
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, errors } = useForm({
         name: '',
     })
 

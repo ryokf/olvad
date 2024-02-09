@@ -13,7 +13,7 @@ const AdminSidebarComp = () => {
     const route = [
         { name: "Dashboard", href: "/admin", icon: FaChartBar },
         { name: "Product", href: "/admin/product", icon: RiCake3Fill },
-        { name: "Outcome", href: "/admin/outcome", icon: BsBoxArrowUpRight },
+        { name: "Outcome", href: "/admin/outcome/buy", icon: BsBoxArrowUpRight },
         { name: "Income", href: "/admin/income", icon: BsBoxArrowInDownLeft },
         { name: "Ingredient", href: "/admin/ingredient", icon: GiFlour },
         { name: "Store", href: "/admin/store", icon: FaStore },
