@@ -10,6 +10,7 @@ use App\Models\OutcomeBuyDetail;
 use App\Models\OutcomeDetail;
 use App\Models\OutcomeSocial;
 use App\Models\OutcomeSocialDetail;
+use App\Models\Product;
 use App\Models\Wallet;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -108,17 +109,26 @@ class OutcomeService
 
     public function storeSocial($request, $outcome, $outcomeSocial, $outcomeDetail)
     {
+        // dd($request->all());
+
+        $total = 0;
+        foreach ($request->detail_item as $item) {
+            $price = Product::select('price')->where('id', $item['product_id'])->first()->price;
+            $total += $price * $item['amount'];
+        }
+
+        // dd($total);
+
         DB::beginTransaction();
         try {
             Outcome::create([
-                'total_cost' => $request->total_cost,
+                'total_cost' => $total,
                 'description' => $request->description,
             ]);
 
             OutcomeSocial::create([
                 'outcome_id' => $outcome->select('id')->latest()->first()->id,
                 'customer_id' => $request->customer_id,
-                'reciepe' => 'ini foto',
             ]);
 
             $outcomeDetailId = $outcomeDetail->select('id')->orderBy('id', 'desc')->first()->id;

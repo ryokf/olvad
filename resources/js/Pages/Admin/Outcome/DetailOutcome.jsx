@@ -42,7 +42,8 @@ export default function DetailOutcome({ title, headerTitle, data }) {
                 <Modal.Header>{headerTitle}</Modal.Header>
                 <Modal.Body>
                     <div className="font-medium">
-                        {localStorage.getItem('isBuyType') ? "Toko" : "Penerima"} : {localStorage.getItem('isBuyType') ? data.store : data.customer}
+                    {data.reciepe != null ? "Toko" : "Pelanggan"} : {data.reciepe != null ? data.store : data.customer}
+                        {/* {localStorage.getItem('isBuyType') ? "Toko" : "Penerima"} : {localStorage.getItem('isBuyType') ? data.store : data.customer} */}
                     </div>
                     <div className="font-medium">
                         Jenis : {data.reciepe != null ? "Pembelian" : "Sosial"}

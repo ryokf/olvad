@@ -79,8 +79,8 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                 <div className="my-6 p-4 min-h-min bg-white">
                     <h1 className="text-xl font-medium">Tambah data pembelian</h1>
                     <form onSubmit={submit} className="my-4">
-                        <div className="flex gap-6">
-                            <div className="min-w-80">
+                        <div className="grid grid-cols-4 gap-6">
+                            <div className="col-span-1">
                                 <div className="mb-2 block">
                                     <Label htmlFor="store" value="pilih toko" />
                                 </div>
@@ -94,14 +94,14 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                     }
                                 </Select>
                             </div>
-                            <div className="w-full max-w-md">
+                            <div className="w-full col-span-1d">
                                 <div className="mb-2 block">
                                     <Label htmlFor="description" value="deskripsi" />
                                 </div>
                                 <TextInput id="description" type="text" placeholder="deskripsi pembelian" value={data.description} onChange={e => setData('description', e.target.value)} required />
                                 {errors.description && <div className="text-red-500 text-sm">{errors.description}</div>}
                             </div>
-                            <div id="fileUpload" className="min-w-80">
+                            <div id="fileUpload" className="col-span-1">
                                 <div className="mb-2 block">
                                     <Label htmlFor="reciepe" value="upload nota" />
                                 </div>
@@ -109,7 +109,7 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                 <input className="rounded-lg border bg-gray-50" type="file" defaultValue={data.reciepe} onChange={e => setData('reciepe', e.target.files[0])} />
                                 {errors.reciepe && <div className="text-red-500 text-sm">{errors.reciepe}</div>}
                             </div>
-                            <div className="min-w-60">
+                            <div className="col-span-1">
                                 <div className="mb-2 block">
                                     <Label htmlFor="" value="total biaya semua bahan" />
                                 </div>
@@ -119,9 +119,9 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                         <hr className="my-6" />
                         <div key={data.description} className="">
                             {Array.apply(0, Array(addIngredientCount)).map(function (x, i) {
-                                return <div key={x} className="flex gap-6 items-end mt-2">
-                                    <h1 className="pb-3 text-base font-medium ">barang {++i}</h1>
-                                    <div className="min-w-60 max-w-md">
+                                return <div key={x} className="grid grid-cols-12 gap-6 items-end mt-2">
+                                    <h1 className="pb-3 text-base font-medium cols-span-1">barang {++i}</h1>
+                                    <div className="col-span-3">
                                         <div className="mb-2 block">
                                             <Label htmlFor="ingredient" value="pilih bahan" />
                                         </div>
@@ -133,13 +133,13 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                             }
                                         </Select>
                                     </div>
-                                    <div>
+                                    <div className="cols-span-1">
                                         <div className="mb-2 block">
                                             <Label htmlFor="amount" value="jumlah" />
                                         </div>
                                         <TextInput {...i != addIngredientCount || readyToSave ? { disabled: true } : {}} value={data?.detail_item[i - 1]?.amount} onChange={function (e) { setAmount(e.target.value); setData('total_cost', total.reduce((a, b) => a + b, 0)) }} id="amount" type="number" placeholder="" required />
                                     </div>
-                                    <div className="min-w-40 max-w-md">
+                                    <div className="col-span-1">
                                         <div className="mb-2 block">
                                             <Label htmlFor="unit" value="pilih satuan" />
                                         </div>
@@ -151,13 +151,13 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                             }
                                         </Select>
                                     </div>
-                                    <div className="min-w-60">
+                                    <div className="col-span-2">
                                         <div className="mb-2 block">
                                             <Label htmlFor="price" value="harga" />
                                         </div>
                                         <TextInput {...i != addIngredientCount || readyToSave ? { disabled: true } : {}} value={data?.detail_item[i - 1]?.price} onChange={function (e) { setPrice(e.target.value); setData('total_cost', total.reduce((a, b) => a + b, 0)) }} id="price" type="number" placeholder="" required />
                                     </div>
-                                    <div className="min-w-60">
+                                    <div className="col-span-2">
                                         <div className="mb-2 block">
                                             <Label htmlFor="total" value="total" />
                                         </div>
@@ -165,7 +165,7 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                     </div>
                                     {
                                         i == addIngredientCount && !readyToSave &&
-                                        <div className="">
+                                        <div className="col-span-2">
                                             <button className="text-2xl text-red-500" onClick={() => setAddIngredientCount(addIngredientCount != 1 ? addIngredientCount - 1 : addIngredientCount)}> <RiDeleteBack2Fill /> </button>
                                             {/* <button className="text-2xl text-secondary-light" onClick={() => { setData('detail_item', [...data.detail_item, { ingredient_id: ingredientId, amount: amount, unit_id: unitId, price: price }]) }}> <FaCheck /> </button> */}
                                         </div>

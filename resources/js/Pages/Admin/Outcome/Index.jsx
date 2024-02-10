@@ -7,7 +7,7 @@ import OutcomeBuy from "./OutcomeBuy";
 import CustomTheme from "../../../theme/CustomTheme";
 import OutcomeSocial from "./OutcomeSocial";
 
-export default function Index({ outcomeData, store, ingredient, unit }) {
+export default function Index({ outcomeData, store, ingredient, unit, product, customer }) {
     const date = DateFormat();
     const outcomeType = window.location.pathname.split("/")[3] == "buy" ? true : false;
 
@@ -23,7 +23,26 @@ export default function Index({ outcomeData, store, ingredient, unit }) {
                     </Flowbite>
                 </div>
                 {
-                    outcomeType ? <OutcomeBuy dataGet={{ outcome: outcomeData.outcomeBuys.data, store: store, ingredient: ingredient, unit: unit }} paginationData={outcomeData.outcomeBuys.meta}></OutcomeBuy> : <OutcomeSocial data={outcomeData.outcomeSocials.data} paginationData={outcomeData.outcomeSocials.meta}></OutcomeSocial>
+                    outcomeType ?
+                        <OutcomeBuy
+                            dataGet={{
+                                outcome: outcomeData.outcomeBuys.data,
+                                store: store,
+                                ingredient: ingredient,
+                                unit: unit
+                            }}
+                            paginationData={outcomeData.outcomeBuys.meta}
+                        />
+                        :
+                        <OutcomeSocial
+                            dataGet={{
+                                outcome: outcomeData.outcomeSocials.data,
+                                product: product,
+                                customer: customer,
+                                unit: unit
+                            }}
+                            paginationData={outcomeData.outcomeSocials.meta}
+                        />
                 }
             </Admin>
 

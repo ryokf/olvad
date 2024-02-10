@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Outcome\OutcomeBuyResource;
 use App\Http\Resources\Outcome\outcomeSocialResource;
+use App\Models\Customer;
 use App\Models\Ingredient;
 use App\Models\Outcome;
 use App\Models\OutcomeBuy;
@@ -29,28 +30,40 @@ class OutcomeController extends Controller
         $this->outcomeService = $outcomeService;
     }
 
-    public function index(Request $request,OutcomeBuy $outcomeBuy, OutcomeSocial $outcomeSocial, Store $store, Ingredient $ingredient, Unit $unit)
-    {
-        $outcomeData = $this->outcomeService->getData($request ,$outcomeBuy, $outcomeSocial);
+    public function index(
+        Request $request,
+        OutcomeBuy $outcomeBuy,
+        OutcomeSocial $outcomeSocial,
+        Store $store,
+        Ingredient $ingredient,
+        Unit $unit,
+        Product $product,
+        Customer $customer
+    ) {
+        $outcomeData = $this->outcomeService->getData($request, $outcomeBuy, $outcomeSocial);
         $store = $store->get();
         $ingredient = $ingredient->get();
         $unit = $unit->get();
+        $product = $product->get();
+        $customer = $customer->get();
 
-        return Inertia::render('Admin/Outcome/Index', compact('outcomeData', 'store', 'ingredient', 'unit'));
+        return Inertia::render('Admin/Outcome/Index', compact('outcomeData', 'store', 'ingredient', 'unit', 'product', 'customer'));
     }
 
     public function store(Request $request, Outcome $outcome, OutcomeDetail $outcomeDetail, OutcomeBuy $outcomeBuy, OutcomeSocial $outcomeSocial)
     {
+        // return $request;
+
         $request->validate([
             'type' => 'required',
             'description' => 'required',
             'reciepe' => $request->type == 'buy' ? 'required' : '',
         ]);
 
-        if($request->type == 'buy'){
+        if ($request->type == 'buy') {
             $this->outcomeService->storeBuy($request, $outcome,  $outcomeBuy, $outcomeDetail);
-        } elseif($request->type == 'social'){
-            return $this->outcomeService->storeSocial($request, $outcome,  $outcomeSocial, $outcomeDetail);
+        } elseif ($request->type == 'social') {
+            $this->outcomeService->storeSocial($request, $outcome,  $outcomeSocial, $outcomeDetail);
         } else {
             return "data tidak valid";
         }

@@ -3,7 +3,7 @@ import { Flowbite, Table, TextInput, Pagination } from 'flowbite-react';
 import CustomTheme from '../theme/CustomTheme';
 
 function PaginationComp(data) {
-    console.log(data);
+    // console.log(data);
     const currentPage = data.current_page;
     const onPageChange = function (page) {
         window.location.replace(`?page=${page}`)
