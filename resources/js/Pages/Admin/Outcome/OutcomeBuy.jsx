@@ -7,7 +7,8 @@ import CustomTheme from "../../../theme/CustomTheme";
 import { useForm } from '@inertiajs/react'
 import { RiDeleteBack2Fill } from "react-icons/ri";
 
-import DeleteConfirm from "./DeleteConfirm";
+import DeleteConfirm from "../../../Components/DeleteConfirm";
+
 const OutcomeBuyData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
     // console.log(searchParams.has('page')); // price_descending
@@ -25,7 +26,7 @@ const OutcomeBuyData = (dataGet) => {
             <Table.Cell>Rp{item.cost}</Table.Cell>
             <Table.Cell className="flex gap-4">
                 <DetailOutcome title={"•••"} data={item} headerTitle={"Detail Pengeluaran"}></DetailOutcome>
-                <DeleteConfirm id={item.outcome_id}></DeleteConfirm>
+                <DeleteConfirm id={item.outcome_id} href={"/admin/outcome"}></DeleteConfirm>
                 {/* <Link href="/admin/outcome" method="delete" data={{ id: item.outcome_id }}>
                     <Button size={'sm'} color="failure" className="bg-red-500 hover:bg-red-600 text-white text-xl"><MdDelete /></Button>
                 </Link> */}

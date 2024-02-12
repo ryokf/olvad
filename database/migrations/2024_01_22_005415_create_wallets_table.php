@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
             $table->integer('balance');
-            $table->integer('income')->unsigned();
-            $table->integer('outcome')->unsigned();
-            $table->integer('profit')->unsigned();
+            $table->integer('income');
+            $table->integer('outcome');
+            $table->integer('profit');
             $table->text('description')->nullable();
             $table->timestamps();
         });

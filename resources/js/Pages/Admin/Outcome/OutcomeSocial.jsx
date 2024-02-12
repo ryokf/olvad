@@ -8,7 +8,7 @@ import CustomTheme from "../../../theme/CustomTheme";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { Link } from '@inertiajs/react'
 import { MdDelete } from "react-icons/md";
-import DeleteConfirm from "./DeleteConfirm";
+import DeleteConfirm from "../../../Components/DeleteConfirm";
 
 const OutcomeSocialData = (data) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -24,7 +24,7 @@ const OutcomeSocialData = (data) => {
             <Table.Cell>Rp{item.cost}</Table.Cell>
             <Table.Cell className="flex gap-4">
                 <DetailOutcome title={"•••"} data={item} headerTitle={"Detail Pengeluaran"}></DetailOutcome>
-                <DeleteConfirm id={item.outcome_id}></DeleteConfirm>
+                <DeleteConfirm id={item.outcome_id} href={"/admin/outcome"}></DeleteConfirm>
             </Table.Cell>
         </Table.Row>
     ))

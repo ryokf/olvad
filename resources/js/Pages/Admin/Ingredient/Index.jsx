@@ -4,6 +4,7 @@ import TableComp from "../../../Components/Table";
 import { Table, Label, Select, Button, TextInput, Flowbite } from 'flowbite-react';
 import { MdDelete } from "react-icons/md";
 import { useForm, Link } from '@inertiajs/react'
+import DeleteConfirm from "../../../Components/DeleteConfirm";
 
 const IngredientData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -19,9 +20,7 @@ const IngredientData = (dataGet) => {
                 {/* <Link href="/admin/ingredient" method="delete" data={{ id: item.id }}>
                     <Button size={'sm'} color="failure" className="bg-red-500 hover:bg-red-600 text-white text-xl"><MdDelete /></Button>
                 </Link> */}
-                <Link href="/admin/ingredient" method="delete" data={{ id: item.id }}>
-                    <Button size={'sm'} color="failure" className="bg-red-500 hover:bg-red-600 text-white text-xl"><MdDelete /></Button>
-                </Link>
+                <DeleteConfirm id={item.id} href={"/admin/ingredient"}></DeleteConfirm>
             </Table.Cell>
         </Table.Row>
     ))

@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { useForm, Link } from '@inertiajs/react'
 
 import Edit from "./Edit";
+import DeleteConfirm from "../../../Components/DeleteConfirm";
 
 const StoreData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -31,9 +32,7 @@ const StoreData = (dataGet) => {
                     <Button size={'sm'} color="warning" className="bg-amber-400 hover:bg-red-600 text-white text-xl"><FaEdit /></Button>
                 </Link> */}
                 <Edit dataStore={item}></Edit>
-                <Link href="/admin/store" method="delete" data={{ id: item.id }}>
-                    <Button size={'sm'} color="failure" className="bg-red-500 hover:bg-red-600 text-white text-xl"><MdDelete /></Button>
-                </Link>
+               <DeleteConfirm id={item.id} href={"/admin/store"}></DeleteConfirm>
             </Table.Cell>
         </Table.Row>
     ))
