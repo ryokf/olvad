@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import TableComp from '../../../Components/Table';
 import CustomTheme from '../../../theme/CustomTheme';
 
+
 const DetailItemData = (data) => {
     return data.map(function (item, index) {
         const isBuyType = window.location.pathname.split("/")[3] == "buy" ? true : false;

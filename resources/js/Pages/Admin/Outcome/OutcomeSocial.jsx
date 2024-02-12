@@ -6,6 +6,9 @@ import DataOption from "./DataOption";
 import { useForm } from '@inertiajs/react'
 import CustomTheme from "../../../theme/CustomTheme";
 import { RiDeleteBack2Fill } from "react-icons/ri";
+import { Link } from '@inertiajs/react'
+import { MdDelete } from "react-icons/md";
+import DeleteConfirm from "./DeleteConfirm";
 
 const OutcomeSocialData = (data) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -19,8 +22,9 @@ const OutcomeSocialData = (data) => {
             <Table.Cell>{item.description.slice(0, 50)}...</Table.Cell>
             <Table.Cell>{item.customer}</Table.Cell>
             <Table.Cell>Rp{item.cost}</Table.Cell>
-            <Table.Cell>
+            <Table.Cell className="flex gap-4">
                 <DetailOutcome title={"•••"} data={item} headerTitle={"Detail Pengeluaran"}></DetailOutcome>
+                <DeleteConfirm id={item.outcome_id}></DeleteConfirm>
             </Table.Cell>
         </Table.Row>
     ))

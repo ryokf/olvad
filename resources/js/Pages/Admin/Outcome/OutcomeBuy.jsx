@@ -7,9 +7,12 @@ import CustomTheme from "../../../theme/CustomTheme";
 import { useForm } from '@inertiajs/react'
 import { RiDeleteBack2Fill } from "react-icons/ri";
 
+import DeleteConfirm from "./DeleteConfirm";
 const OutcomeBuyData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
     // console.log(searchParams.has('page')); // price_descending
+
+    console.log(dataGet)
 
     return dataGet.map((item, index) => (
         <Table.Row key={item.id} className="bg-white border-none dark:bg-gray-800">
@@ -20,8 +23,12 @@ const OutcomeBuyData = (dataGet) => {
             <Table.Cell>{item.description.slice(0, 50)}...</Table.Cell>
             <Table.Cell>{item.store}</Table.Cell>
             <Table.Cell>Rp{item.cost}</Table.Cell>
-            <Table.Cell>
+            <Table.Cell className="flex gap-4">
                 <DetailOutcome title={"•••"} data={item} headerTitle={"Detail Pengeluaran"}></DetailOutcome>
+                <DeleteConfirm id={item.outcome_id}></DeleteConfirm>
+                {/* <Link href="/admin/outcome" method="delete" data={{ id: item.outcome_id }}>
+                    <Button size={'sm'} color="failure" className="bg-red-500 hover:bg-red-600 text-white text-xl"><MdDelete /></Button>
+                </Link> */}
             </Table.Cell>
         </Table.Row>
     ))
@@ -120,7 +127,7 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                         <div key={data.description} className="">
                             {Array.apply(0, Array(addIngredientCount)).map(function (x, i) {
                                 return <div key={x} className="grid grid-cols-12 gap-6 items-end mt-2">
-                                    <h1 className="pb-3 text-base font-medium cols-span-1">barang {++i}</h1>
+                                    <h1 className="pb-3 text-base font-medium cols-span-1 text-center">barang {++i}</h1>
                                     <div className="col-span-3">
                                         <div className="mb-2 block">
                                             <Label htmlFor="ingredient" value="pilih bahan" />

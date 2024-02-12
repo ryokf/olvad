@@ -16,6 +16,7 @@ class outcomeSocialResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'outcome_id' => $this->outcome_id,
             'date' => date_format($this->created_at, 'D, d M Y H:i:s'),
             'description' => $this->outcome->description,
             'customer' => $this->customer->name,

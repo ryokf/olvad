@@ -15,6 +15,7 @@ use App\Models\OutcomeSocial;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\Unit;
+use App\Models\Wallet;
 use App\Services\Admin\OutcomeService;
 use App\Services\Admin\Outcome\storeOutcomeBuyService;
 use Illuminate\Http\Request;
@@ -69,5 +70,32 @@ class OutcomeController extends Controller
         }
 
         return redirect()->route('admin.outcome.index.buy');
+    }
+
+    public function destroy(Request $request, Outcome $outcome)
+    {
+        $total_cost = $outcome->where('id', $request->id)->first()->total_cost;
+
+        DB::beginTransaction();
+        try {
+            $outcome->where('id', $request->id)->delete();
+
+            Wallet::create([
+                'balance' => Wallet::select('balance')->latest()->first()->balance + $total_cost,
+                'outcome' => Wallet::select('outcome')->latest()->first()->outcome - $total_cost,
+                'income' => Wallet::select('income')->latest()->first()->income,
+                'profit' => Wallet::select('profit')->latest()->first()->profit,
+                'description' => "menghapus pengeluaran",
+            ]);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+
+        $outcome->where('id', $request->id)->delete();
+
+
+        return redirect()->back()->with('success', 'Pengeluaran Berhasil dihpaus');
     }
 }
