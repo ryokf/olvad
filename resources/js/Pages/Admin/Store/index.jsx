@@ -4,7 +4,7 @@ import TableComp from "../../../Components/Table";
 import { Table, Label, Select, Button, TextInput, Flowbite } from 'flowbite-react';
 import { MdDelete } from "react-icons/md";
 import { useForm, Link } from '@inertiajs/react'
-
+import { usePage } from '@inertiajs/react'
 import Edit from "./Edit";
 import DeleteConfirm from "../../../Components/DeleteConfirm";
 
@@ -32,14 +32,14 @@ const StoreData = (dataGet) => {
                     <Button size={'sm'} color="warning" className="bg-amber-400 hover:bg-red-600 text-white text-xl"><FaEdit /></Button>
                 </Link> */}
                 <Edit dataStore={item}></Edit>
-               <DeleteConfirm id={item.id} href={"/admin/store"}></DeleteConfirm>
+                <DeleteConfirm id={item.id} href={"/admin/store"}></DeleteConfirm>
             </Table.Cell>
         </Table.Row>
     ))
 }
 
 const Index = ({ stores }) => {
-    console.log(stores)
+    const { flash } = usePage().props
 
     const { data, setData, post, errors } = useForm({
         name: '',
@@ -59,7 +59,7 @@ const Index = ({ stores }) => {
 
     return (
         <div className="">
-            <Admin title="Daftar Toko">
+            <Admin title="Daftar Toko" bannerMessage={flash}>
                 <div className="rounded-lg overflow-hidden shadow ml-4">
                     <TableComp head={["#", "Toko", "alamat", "no.telp", "PIC", ""]} tableContent={StoreData(stores.data)} isPageable={true} paginationData={stores} IsSearchable></TableComp>
                 </div>

@@ -53,8 +53,6 @@ class OutcomeController extends Controller
 
     public function store(Request $request, Outcome $outcome, OutcomeDetail $outcomeDetail, OutcomeBuy $outcomeBuy, OutcomeSocial $outcomeSocial)
     {
-        // return $request;
-
         $request->validate([
             'type' => 'required',
             'description' => 'required',
@@ -69,33 +67,13 @@ class OutcomeController extends Controller
             return "data tidak valid";
         }
 
-        return redirect()->route('admin.outcome.index.buy');
+        return redirect()->back()->with('message', 'Pengeluaran Berhasil ditambahkan');
     }
 
     public function destroy(Request $request, Outcome $outcome)
     {
-        $total_cost = $outcome->where('id', $request->id)->first()->total_cost;
+        $this->outcomeService->destroy($request, $outcome);
 
-        DB::beginTransaction();
-        try {
-            $outcome->where('id', $request->id)->delete();
-
-            Wallet::create([
-                'balance' => Wallet::select('balance')->latest()->first()->balance + $total_cost,
-                'outcome' => Wallet::select('outcome')->latest()->first()->outcome - $total_cost,
-                'income' => Wallet::select('income')->latest()->first()->income,
-                'profit' => Wallet::select('profit')->latest()->first()->profit,
-                'description' => "menghapus pengeluaran",
-            ]);
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            throw $th;
-        }
-
-        $outcome->where('id', $request->id)->delete();
-
-
-        return redirect()->back()->with('success', 'Pengeluaran Berhasil dihpaus');
+        return redirect()->back()->with('message', 'Pengeluaran Berhasil dihpaus');
     }
 }

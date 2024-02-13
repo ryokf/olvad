@@ -5,6 +5,7 @@ import { Table, Label, Select, Button, TextInput, Flowbite } from 'flowbite-reac
 import { MdDelete } from "react-icons/md";
 import { useForm, Link } from '@inertiajs/react'
 import DeleteConfirm from "../../../Components/DeleteConfirm";
+import { usePage } from '@inertiajs/react'
 
 const IngredientData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -26,7 +27,7 @@ const IngredientData = (dataGet) => {
     ))
 }
 export default function Index({ ingredients }) {
-    console.log(ingredients)
+    const { flash } = usePage().props
 
     const { data, setData, post, errors } = useForm({
         name: '',
@@ -40,7 +41,7 @@ export default function Index({ ingredients }) {
 
     return (
         <div>
-            <Admin title="Daftar Bahan">
+            <Admin title="Daftar Bahan" bannerMessage={flash}>
                 <div className="flex gap-8">
                     <div className="w-1/2 rounded-lg overflow-hidden shadow">
                         <TableComp

@@ -26,12 +26,13 @@ class IngredientController extends Controller
             'name' => request('name'),
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'data bahan berhasil ditambahkan');
     }
 
     public function destroy(Ingredient $ingredient)
     {
         $ingredient->where('id', request('id') ?? '')->delete();
-        return redirect()->back();
+
+        return redirect()->back()->with('message', 'data bahan berhasil dihapus');
     }
 }

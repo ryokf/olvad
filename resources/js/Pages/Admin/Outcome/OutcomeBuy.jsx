@@ -38,6 +38,7 @@ const OutcomeBuyData = (dataGet) => {
 export default function OutcomeBuy({ dataGet, paginationData }) {
     let [addIngredientCount, setAddIngredientCount] = useState(1);
 
+
     const { data, setData, post, processing, errors } = useForm(
         {
             type: 'buy',

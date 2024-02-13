@@ -20,16 +20,20 @@ class StoreController extends Controller
     {
         Store::create($request->all());
 
-        return redirect()->back()->with('success', 'Store created successfully.');
+        return redirect()->back()->with('message', 'data toko berhasil ditambahkan');
     }
 
     public function update(Store $store, Request $request)
     {
         $store->where('id', $request->id)->update($request->all());
+
+        return redirect()->back()->with('message', 'data toko berhasil diubah');
     }
 
     public function destroy(Store $store, Request $request)
     {
         $store->where('id', $request->id)->delete();
+
+        return redirect()->back()->with('message', 'data toko berhasil dihapus');
     }
 }

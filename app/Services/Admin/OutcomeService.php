@@ -162,4 +162,28 @@ class OutcomeService
         }
         // return $request;
     }
+
+    public function destroy($request, $outcome)
+    {
+        $total_cost = $outcome->where('id', $request->id)->first()->total_cost;
+
+        DB::beginTransaction();
+        try {
+            $outcome->where('id', $request->id)->delete();
+
+            Wallet::create([
+                'balance' => Wallet::select('balance')->latest()->first()->balance + $total_cost,
+                'outcome' => Wallet::select('outcome')->latest()->first()->outcome - $total_cost,
+                'income' => Wallet::select('income')->latest()->first()->income,
+                'profit' => Wallet::select('profit')->latest()->first()->profit,
+                'description' => "menghapus pengeluaran",
+            ]);
+            DB::commit();
+
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
 }

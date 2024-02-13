@@ -15,8 +15,6 @@ export default function Edit({ dataStore }) {
         pic_name: dataStore.pic_name,
     })
 
-    console.log(dataStore)
-
     function submit(e) {
         e.preventDefault()
         put('/admin/store')
