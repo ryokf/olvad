@@ -60,6 +60,13 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
         setAddIngredientCount(addIngredientCount + 1)
         setData('detail_item', [...data.detail_item, { ingredient_id: ingredientId, amount: amount, unit_id: unitId, price: price },])
     }
+
+    function eraseItem() {
+        data.detail_item.splice(data.detail_item.length - 1, 1)
+        setData('detail_item', data.detail_item)
+        setAddIngredientCount(addIngredientCount != 1 ? addIngredientCount - 1 : addIngredientCount)
+    }
+
     function finishData() {
         setReadyToSave(true)
         setData('detail_item', [...data.detail_item, { ingredient_id: ingredientId, amount: amount, unit_id: unitId, price: price },])
@@ -175,7 +182,7 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                     {
                                         i == addIngredientCount && !readyToSave &&
                                         <div className="col-span-2">
-                                            <button className="text-2xl text-red-500" onClick={() => setAddIngredientCount(addIngredientCount != 1 ? addIngredientCount - 1 : addIngredientCount)}> <RiDeleteBack2Fill /> </button>
+                                            <button className="text-2xl text-red-500" onClick={() => eraseItem()}> <RiDeleteBack2Fill /> </button>
                                             {/* <button className="text-2xl text-secondary-light" onClick={() => { setData('detail_item', [...data.detail_item, { ingredient_id: ingredientId, amount: amount, unit_id: unitId, price: price }]) }}> <FaCheck /> </button> */}
                                         </div>
                                     }
