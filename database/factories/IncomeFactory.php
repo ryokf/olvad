@@ -19,7 +19,7 @@ class IncomeFactory extends Factory
         return [
             'customer_id' => $this->faker->numberBetween(1, 10),
             'description' => $this->faker->sentence(),
-            'total_cost' => $this->faker->numberBetween(100, 1000),
+            'total_cost' => $this->faker->numberBetween(1, 10) * 1000,
             'is_from_web' => false,
         ];
     }

@@ -19,7 +19,11 @@ const OutcomeSocialData = (data) => {
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {item.date}
             </Table.Cell>
-            <Table.Cell>{item.description.slice(0, 50)}...</Table.Cell>
+            <Table.Cell>{item.description.slice(0, 50)}{
+                item.description.length > 50 && (
+                    <span>...</span>
+                )
+            }</Table.Cell>
             <Table.Cell>{item.customer}</Table.Cell>
             <Table.Cell>Rp{item.cost}</Table.Cell>
             <Table.Cell className="flex gap-4">

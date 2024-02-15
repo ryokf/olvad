@@ -21,7 +21,11 @@ const OutcomeBuyData = (dataGet) => {
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {item.date}
             </Table.Cell>
-            <Table.Cell>{item.description.slice(0, 50)}...</Table.Cell>
+            <Table.Cell>{item.description.slice(0, 50)}{
+                item.description.length > 50 && (
+                    <span>...</span>
+                )
+            }</Table.Cell>
             <Table.Cell>{item.store}</Table.Cell>
             <Table.Cell>Rp{item.cost}</Table.Cell>
             <Table.Cell className="flex gap-4">
@@ -195,7 +199,7 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                 !readyToSave &&
                                 <button className="px-3 text-4xl font-bold " onClick={() => addItem()}>+</button>
                             }
-                            <Button color="primary" onClick={readyToSave ? submit : function(){ finishData(); }}>{readyToSave ? 'simpan' : 'selesai'}</Button>
+                            <Button color="primary" onClick={readyToSave ? submit : function () { finishData(); }}>{readyToSave ? 'simpan' : 'selesai'}</Button>
                         </div>
                     </form>
                 </div>

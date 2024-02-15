@@ -6,6 +6,7 @@ import { Table, Label, Select, Button, TextInput, Flowbite } from 'flowbite-reac
 import { MdDelete } from "react-icons/md";
 import { useForm, Link } from '@inertiajs/react'
 import DeleteConfirm from "../../../Components/DeleteConfirm";
+import DetailIncome from "./DetailIncome";
 
 const IncomeData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -15,23 +16,29 @@ const IncomeData = (dataGet) => {
         <Table.Row key={item.id} className="bg-white border-none dark:bg-gray-800">
             <Table.Cell>{++index + (!searchParams.has('page') ? 0 : 10 * (searchParams.get('page') - 1))}</Table.Cell>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                {item.name}
+                {item.date}
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap text-gray-600 dark:text-white">
-                {item.address}
+                {item.description.slice(0, 50)}
+                {
+                    item.description.length > 50 && (
+                        <span>...</span>
+                    )
+                }
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap text-gray-600 dark:text-white">
-                {item.phone}
+                {item.customer.name}
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap text-gray-600 dark:text-white">
-                {item.pic_name}
+                {item.total}
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex gap-4">
                 {/* <Link href="/admin/ingredient" method="delete" data={{ id: item.id }}>
                     <Button size={'sm'} color="warning" className="bg-amber-400 hover:bg-red-600 text-white text-xl"><FaEdit /></Button>
                 </Link> */}
                 {/* <Edit dataStore={item}></Edit> */}
-                <DeleteConfirm id={item.id} href={"/admin/store"}></DeleteConfirm>
+                <DetailIncome title={"•••"} data={item} headerTitle={"Detail Pemasukan"}></DetailIncome>
+                <DeleteConfirm id={item.id} href={"/admin/income"}></DeleteConfirm>
             </Table.Cell>
         </Table.Row>
     ))
@@ -43,7 +50,7 @@ export default function Index({ incomes }) {
         <div className="">
             <Admin title="Pemasukan" >
                 <div className="">
-                    <TableComp head={["#", "tanggal", "deskripsi", "pelanggan", "total", ""]} tableContent={IncomeData(incomes.data)}></TableComp>
+                    <TableComp head={["#", "tanggal", "deskripsi", "pelanggan", "total", ""]} tableContent={IncomeData(incomes.data)} isPageable IsSearchable paginationData={incomes.meta}></TableComp>
                 </div>
             </Admin>
         </div>
