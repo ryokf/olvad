@@ -10,6 +10,7 @@ import DetailIncome from "./DetailIncome";
 import { usePage } from '@inertiajs/react'
 import CustomTheme from "../../../theme/CustomTheme";
 import { RiDeleteBack2Fill } from "react-icons/ri";
+import DateFormat from "../../../Helper/DateFormat";
 
 const IncomeData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -36,10 +37,6 @@ const IncomeData = (dataGet) => {
                 {item.total}
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex gap-4">
-                {/* <Link href="/admin/ingredient" method="delete" data={{ id: item.id }}>
-                    <Button size={'sm'} color="warning" className="bg-amber-400 hover:bg-red-600 text-white text-xl"><FaEdit /></Button>
-                </Link> */}
-                {/* <Edit dataStore={item}></Edit> */}
                 <DetailIncome title={"•••"} data={item} headerTitle={"Detail Pemasukan"}></DetailIncome>
                 <DeleteConfirm id={item.id} href={"/admin/income"}></DeleteConfirm>
             </Table.Cell>
@@ -50,6 +47,8 @@ const IncomeData = (dataGet) => {
 export default function Index({ incomes, products, customers }) {
     const { flash } = usePage().props
     let [addProductCount, setAddProductCount] = useState(1);
+
+    const date = DateFormat();
 
     const { data, setData, post, processing, errors } = useForm({
         description: '',
@@ -92,11 +91,9 @@ export default function Index({ incomes, products, customers }) {
         // location.reload()
     }
 
-    console.log(data.detail_items)
-
     return (
         <div className="">
-            <Admin title="Pemasukan" bannerMessage={flash}>
+            <Admin title="Pemasukan" bannerMessage={flash} subtitle={`${date.day}, ${date.dateNumber} ${date.month} ${date.year}`}>
                 <div className="">
                     <TableComp head={["#", "tanggal", "deskripsi", "pelanggan", "total", ""]} tableContent={IncomeData(incomes.data)} isPageable IsSearchable paginationData={incomes.meta}></TableComp>
                 </div>

@@ -109,15 +109,12 @@ class OutcomeService
 
     public function storeSocial($request, $outcome, $outcomeSocial, $outcomeDetail)
     {
-        // dd($request->all());
 
         $total = 0;
         foreach ($request->detail_item as $item) {
             $price = Product::select('price')->where('id', $item['product_id'])->first()->price;
             $total += $price * $item['amount'];
         }
-
-        // dd($total);
 
         DB::beginTransaction();
         try {

@@ -45,21 +45,6 @@ export default function Index({ outcomeData, store, ingredient, unit, product, c
                         />
                 }
             </Admin>
-
-            {/* <div>
-                <Button onClick={() => setIsBuyType(true)}>buy</Button>
-                <Button onClick={() => setIsBuyType(false)}>social</Button>
-            </div>
-
-            <h1>tambah data pengeluaran {isBuyType ? 'belanja' : 'social'}</h1>
-
-            <form onSubmit={submit}>
-                <input type="text" value={data.email} onChange={e => setData('email', e.target.value)} />
-                {errors.email && <div>{errors.email}</div>}
-                <input type="password" value={data.password} onChange={e => setData('password', e.target.value)} />
-                {errors.password && <div>{errors.password}</div>}
-                <button type="submit" disabled={processing}>Login</button>
-            </form> */}
         </>
     );
 }
