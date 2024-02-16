@@ -134,10 +134,10 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
                                         <div className="mb-2 block">
                                             <Label htmlFor="product" value="pilih produk" />
                                         </div>
-                                        <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" value={data?.detail_item[i - 1]?.product_id} onChange={function (e) { console.log(""); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); }} required>
+                                        <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" onChange={function (e) { console.log(""); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); }} required>
                                             {
                                                 dataGet.product.map((item) => (
-                                                    <option key={item.id} value={[item.id, item.price]}>{item.name}</option>
+                                                    <option selected={item.id == data?.detail_item[i - 1]?.product_id} key={item.id} value={[item.id, item.price]}>{item.name}</option>
                                                 ))
                                             }
                                         </Select>
@@ -164,7 +164,7 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
                                         <div className="mb-2 block">
                                             <Label htmlFor="" value="harga satuan" />
                                         </div>
-                                        <TextInput readOnly disabled id="" type="text" value={!priceList[i - 1] ? price : priceList[i - 1] / data?.detail_item[i - 1]?.amount} />
+                                        <TextInput readOnly disabled id="" type="text" value={i < addProductCount ?  priceList[i - 1] / data?.detail_item[i - 1]?.amount : price} />
                                     </div>
                                     <div className="col-span-2">
                                         <div className="mb-2 block">
