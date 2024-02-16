@@ -6,7 +6,7 @@ import CustomTheme from '../../../theme/CustomTheme';
 
 
 const DetailItemData = (data) => {
-    console.log(data)
+    // console.log(data)
     return data.map(function (item, index) {
         const isBuyType = window.location.pathname.split("/")[3] == "buy" ? true : false;
 
