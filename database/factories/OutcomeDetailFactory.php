@@ -17,8 +17,8 @@ class OutcomeDetailFactory extends Factory
     public function definition(): array
     {
         return [
-            'unit_id' => fake()->numberBetween(1,2),
-            'amount' => fake()->numberBetween(1,10),
+            'unit_id' => fake()->numberBetween(1, 2),
+            'amount' => fake()->numberBetween(1, 10),
 
         ];
     }

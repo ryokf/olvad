@@ -14,8 +14,6 @@ class Customer extends Model
 
     /**
      * Get all of the incomes for the Customer
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function incomes(): HasMany
     {
@@ -24,8 +22,6 @@ class Customer extends Model
 
     /**
      * Get all of the outcomeSocials for the Customer
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outcomeSocials(): HasMany
     {

@@ -14,8 +14,6 @@ class Store extends Model
 
     /**
      * Get all of the outcomeBuys for the Store
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outcomeBuys(): HasMany
     {

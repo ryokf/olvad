@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\IncomeDetail;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class IncomeDetailSeeder extends Seeder
@@ -14,7 +13,7 @@ class IncomeDetailSeeder extends Seeder
     public function run(): void
     {
         IncomeDetail::factory()
-        ->count(120)
-        ->create();
+            ->count(120)
+            ->create();
     }
 }

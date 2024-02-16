@@ -14,8 +14,6 @@ class OutcomeSocialDetail extends Model
 
     /**
      * Get the outcomeDetail that owns the OutcomeSocialDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function outcomeDetail(): BelongsTo
     {
@@ -24,8 +22,6 @@ class OutcomeSocialDetail extends Model
 
     /**
      * Get the outcomeSocial that owns the OutcomeSocialDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function outcomeSocial(): BelongsTo
     {
@@ -34,8 +30,6 @@ class OutcomeSocialDetail extends Model
 
     /**
      * Get the product that owns the OutcomeSocialDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function product(): BelongsTo
     {

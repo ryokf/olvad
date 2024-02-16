@@ -17,9 +17,9 @@ class OutcomeBuyFactory extends Factory
     public function definition(): array
     {
         return [
-            'outcome_id' => $this->faker->unique()->numberBetween(1,20),
-            'store_id' => fake()->numberBetween(1,5),
-            'reciepe' => fake()->imageUrl(640, 480, 'animals', true)
+            'outcome_id' => $this->faker->unique()->numberBetween(1, 20),
+            'store_id' => fake()->numberBetween(1, 5),
+            'reciepe' => fake()->imageUrl(640, 480, 'animals', true),
         ];
     }
 }

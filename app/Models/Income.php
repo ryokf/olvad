@@ -14,8 +14,6 @@ class Income extends Model
 
     /**
      * Get all of the incomeDetails for the Income
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function incomeDetails(): HasMany
     {

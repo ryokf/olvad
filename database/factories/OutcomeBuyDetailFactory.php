@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class OutcomeBuyDetailFactory extends Factory
 {
     private static $order = 1;
+
     /**
      * Define the model's default state.
      *
@@ -32,7 +33,7 @@ class OutcomeBuyDetailFactory extends Factory
             'outcome_detail_id' => self::$order++,
             'outcome_buy_id' => fake()->numberBetween(1, 20),
             'ingredient_id' => fake()->numberBetween(1, 20),
-            'price' => fake()->numberBetween(1,50) * 1000,
+            'price' => fake()->numberBetween(1, 50) * 1000,
         ];
     }
 }

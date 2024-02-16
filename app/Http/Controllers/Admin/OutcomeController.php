@@ -3,23 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Outcome\OutcomeBuyResource;
-use App\Http\Resources\Outcome\outcomeSocialResource;
 use App\Models\Customer;
 use App\Models\Ingredient;
 use App\Models\Outcome;
 use App\Models\OutcomeBuy;
-use App\Models\OutcomeBuyDetail;
 use App\Models\OutcomeDetail;
 use App\Models\OutcomeSocial;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\Unit;
-use App\Models\Wallet;
 use App\Services\Admin\OutcomeService;
-use App\Services\Admin\Outcome\storeOutcomeBuyService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class OutcomeController extends Controller
@@ -60,11 +54,11 @@ class OutcomeController extends Controller
         ]);
 
         if ($request->type == 'buy') {
-            $this->outcomeService->storeBuy($request, $outcome,  $outcomeBuy, $outcomeDetail);
+            $this->outcomeService->storeBuy($request, $outcome, $outcomeBuy, $outcomeDetail);
         } elseif ($request->type == 'social') {
-            $this->outcomeService->storeSocial($request, $outcome,  $outcomeSocial, $outcomeDetail);
+            $this->outcomeService->storeSocial($request, $outcome, $outcomeSocial, $outcomeDetail);
         } else {
-            return "data tidak valid";
+            return 'data tidak valid';
         }
 
         return redirect()->back()->with('message', 'Pengeluaran Berhasil ditambahkan');

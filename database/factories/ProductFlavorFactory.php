@@ -17,8 +17,8 @@ class ProductFlavorFactory extends Factory
     public function definition(): array
     {
         return [
-            'product_id' => fake()->unique()->numberBetween(1,5),
-            'flavor' => fake()->word()
+            'product_id' => fake()->unique()->numberBetween(1, 5),
+            'flavor' => fake()->word(),
         ];
     }
 }

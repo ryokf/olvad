@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\ProductFlavor;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProductFlavorSeeder extends Seeder
@@ -14,7 +13,7 @@ class ProductFlavorSeeder extends Seeder
     public function run(): void
     {
         ProductFlavor::factory()
-        ->count(5)
-        ->create();
+            ->count(5)
+            ->create();
     }
 }

@@ -14,8 +14,6 @@ class Ingredient extends Model
 
     /**
      * Get all of the outcomeBuyDetails for the Ingredient
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outcomeBuyDetails(): HasMany
     {

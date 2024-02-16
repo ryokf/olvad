@@ -14,8 +14,6 @@ class OutcomeBuyDetail extends Model
 
     /**
      * Get the outcomeDetail that owns the OutcomeBuyDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function outcomeDetail(): BelongsTo
     {
@@ -24,8 +22,6 @@ class OutcomeBuyDetail extends Model
 
     /**
      * Get the outcomeBuy that owns the OutcomeBuyDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function outcomeBuy(): BelongsTo
     {
@@ -34,8 +30,6 @@ class OutcomeBuyDetail extends Model
 
     /**
      * Get the ingredient that owns the OutcomeBuyDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function ingredient(): BelongsTo
     {

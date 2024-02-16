@@ -15,8 +15,6 @@ class OutcomeDetail extends Model
 
     /**
      * Get the unit that owns the OutcomeDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function unit(): BelongsTo
     {
@@ -25,8 +23,6 @@ class OutcomeDetail extends Model
 
     /**
      * Get all of the outcomeBuyDetails for the OutcomeDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outcomeBuyDetails(): HasMany
     {
@@ -35,8 +31,6 @@ class OutcomeDetail extends Model
 
     /**
      * Get all of the outcomeSocialDetails for the OutcomeDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outcomeSocialDetails(): HasMany
     {

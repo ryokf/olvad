@@ -15,10 +15,10 @@ class IncomeProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id" => $this->id,
-            "name" => $this->name,
-            "price" => $this->price,
-            "category" => $this->category->name
+            'id' => $this->id,
+            'name' => $this->name,
+            'price' => $this->price,
+            'category' => $this->category->name,
         ];
     }
 }

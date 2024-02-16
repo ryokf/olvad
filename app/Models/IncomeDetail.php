@@ -14,8 +14,6 @@ class IncomeDetail extends Model
 
     /**
      * Get the income that owns the IncomeDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function income(): BelongsTo
     {
@@ -24,8 +22,6 @@ class IncomeDetail extends Model
 
     /**
      * Get the product that owns the IncomeDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function product(): BelongsTo
     {

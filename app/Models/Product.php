@@ -15,8 +15,6 @@ class Product extends Model
 
     /**
      * Get all of the productSizes for the Product
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function productSizes(): HasMany
     {
@@ -25,8 +23,6 @@ class Product extends Model
 
     /**
      * Get all of the productFlavors for the Product
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function productFlavors(): HasMany
     {
@@ -35,8 +31,6 @@ class Product extends Model
 
     /**
      * Get all of the incomeDetails for the Product
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function incomeDetails(): HasMany
     {
@@ -45,8 +39,6 @@ class Product extends Model
 
     /**
      * Get the category that owns the Product
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category(): BelongsTo
     {

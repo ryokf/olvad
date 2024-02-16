@@ -14,8 +14,6 @@ class Unit extends Model
 
     /**
      * Get all of the outcomeDetails for the Unit
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outcomeDetails(): HasMany
     {

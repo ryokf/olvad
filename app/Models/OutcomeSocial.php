@@ -15,8 +15,6 @@ class OutcomeSocial extends Model
 
     /**
      * Get all of the outcomeSocialDetails for the OutcomeSocial
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outcomeSocialDetails(): HasMany
     {
@@ -25,8 +23,6 @@ class OutcomeSocial extends Model
 
     /**
      * Get the outcome that owns the OutcomeSocial
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function outcome(): BelongsTo
     {
@@ -35,8 +31,6 @@ class OutcomeSocial extends Model
 
     /**
      * Get the customer that owns the OutcomeSocial
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function customer(): BelongsTo
     {

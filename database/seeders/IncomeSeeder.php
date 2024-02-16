@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Income;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class IncomeSeeder extends Seeder
@@ -14,7 +13,7 @@ class IncomeSeeder extends Seeder
     public function run(): void
     {
         Income::factory()
-        ->count(40)
-        ->create();
+            ->count(40)
+            ->create();
     }
 }

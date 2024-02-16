@@ -18,7 +18,7 @@ class OutcomeFactory extends Factory
     {
         return [
             'description' => fake()->paragraph(),
-            'total_cost' => fake()->numberBetween(10,100) * 1000,
+            'total_cost' => fake()->numberBetween(10, 100) * 1000,
         ];
     }
 }

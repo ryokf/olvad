@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Income\IncomeResource;
 use App\Models\Customer;
 use App\Models\Income;
-use App\Models\IncomeDetail;
 use App\Models\Product;
-use App\Models\Unit;
 use App\Services\Admin\IncomeService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class IncomeController extends Controller

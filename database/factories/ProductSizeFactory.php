@@ -17,8 +17,8 @@ class ProductSizeFactory extends Factory
     public function definition(): array
     {
         return [
-            'product_id' => fake()->unique()->numberBetween(6,8),
-            'size' => fake()->numberBetween(10,25) . ' x ' . fake()->numberBetween(10,25)
+            'product_id' => fake()->unique()->numberBetween(6, 8),
+            'size' => fake()->numberBetween(10, 25).' x '.fake()->numberBetween(10, 25),
         ];
     }
 }

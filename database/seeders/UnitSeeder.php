@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Unit;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UnitSeeder extends Seeder
@@ -14,10 +13,10 @@ class UnitSeeder extends Seeder
     public function run(): void
     {
         Unit::create([
-            'unit' => 'kg'
+            'unit' => 'kg',
         ]);
         Unit::create([
-            'unit' => 'pcs'
+            'unit' => 'pcs',
         ]);
     }
 }

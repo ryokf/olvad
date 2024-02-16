@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\OutcomeSocial;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class OutcomeSocialSeeder extends Seeder
@@ -14,7 +13,7 @@ class OutcomeSocialSeeder extends Seeder
     public function run(): void
     {
         OutcomeSocial::factory()
-        ->count(10)
-        ->create();
+            ->count(10)
+            ->create();
     }
 }

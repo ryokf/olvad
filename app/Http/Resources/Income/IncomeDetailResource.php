@@ -17,7 +17,7 @@ class IncomeDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'amount' => $this->amount,
-            'product' => new IncomeProductResource($this->product)
+            'product' => new IncomeProductResource($this->product),
         ];
     }
 }

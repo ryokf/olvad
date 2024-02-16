@@ -8,9 +8,7 @@ use App\Http\Controllers\Admin\OutcomeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StoreController;
-use App\Models\Income;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +25,7 @@ Route::get('/', function () {
     return 'halo';
 });
 
-Route::get('/admin/dashboard',[DashboardController::class,'index'])->name('dashboard');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/admin', 'index');
@@ -79,5 +77,3 @@ Route::controller(CustomerController::class)->group(function () {
 Route::controller(SettingController::class)->group(function () {
     Route::get('/admin/setting', 'index');
 });
-
-

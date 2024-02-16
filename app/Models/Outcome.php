@@ -14,8 +14,6 @@ class Outcome extends Model
 
     /**
      * Get all of the outcomeBuys for the Outcome
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outcomeBuys(): HasMany
     {
@@ -24,8 +22,6 @@ class Outcome extends Model
 
     /**
      * Get all of the outcomeSocials for the Outcome
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outcomeSocials(): HasMany
     {

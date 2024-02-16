@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class IncomeService
 {
-    public function getData($income,  $product, $customer)
+    public function getData($income, $product, $customer)
     {
         $incomes = $income->with('customer')->with('incomeDetails')->latest()->paginate(10);
         $products = $product->get();
@@ -21,7 +21,7 @@ class IncomeService
         return [
             'incomes' => $incomes,
             'products' => $products,
-            'customers' => $customers
+            'customers' => $customers,
         ];
     }
 
@@ -52,11 +52,11 @@ class IncomeService
                 ]);
             }
             DB::commit();
+
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
         }
     }
-
 }

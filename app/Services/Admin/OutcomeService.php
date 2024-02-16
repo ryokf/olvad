@@ -12,7 +12,6 @@ use App\Models\OutcomeSocial;
 use App\Models\OutcomeSocialDetail;
 use App\Models\Product;
 use App\Models\Wallet;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 
 class OutcomeService
@@ -67,7 +66,7 @@ class OutcomeService
                 'description' => $request->description,
             ]);
 
-            $path = "/storage/" . $request->file('reciepe')->store('reciepe', 'public');
+            $path = '/storage/'.$request->file('reciepe')->store('reciepe', 'public');
 
             OutcomeBuy::create([
                 'outcome_id' => $outcome->select('id')->latest()->first()->id,
@@ -96,10 +95,11 @@ class OutcomeService
                 'outcome' => Wallet::select('outcome')->latest()->first()->outcome + $request->total_cost,
                 'income' => Wallet::select('income')->latest()->first()->income,
                 'profit' => Wallet::select('profit')->latest()->first()->profit,
-                'description' => "melakukan pembelian",
+                'description' => 'melakukan pembelian',
             ]);
 
             DB::commit();
+
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
@@ -148,10 +148,11 @@ class OutcomeService
                 'outcome' => Wallet::select('outcome')->latest()->first()->outcome + $request->total_cost,
                 'income' => Wallet::select('income')->latest()->first()->income,
                 'profit' => Wallet::select('profit')->latest()->first()->profit,
-                'description' => "melakukan bantuan",
+                'description' => 'melakukan bantuan',
             ]);
 
             DB::commit();
+
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
@@ -173,7 +174,7 @@ class OutcomeService
                 'outcome' => Wallet::select('outcome')->latest()->first()->outcome - $total_cost,
                 'income' => Wallet::select('income')->latest()->first()->income,
                 'profit' => Wallet::select('profit')->latest()->first()->profit,
-                'description' => "menghapus pengeluaran",
+                'description' => 'menghapus pengeluaran',
             ]);
             DB::commit();
 

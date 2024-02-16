@@ -26,7 +26,7 @@ class OutcomeDetailResource extends JsonResource
         return [
             'amount' => $this->amount,
             'unit' => $this->unit->unit,
-            'total' => $this->price * $this->amount
+            'total' => $this->price * $this->amount,
         ];
     }
 }

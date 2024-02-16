@@ -15,8 +15,6 @@ class OutcomeBuy extends Model
 
     /**
      * Get the outcome that owns the OutcomeBuy
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function outcome(): BelongsTo
     {
@@ -25,8 +23,6 @@ class OutcomeBuy extends Model
 
     /**
      * Get the store that owns the OutcomeBuy
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function store(): BelongsTo
     {
@@ -35,8 +31,6 @@ class OutcomeBuy extends Model
 
     /**
      * Get all of the outcomeBuyDetails for the OutcomeBuy
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function outcomeBuyDetails(): HasMany
     {
