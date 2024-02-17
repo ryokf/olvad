@@ -19,6 +19,7 @@ class ProductFlavorFactory extends Factory
         return [
             'product_id' => fake()->unique()->numberBetween(1, 5),
             'flavor' => fake()->word(),
+            'price' => fake()->numberBetween(5, 50) * 1000,
         ];
     }
 }
