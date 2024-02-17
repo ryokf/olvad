@@ -19,6 +19,7 @@ class ProductSizeFactory extends Factory
         return [
             'product_id' => fake()->unique()->numberBetween(6, 8),
             'size' => fake()->numberBetween(10, 25).' x '.fake()->numberBetween(10, 25),
+            'price' => fake()->numberBetween(5, 50) * 1000,
         ];
     }
 }
