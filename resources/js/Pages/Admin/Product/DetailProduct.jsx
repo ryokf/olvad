@@ -48,7 +48,7 @@ export default function DetailProduct({ title, headerTitle, data }) {
                         </div>
                         <div className="">
                             <div className="my-1">
-                                <TableComp title={`Pilihan ${data.size ? "ukuran" : "rasa"}`} head={["#", "Ukuran", "Harga", ""]} tableContent={OptionalData(data.size ? data.size : data.flavor)}></TableComp>
+                                <TableComp title={`Pilihan ${data.size ? "ukuran" : "rasa"}`} head={["#", `Pilihan ${data.size ? "ukuran" : "rasa"}`, "Harga", ""]} tableContent={OptionalData(data.size ? data.size : data.flavor)}></TableComp>
                             </div>
                         </div>
                     </div>

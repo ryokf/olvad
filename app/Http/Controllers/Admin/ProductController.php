@@ -15,6 +15,6 @@ class ProductController extends Controller
 
         $products = ProductResource::collection($products);
 
-        return Inertia::render('Admin/Product/Index', compact('products'));
+        return Inertia::render('Admin/Product/index', compact('products'));
     }
 }

@@ -35,6 +35,7 @@ const OutcomeSocialData = (data) => {
 }
 
 export default function OutcomeSocial({ dataGet, paginationData }) {
+    console.log(dataGet.product)
     let [addProductCount, setAddProductCount] = useState(1);
 
     const { data, setData, post, errors } = useForm(
@@ -46,15 +47,17 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
         }
     )
 
-    const [productId, setProductId] = useState(1)
+    const [productId, setProductId] = useState(dataGet.product[dataGet.product.length - 1].data.id)
+    const [parentProductId, setParentProductId] = useState(dataGet.product[dataGet.product.length - 1].data.product_id)
     const [amount, setAmount] = useState(0)
     const [unitId, setUnitId] = useState(1)
-    const [price, setPrice] = useState(dataGet.product[0].price)
+    const [price, setPrice] = useState(dataGet.product[dataGet.product.length - 1].data.price)
+    const [productType, setProductType] = useState(dataGet.product[dataGet.product.length - 1].data.type)
     const [priceList, setPriceList] = useState([])
     const [readyToSave, setReadyToSave] = useState(false)
     function addItem() {
         setAddProductCount(addProductCount + 1)
-        setData('detail_item', [...data.detail_item, { product_id: productId, amount: amount, unit_id: unitId },])
+        setData('detail_item', [...data.detail_item, { product_id: productId, amount: amount, unit_id: unitId, type: productType, parentProductId: parentProductId },])
     }
 
     function eraseItem() {
@@ -68,7 +71,7 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
         setPriceList([...priceList, parseInt(price) * amount])
         setData('total_cost', priceList)
         setReadyToSave(true)
-        setData('detail_item', [...data.detail_item, { product_id: productId, amount: amount, unit_id: unitId },])
+        setData('detail_item', [...data.detail_item, { product_id: productId, amount: amount, unit_id: unitId, type: productType, parentProductId: parentProductId },])
     }
     function submit(e) {
         e.preventDefault()
@@ -76,12 +79,14 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
         setReadyToSave(false)
         setAddProductCount(1)
         setData('detail_item', [])
+        setPriceList([])
     }
+
+    console.log(data)
 
     return (
         <div className="">
             <div className="">
-
                 <TableComp
                     title={"Data pengeluaran untuk sosial"}
                     head={["#", "tanggal", "deskripsi", "penerima", "total", ""]}
@@ -134,10 +139,10 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
                                         <div className="mb-2 block">
                                             <Label htmlFor="product" value="pilih produk" />
                                         </div>
-                                        <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" onChange={function (e) { console.log(""); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); }} required>
+                                        <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" onChange={function (e) { console.log(""); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); setProductType(e.target.value.split(",")[2]); setParentProductId(parseInt(e.target.value.split(",")[3])); }} required>
                                             {
                                                 dataGet.product.map((item) => (
-                                                    <option selected={item.id == data?.detail_item[i - 1]?.product_id} key={item.id} value={[item.id, item.price]}>{item.name}</option>
+                                                    <option selected={item.data.id} key={item.data.name} value={[item.data.id, item.data.price, item.data.type, item.data.product_id]}>{item.data.name}</option>
                                                 ))
                                             }
                                         </Select>

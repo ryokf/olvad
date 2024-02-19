@@ -13,7 +13,7 @@ class CustomerController extends Controller
     {
         $customers = $customer->latest()->paginate(10);
 
-        return Inertia::render('Admin/Customer/Index', compact('customers'));
+        return Inertia::render('Admin/Customer/index', compact('customers'));
     }
 
     public function store(Request $request)

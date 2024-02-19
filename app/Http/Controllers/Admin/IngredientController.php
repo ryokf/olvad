@@ -13,7 +13,7 @@ class IngredientController extends Controller
     {
         $ingredients = collect($ingredient->latest()->paginate(10));
 
-        return Inertia::render('Admin/Ingredient/Index', compact('ingredients'));
+        return Inertia::render('Admin/Ingredient/index', compact('ingredients'));
     }
 
     public function store(Request $request)

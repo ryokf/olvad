@@ -11,6 +11,8 @@ use App\Models\OutcomeDetail;
 use App\Models\OutcomeSocial;
 use App\Models\OutcomeSocialDetail;
 use App\Models\Product;
+use App\Models\ProductFlavor;
+use App\Models\ProductSize;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\DB;
 
@@ -109,12 +111,20 @@ class OutcomeService
 
     public function storeSocial($request, $outcome, $outcomeSocial, $outcomeDetail)
     {
-
         $total = 0;
         foreach ($request->detail_item as $item) {
-            $price = Product::select('price')->where('id', $item['product_id'])->first()->price;
-            $total += $price * $item['amount'];
+            if($item['type'] == 'flavor'){
+                $price = ProductFlavor::select('price')->where('id', $item['product_id'])->first()->price;
+                $total += $price * $item['amount'];
+            } elseif($item['type'] == 'size'){
+                $price = ProductSize::select('price')->where('id', $item['product_id'])->first()->price;
+                $total += $price * $item['amount'];
+            } else {
+                dd('p');
+            }
         }
+
+        dd($total);
 
         DB::beginTransaction();
         try {

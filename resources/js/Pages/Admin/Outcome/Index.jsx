@@ -10,11 +10,11 @@ import { usePage } from '@inertiajs/react'
 
 export default function Index({ outcomeData, store, ingredient, unit, product, customer }) {
     const date = DateFormat();
-    const outcomeType = window.location.pathname.split("/")[3] == "buy" ? true : false;
+    const outcomeType = window.location.pathname.split("/")[3] == "buy";
     const { flash } = usePage().props
 
     return (
-        <>
+        <div className="">
             <Admin bannerMessage={flash} title="Pengeluaran" subtitle={`${date.day}, ${date.dateNumber} ${date.month} ${date.year}`}>
                 <div className="my-4 pl-4 flex gap-2">
                     <Flowbite theme={{ theme: CustomTheme }}>
@@ -45,6 +45,6 @@ export default function Index({ outcomeData, store, ingredient, unit, product, c
                         />
                 }
             </Admin>
-        </>
+        </div>
     );
 }

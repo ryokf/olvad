@@ -26,7 +26,7 @@ class IncomeController extends Controller
         $products = $data['products'];
         $customers = $data['customers'];
 
-        return Inertia::render('Admin/Income/Index', compact('incomes', 'products', 'customers'));
+        return Inertia::render('Admin/Income/index', compact('incomes', 'products', 'customers'));
     }
 
     public function store(Request $request, Income $income)

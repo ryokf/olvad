@@ -13,7 +13,7 @@ class StoreController extends Controller
     {
         $stores = $store->latest()->paginate(10);
 
-        return Inertia::render('Admin/Store/Index', compact('stores'));
+        return Inertia::render('Admin/Store/index', compact('stores'));
     }
 
     public function store(Request $request)
