@@ -6,21 +6,23 @@ use App\Http\Resources\Income\IncomeResource;
 use App\Models\Income;
 use App\Models\IncomeDetail;
 use App\Models\Product;
+use App\Models\ProductFlavor;
+use App\Models\ProductSize;
 use Illuminate\Support\Facades\DB;
 
 class IncomeService
 {
-    public function getData($income, $product, $customer)
+    public function getData($income, $customer)
     {
         $incomes = $income->with('customer')->with('incomeDetails')->latest()->paginate(10);
-        $products = $product->get();
+        // $products = $product->get();
         $customers = $customer->get();
 
         $incomes = IncomeResource::collection($incomes);
 
         return [
             'incomes' => $incomes,
-            'products' => $products,
+            // 'products' => $products,
             'customers' => $customers,
         ];
     }
@@ -29,8 +31,15 @@ class IncomeService
     {
         $total = 0;
         foreach ($request->detail_items as $item) {
-            $price = Product::select('price')->where('id', $item['product_id'])->first()->price;
-            $total += $price * $item['amount'];
+            if($item['type'] == 'flavor'){
+                $price = ProductFlavor::select('price')->where('id', $item['product_id'])->first()->price;
+                $total += $price * $item['amount'];
+            } elseif($item['type'] == 'size'){
+                $price = ProductSize::select('price')->where('id', $item['product_id'])->first()->price;
+                $total += $price * $item['amount'];
+            } else {
+                dd('p');
+            }
         }
 
         DB::beginTransaction();
@@ -48,7 +57,7 @@ class IncomeService
                 IncomeDetail::create([
                     'income_id' => $incomeId,
                     'amount' => $item['amount'],
-                    'product_id' => $item['product_id'],
+                    'product_id' => $item['parentProductId'],
                 ]);
             }
             DB::commit();

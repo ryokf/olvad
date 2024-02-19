@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Income\ProductFlavorResource;
+use App\Http\Resources\Income\ProductSizeResource;
 use App\Models\Customer;
 use App\Models\Income;
 use App\Models\Product;
+use App\Models\ProductFlavor;
+use App\Models\ProductSize;
 use App\Services\Admin\IncomeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class IncomeController extends Controller
@@ -19,11 +24,17 @@ class IncomeController extends Controller
         $this->incomeService = $incomeService;
     }
 
-    public function index(Income $income, Product $product, Customer $customer)
+    public function index(Income $income, ProductFlavor $productFlavor, ProductSize $productSize, Customer $customer)
     {
-        $data = $this->incomeService->getData($income, $product, $customer);
+        $data = $this->incomeService->getData($income, $customer);
         $incomes = $data['incomes'];
-        $products = $data['products'];
+
+        $productFlavor = ProductFlavorResource::collection($productFlavor->with('product')->get(), true);
+        $productSize = ProductSizeResource::collection($productSize->with('product')->get(), false);
+        $products = Arr::flatten([Arr::flatten($productFlavor), Arr::flatten($productSize)]);
+        $products = collect($products)->sortBy('product.name')->values()->all();
+
+        // $products = $data['products'];
         $customers = $data['customers'];
 
         return Inertia::render('Admin/Income/index', compact('incomes', 'products', 'customers'));

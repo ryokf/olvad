@@ -45,6 +45,7 @@ const IncomeData = (dataGet) => {
 }
 
 export default function Index({ incomes, products, customers }) {
+    console.log(products)
     const { flash } = usePage().props
     let [addProductCount, setAddProductCount] = useState(1);
 
@@ -56,9 +57,11 @@ export default function Index({ incomes, products, customers }) {
         detail_items: [],
     })
 
-    const [productId, setProductId] = useState(1)
+    const [productId, setProductId] = useState(products[products.length - 1].data.id)
+    const [parentProductId, setParentProductId] = useState(products[products.length - 1].data.product_id)
     const [amount, setAmount] = useState(0)
-    const [price, setPrice] = useState(products[0].price)
+    const [price, setPrice] = useState(products[products.length - 1].data.price)
+    const [productType, setProductType] = useState(products[products.length - 1].data.type)
     const [priceList, setPriceList] = useState([])
     const [readyToSave, setReadyToSave] = useState(false)
 
@@ -66,7 +69,7 @@ export default function Index({ incomes, products, customers }) {
 
     function addItem() {
         setAddProductCount(addProductCount + 1)
-        setData('detail_items', [...data.detail_items, { product_id: productId, amount: amount },])
+        setData('detail_items', [...data.detail_items, { product_id: productId, amount: amount, type: productType, parentProductId: parentProductId },])
     }
 
     function eraseItem() {
@@ -79,7 +82,7 @@ export default function Index({ incomes, products, customers }) {
     function finishData() {
         setPriceList([...priceList, parseInt(price) * amount])
         setReadyToSave(true)
-        setData('detail_items', [...data.detail_items, { product_id: productId, amount: amount },])
+        setData('detail_items', [...data.detail_items, { product_id: productId, amount: amount, type: productType, parentProductId: parentProductId },])
     }
 
     function submit(e) {
@@ -98,95 +101,95 @@ export default function Index({ incomes, products, customers }) {
                     <TableComp head={["#", "tanggal", "deskripsi", "pelanggan", "total", ""]} tableContent={IncomeData(incomes.data)} isPageable IsSearchable paginationData={incomes.meta}></TableComp>
                 </div>
                 <Flowbite theme={{ theme: CustomTheme }}>
-                <div className="my-6 p-4 min-h-min bg-white">
-                    <h1 className="text-xl font-medium">Tambah data pembelian</h1>
-                    <form onSubmit={submit} className="my-4">
-                        <div className="grid grid-cols-3 gap-6">
-                            <div className="col-span-1">
-                                <div className="mb-2 block">
-                                    <Label htmlFor="customer" value="pilih pelanggan" />
+                    <div className="my-6 p-4 min-h-min bg-white">
+                        <h1 className="text-xl font-medium">Tambah data pembelian</h1>
+                        <form onSubmit={submit} className="my-4">
+                            <div className="grid grid-cols-3 gap-6">
+                                <div className="col-span-1">
+                                    <div className="mb-2 block">
+                                        <Label htmlFor="customer" value="pilih pelanggan" />
+                                    </div>
+                                    <Select id="customer" onChange={e => setData('customer_id', e.target.value)} required>
+                                        {
+                                            customers.map((customer) => {
+                                                return (
+                                                    <option key={customer.id} value={customer.id}>{customer.name}</option>
+                                                )
+                                            })
+                                        }
+                                    </Select>
                                 </div>
-                                <Select id="customer" onChange={e => setData('customer_id', e.target.value)} required>
-                                    {
-                                        customers.map((customer) => {
-                                            return (
-                                                <option key={customer.id} value={customer.id}>{customer.name}</option>
-                                            )
-                                        })
-                                    }
-                                </Select>
-                            </div>
-                            <div className="w-full col-span-1">
-                                <div className="mb-2 block">
-                                    <Label htmlFor="description" value="deskripsi" />
+                                <div className="w-full col-span-1">
+                                    <div className="mb-2 block">
+                                        <Label htmlFor="description" value="deskripsi" />
+                                    </div>
+                                    <TextInput id="description" type="text" placeholder="deskripsi pembelian" value={data.description} onChange={e => setData('description', e.target.value)} required />
+                                    {errors.description && <div className="text-red-500 text-sm">{errors.description}</div>}
                                 </div>
-                                <TextInput id="description" type="text" placeholder="deskripsi pembelian" value={data.description} onChange={e => setData('description', e.target.value)} required />
-                                {errors.description && <div className="text-red-500 text-sm">{errors.description}</div>}
-                            </div>
-                            <div className="col-span-1">
-                                <div className="mb-2 block">
-                                    <Label htmlFor="" value="total biaya semua produk" />
+                                <div className="col-span-1">
+                                    <div className="mb-2 block">
+                                        <Label htmlFor="" value="total biaya semua produk" />
+                                    </div>
+                                    <TextInput readOnly disabled id="" type="text" value={priceList.reduce((a, b) => a + b, 0)} />
                                 </div>
-                                <TextInput readOnly disabled id="" type="text" value={priceList.reduce((a, b) => a + b, 0)} />
                             </div>
-                        </div>
-                        <hr className="my-6" />
-                        <div key={data.description} className="">
-                            {Array.apply(0, Array(addProductCount)).map(function (x, i) {
-                                return <div key={i} className="grid grid-cols-12 gap-6 items-end mt-2">
-                                    <h1 className="pb-3 text-base font-medium col-span-1 text-center">barang {++i}</h1>
-                                    <div className="w-full col-span-3">
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="product" value="pilih produk" />
-                                        </div>
-                                            <Select id="product" {...i != addProductCount || readyToSave ? { disabled: true } : {}} onChange={function (e) { setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); }} required>
-                                            {
-                                                products.map((item) => (
-                                                    <option selected={data?.detail_items[i - 1]?.product_id == item.id} key={item.id} value={[item.id, item.price]}>{item.name}</option>
-                                                ))
-                                            }
-                                        </Select>
+                            <hr className="my-6" />
+                            <div key={data.description} className="">
+                                {Array.apply(0, Array(addProductCount)).map(function (x, i) {
+                                    return <div key={i} className="grid grid-cols-12 gap-6 items-end mt-2">
+                                        <h1 className="pb-3 text-base font-medium col-span-1 text-center">barang {++i}</h1>
+                                        <div className="w-full col-span-3">
+                                            <div className="mb-2 block">
+                                                <Label htmlFor="product" value="pilih produk" />
+                                            </div>
+                                            <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" onClick={function (e) { console.log(""); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); setProductType(e.target.value.split(",")[2]); setParentProductId(parseInt(e.target.value.split(",")[3])); }} required>
+                                                {
+                                                    products.map((item) => (
+                                                        <option selected={item.data.id} key={item.data.name} value={[item.data.id, item.data.price, item.data.type, item.data.product_id]}>{item.data.name}</option>
+                                                    ))
+                                                }
+                                            </Select>
 
-                                    </div>
-                                    <div className="col-span-1">
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="amount" value="jumlah" />
                                         </div>
-                                        <TextInput {...i != addProductCount || readyToSave ? { disabled: true } : {}} value={data?.detail_items[i - 1]?.amount} onChange={function (e) { setAmount(e.target.value); }} id="amount" type="number" placeholder="" required />
-                                    </div>
-                                    <div className="col-span-2">
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="" value="harga satuan" />
+                                        <div className="col-span-1">
+                                            <div className="mb-2 block">
+                                                <Label htmlFor="amount" value="jumlah" />
+                                            </div>
+                                            <TextInput {...i != addProductCount || readyToSave ? { disabled: true } : {}} value={data?.detail_items[i - 1]?.amount} onChange={function (e) { setAmount(e.target.value); }} id="amount" type="number" placeholder="" required />
                                         </div>
-                                        <TextInput readOnly disabled id="" type="text" value={i < addProductCount ?  priceList[i - 1] / data?.detail_items[i - 1]?.amount : price} />
-                                    </div>
-                                    <div className="col-span-2">
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="" value="harga total" />
-                                        </div>
-                                        <TextInput readOnly disabled id="" type="text" value={!priceList[i - 1] ? price : priceList[i - 1]} />
-                                    </div>
-                                    {
-                                        i == addProductCount && !readyToSave &&
                                         <div className="col-span-2">
-                                            <button className="text-2xl text-red-500" onClick={() => eraseItem()}> <RiDeleteBack2Fill /> </button>
-                                            {/* <button className="text-2xl text-secondary-light" onClick={() => { setData('detail_item', [...data.detail_item, { product_id: productId, amount: amount, unit_id: unitId, price: price }]) }}> <FaCheck /> </button> */}
+                                            <div className="mb-2 block">
+                                                <Label htmlFor="" value="harga satuan" />
+                                            </div>
+                                            <TextInput readOnly disabled id="" type="text" value={i < addProductCount ? priceList[i - 1] / data?.detail_items[i - 1]?.amount : price} />
                                         </div>
-                                    }
-                                </div>;
-                            })}
-                        </div>
-                        <div className="flex justify-between mt-6">
-                            <div className=""></div>
-                            {
-                                !readyToSave &&
-                                <button className="px-3 text-4xl font-bold " onClick={function () { addItem(); setPriceList([...priceList, parseInt(price) * amount]) }}>+</button>
-                            }
-                            <Button color="primary" onClick={readyToSave ? submit : function () { finishData(); }}>{readyToSave ? 'simpan' : 'selesai'}</Button>
-                        </div>
-                    </form>
-                </div>
-            </Flowbite>
+                                        <div className="col-span-2">
+                                            <div className="mb-2 block">
+                                                <Label htmlFor="" value="harga total" />
+                                            </div>
+                                            <TextInput readOnly disabled id="" type="text" value={!priceList[i - 1] ? price : priceList[i - 1]} />
+                                        </div>
+                                        {
+                                            i == addProductCount && !readyToSave &&
+                                            <div className="col-span-2">
+                                                <button className="text-2xl text-red-500" onClick={() => eraseItem()}> <RiDeleteBack2Fill /> </button>
+                                                {/* <button className="text-2xl text-secondary-light" onClick={() => { setData('detail_item', [...data.detail_item, { product_id: productId, amount: amount, unit_id: unitId, price: price }]) }}> <FaCheck /> </button> */}
+                                            </div>
+                                        }
+                                    </div>;
+                                })}
+                            </div>
+                            <div className="flex justify-between mt-6">
+                                <div className=""></div>
+                                {
+                                    !readyToSave &&
+                                    <button className="px-3 text-4xl font-bold " onClick={function () { addItem(); setPriceList([...priceList, parseInt(price) * amount]) }}>+</button>
+                                }
+                                <Button color="primary" onClick={readyToSave ? submit : function () { finishData(); }}>{readyToSave ? 'simpan' : 'selesai'}</Button>
+                            </div>
+                        </form>
+                    </div>
+                </Flowbite>
             </Admin>
         </div>
     )
