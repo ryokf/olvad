@@ -59,7 +59,7 @@ class OutcomeController extends Controller
 
     public function store(Request $request, Outcome $outcome, OutcomeDetail $outcomeDetail, OutcomeBuy $outcomeBuy, OutcomeSocial $outcomeSocial)
     {
-        return $request;
+        // return $request;
 
         $request->validate([
             'type' => 'required',

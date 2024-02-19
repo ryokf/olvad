@@ -80,6 +80,7 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
         setAddProductCount(1)
         setData('detail_item', [])
         setPriceList([])
+        location.reload()
     }
 
     console.log(data)
@@ -139,7 +140,7 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
                                         <div className="mb-2 block">
                                             <Label htmlFor="product" value="pilih produk" />
                                         </div>
-                                        <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" onChange={function (e) { console.log(""); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); setProductType(e.target.value.split(",")[2]); setParentProductId(parseInt(e.target.value.split(",")[3])); }} required>
+                                        <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" onClick={function (e) { console.log(""); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); setProductType(e.target.value.split(",")[2]); setParentProductId(parseInt(e.target.value.split(",")[3])); }} required>
                                             {
                                                 dataGet.product.map((item) => (
                                                     <option selected={item.data.id} key={item.data.name} value={[item.data.id, item.data.price, item.data.type, item.data.product_id]}>{item.data.name}</option>

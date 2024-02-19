@@ -111,6 +111,8 @@ class OutcomeService
 
     public function storeSocial($request, $outcome, $outcomeSocial, $outcomeDetail)
     {
+        // dd($request);
+
         $total = 0;
         foreach ($request->detail_item as $item) {
             if($item['type'] == 'flavor'){
@@ -123,8 +125,6 @@ class OutcomeService
                 dd('p');
             }
         }
-
-        dd($total);
 
         DB::beginTransaction();
         try {
@@ -149,7 +149,7 @@ class OutcomeService
                 OutcomeSocialDetail::create([
                     'outcome_detail_id' => ++$outcomeDetailId,
                     'outcome_social_id' => $outcomeSocial->select('id')->latest()->first()->id,
-                    'product_id' => $item['product_id'],
+                    'product_id' => $item['parentProductId'],
                 ]);
             }
 
