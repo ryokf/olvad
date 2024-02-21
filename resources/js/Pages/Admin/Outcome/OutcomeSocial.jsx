@@ -6,8 +6,6 @@ import DataOption from "./DataOption";
 import { useForm } from '@inertiajs/react'
 import CustomTheme from "../../../theme/CustomTheme";
 import { RiDeleteBack2Fill } from "react-icons/ri";
-import { Link } from '@inertiajs/react'
-import { MdDelete } from "react-icons/md";
 import DeleteConfirm from "../../../Components/DeleteConfirm";
 
 const OutcomeSocialData = (data) => {
