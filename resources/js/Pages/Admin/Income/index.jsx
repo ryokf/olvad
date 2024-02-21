@@ -11,6 +11,7 @@ import { usePage } from '@inertiajs/react'
 import CustomTheme from "../../../theme/CustomTheme";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import DateFormat from "../../../Helper/DateFormat";
+import DataOption from "./DataOption";
 
 const IncomeData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -97,8 +98,8 @@ export default function Index({ incomes, products, customers }) {
     return (
         <div className="">
             <Admin title="Pemasukan" bannerMessage={flash} subtitle={`${date.day}, ${date.dateNumber} ${date.month} ${date.year}`}>
-                <div className="">
-                    <TableComp head={["#", "tanggal", "deskripsi", "pelanggan", "total", ""]} tableContent={IncomeData(incomes.data)} isPageable IsSearchable paginationData={incomes.meta}></TableComp>
+                <div className="my-2">
+                    <TableComp optionButton={DataOption()} title={"data pemasukan"} head={["#", "tanggal", "deskripsi", "pelanggan", "total", ""]} tableContent={IncomeData(incomes.data)} isPageable IsSearchable paginationData={incomes.meta}></TableComp>
                 </div>
                 <Flowbite theme={{ theme: CustomTheme }}>
                     <div className="my-6 p-4 min-h-min bg-white">
