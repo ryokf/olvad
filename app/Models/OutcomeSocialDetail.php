@@ -28,11 +28,31 @@ class OutcomeSocialDetail extends Model
         return $this->belongsTo(OutcomeSocial::class);
     }
 
+    // /**
+    //  * Get the product that owns the OutcomeSocialDetail
+    //  */
+    // public function product(): BelongsTo
+    // {
+    //     return $this->belongsTo(Product::class);
+    // }
+
     /**
-     * Get the product that owns the OutcomeSocialDetail
+     * Get the productFlavor that owns the OutcomeSocialDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function product(): BelongsTo
+    public function productFlavor(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(ProductFlavor::class, 'variant_product_id', 'id');
+    }
+
+    /**
+     * Get the productSize that owns the OutcomeSocialDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function productSize(): BelongsTo
+    {
+        return $this->belongsTo(ProductSize::class, 'variant_product_id', 'id');
     }
 }

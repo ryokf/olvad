@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('outcome_detail_id')->constrained()->onDelete('cascade');
             $table->foreignId('outcome_social_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->integer('variant_product_id')->constrained()->onDelete('cascade');
+            $table->string('product_type');
             $table->timestamps();
         });
     }

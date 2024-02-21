@@ -150,7 +150,8 @@ class OutcomeService
                     'outcome_detail_id' => ++$outcomeDetailId,
                     'outcome_social_id' => $outcomeSocial->select('id')->latest()->first()->id,
                     'product_id' => $item['parentProductId'],
-                    'variant_product_id' => $item['product_id']
+                    'variant_product_id' => $item['product_id'],
+                    'product_type' => $item['type'],
                 ]);
             }
 

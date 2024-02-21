@@ -40,7 +40,7 @@ class IncomeService
                 $price = ProductSize::select('price')->where('id', $item['product_id'])->first()->price;
                 $total += $price * $item['amount'];
             } else {
-                dd('p');
+                dd('woilah');
             }
         }
 
