@@ -20,11 +20,31 @@ class IncomeDetail extends Model
         return $this->belongsTo(Income::class);
     }
 
+    // /**
+    //  * Get the product that owns the IncomeDetail
+    //  */
+    // public function product(): BelongsTo
+    // {
+    //     return $this->belongsTo(Product::class);
+    // }
+
     /**
-     * Get the product that owns the IncomeDetail
+     * Get the productFlavor that owns the IncomeDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function product(): BelongsTo
+    public function productFlavor(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(ProductFlavor::class, 'variant_product_id', 'id');
+    }
+
+    /**
+     * Get the productSize that owns the IncomeDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function productSize(): BelongsTo
+    {
+        return $this->belongsTo(ProductSize::class, 'variant_product_id', 'id');
     }
 }

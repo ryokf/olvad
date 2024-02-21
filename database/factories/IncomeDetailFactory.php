@@ -20,6 +20,8 @@ class IncomeDetailFactory extends Factory
             'income_id' => $this->faker->numberBetween(1, 40),
             'product_id' => $this->faker->numberBetween(1, 10),
             'amount' => $this->faker->numberBetween(1, 20),
+            'variant_product_id' => $this->faker->numberBetween(1, 10),
+            'product_type' => $this->faker->randomElement(['flavor', 'size'])
         ];
     }
 }

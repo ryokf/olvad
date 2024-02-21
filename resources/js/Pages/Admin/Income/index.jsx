@@ -45,7 +45,7 @@ const IncomeData = (dataGet) => {
 }
 
 export default function Index({ incomes, products, customers }) {
-    console.log(products)
+    // console.log(products)
     const { flash } = usePage().props
     let [addProductCount, setAddProductCount] = useState(1);
 
@@ -65,7 +65,7 @@ export default function Index({ incomes, products, customers }) {
     const [priceList, setPriceList] = useState([])
     const [readyToSave, setReadyToSave] = useState(false)
 
-    console.log(priceList)
+    // console.log(priceList)
 
     function addItem() {
         setAddProductCount(addProductCount + 1)

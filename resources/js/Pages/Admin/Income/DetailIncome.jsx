@@ -1,4 +1,3 @@
-'use client';
 import { Button, Flowbite, Modal, Table } from 'flowbite-react';
 import React, { useState } from 'react';
 import TableComp from '../../../Components/Table';
@@ -7,20 +6,21 @@ import CustomTheme from '../../../theme/CustomTheme';
 
 const DetailItemData = (data) => {
     return data.map(function (item, index) {
+        console.log(item)
         return (
             <Table.Row key={item.id} className="bg-white border-none dark:bg-gray-800">
                 <Table.Cell>{++index}</Table.Cell>
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                    { item.product.name }
+                    { item.detail_item.name }
                 </Table.Cell>
                 <Table.Cell className="">
                     {item.amount}
                 </Table.Cell>
                 <Table.Cell className="">
-                    Rp{item.product.price}
+                    Rp{item.detail_item.price}
                 </Table.Cell>
                 <Table.Cell className="">
-                    Rp{item.product.price * item.amount}
+                    Rp{item.detail_item.price * item.amount}
                 </Table.Cell>
             </Table.Row>
         )

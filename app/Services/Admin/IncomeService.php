@@ -29,6 +29,8 @@ class IncomeService
 
     public function storeData($request, $income)
     {
+        // dd($request);
+
         $total = 0;
         foreach ($request->detail_items as $item) {
             if($item['type'] == 'flavor'){
@@ -58,6 +60,8 @@ class IncomeService
                     'income_id' => $incomeId,
                     'amount' => $item['amount'],
                     'product_id' => $item['parentProductId'],
+                    'variant_product_id' => $item['product_id'],
+                    'product_type' => $item['type'],
                 ]);
             }
             DB::commit();

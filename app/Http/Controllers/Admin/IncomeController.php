@@ -29,6 +29,8 @@ class IncomeController extends Controller
         $data = $this->incomeService->getData($income, $customer);
         $incomes = $data['incomes'];
 
+        // return $incomes;
+
         $productFlavor = ProductFlavorResource::collection($productFlavor->with('product')->get(), true);
         $productSize = ProductSizeResource::collection($productSize->with('product')->get(), false);
         $products = Arr::flatten([Arr::flatten($productFlavor), Arr::flatten($productSize)]);

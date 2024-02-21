@@ -13,7 +13,7 @@ class ProductSizeSeeder extends Seeder
     public function run(): void
     {
         ProductSize::factory()
-            ->count(7)
+            ->count(10)
             ->create();
     }
 }
