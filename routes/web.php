@@ -32,7 +32,7 @@ Route::controller(DashboardController::class)->group(function () {
 });
 
 Route::controller(ProductController::class)->group(function () {
-    Route::get('/admin/product', 'index');
+    Route::get('/admin/product', 'index')->name('admin.product.index');
     Route::post('/admin/product', 'store');
     Route::put('/admin/product/', 'update');
     Route::delete('/admin/product/', 'destroy');

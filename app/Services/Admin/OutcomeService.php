@@ -59,8 +59,6 @@ class OutcomeService
             $total += $item['price'] * $item['amount'];
         }
 
-        // dd($total);
-
         DB::beginTransaction();
         try {
             Outcome::create([

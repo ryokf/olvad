@@ -18,6 +18,7 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'category' => $this->category->name,
+            'category_id' => $this->category->id,
             'image' => $this->image,
             'description' => $this->description,
             'flavor' => $this->productFlavors->count() > 0 ? ProductFlavorResource::collection($this->productFlavors) : null,
