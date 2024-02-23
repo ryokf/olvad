@@ -36,6 +36,7 @@ Route::controller(ProductController::class)->group(function () {
     Route::post('/admin/product', 'store');
     Route::put('/admin/product/', 'update');
     Route::delete('/admin/product/', 'destroy');
+    Route::delete('/admin/product_variant/', 'destroyVariant');
 });
 
 Route::controller(OutcomeController::class)->group(function () {

@@ -19,7 +19,7 @@ function VariantData(dataGet) {
                 {item.price}
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex gap-4">
-                <DeleteConfirm id={item.id} href={"/admin/product"}></DeleteConfirm>
+                <DeleteConfirm id={item.id} href={"/admin/product_variant"}></DeleteConfirm>
             </Table.Cell>
         </Table.Row>
     ))
