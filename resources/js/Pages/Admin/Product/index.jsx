@@ -82,7 +82,7 @@ export default function Product({ products, categories }) {
         setReadyToSave(false)
         setAddVariantCount(1)
         setData('variant_products', [])
-        // location.reload()
+        location.reload()
     }
 
     return (

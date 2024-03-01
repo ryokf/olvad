@@ -58,11 +58,12 @@ export default function Index({ incomes, products, customers }) {
         detail_items: [],
     })
 
-    const [productId, setProductId] = useState(products[products.length - 1].data.id)
-    const [parentProductId, setParentProductId] = useState(products[products.length - 1].data.product_id)
+    // const [productId, setProductId] = useState(products[products.length - 1].data.id)
+    const [productId, setProductId] = useState(1)
+    const [parentProductId, setParentProductId] = useState(1)
     const [amount, setAmount] = useState(0)
-    const [price, setPrice] = useState(products[products.length - 1].data.price)
-    const [productType, setProductType] = useState(products[products.length - 1].data.type)
+    const [price, setPrice] = useState(1)
+    const [productType, setProductType] = useState(1)
     const [priceList, setPriceList] = useState([])
     const [readyToSave, setReadyToSave] = useState(false)
 
@@ -92,7 +93,7 @@ export default function Index({ incomes, products, customers }) {
         setReadyToSave(false)
         setAddProductCount(1)
         setData('detail_items', [])
-        // location.reload()
+        location.reload()
     }
 
     return (

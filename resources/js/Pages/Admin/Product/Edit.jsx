@@ -8,7 +8,7 @@ import DeleteConfirm from '../../../Components/DeleteConfirm';
 import { FaPlus } from "react-icons/fa";
 
 function VariantData(dataGet) {
-    // console.log(dataGet)
+    console.log(dataGet)
     return dataGet.map((item, index) => (
         <Table.Row key={item.id} className="bg-white border-none dark:bg-gray-800">
             <Table.Cell>{++index}</Table.Cell>
@@ -47,8 +47,6 @@ export default function Edit({ dataProduct, categories }) {
         put('/admin/product')
         // location.reload()
     }
-
-    console.log(data.variant_products[0]);
 
     return (
         <>
