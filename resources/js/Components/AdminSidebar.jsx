@@ -12,7 +12,7 @@ import { GoGear } from "react-icons/go";
 
 const AdminSidebarComp = () => {
     const route = [
-        { name: "Dashboard", href: "/admin", icon: FaChartBar },
+        { name: "Dashboard", href: "/admin/dashboard", icon: FaChartBar },
         { name: "Product", href: "/admin/product", icon: RiCake3Fill },
         { name: "Outcome", href: "/admin/outcome/buy", icon: BsBoxArrowUpRight },
         { name: "Income", href: "/admin/income", icon: BsBoxArrowInDownLeft },

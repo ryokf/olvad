@@ -26,10 +26,10 @@ Route::get('/', function () {
     return 'halo';
 });
 
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::controller(DashboardController::class)->group(function () {
-    Route::get('/admin', 'index');
+    Route::get('/admin/dashboard', 'index');
 });
 
 Route::controller(ProductController::class)->group(function () {
