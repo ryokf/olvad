@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('balance');
             $table->integer('income');
             $table->integer('outcome');
-            $table->integer('profit');
+            // $table->integer('profit');
             $table->text('description')->nullable();
             $table->timestamps();
         });

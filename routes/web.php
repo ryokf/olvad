@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\OutcomeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StoreController;
+use App\Http\Controllers\Admin\WalletController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,4 +78,8 @@ Route::controller(CustomerController::class)->group(function () {
 
 Route::controller(SettingController::class)->group(function () {
     Route::get('/admin/setting', 'index');
+});
+
+Route::controller(WalletController::class)->group(function () {
+    Route::post('/admin/wallet', 'store');
 });

@@ -8,6 +8,7 @@ import { BsBoxArrowUpRight, BsBoxArrowInDownLeft } from "react-icons/bs";
 import { GiFlour } from "react-icons/gi";
 import { FaPeopleGroup } from "react-icons/fa6";
 import CustomTheme from "../theme/CustomTheme";
+import { GoGear } from "react-icons/go";
 
 const AdminSidebarComp = () => {
     const route = [
@@ -18,6 +19,7 @@ const AdminSidebarComp = () => {
         { name: "Ingredient", href: "/admin/ingredient", icon: GiFlour },
         { name: "Store", href: "/admin/store", icon: FaStore },
         { name: "Customer", href: "/admin/customer", icon: FaPeopleGroup },
+        { name: "Setting", href: "/admin/setting", icon: GoGear },
     ];
 
     return (

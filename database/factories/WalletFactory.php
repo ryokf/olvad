@@ -24,7 +24,7 @@ class WalletFactory extends Factory
             'balance' => 10000000,
             'income' => 0,
             'outcome' => 0,
-            'profit' => 0,
+            // 'profit' => 0,
             'description' => fake()->sentence(),
         ];
     }
