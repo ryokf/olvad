@@ -45,6 +45,12 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
         }
     )
 
+    if(dataGet.product.length == 0 || dataGet.customer.length == 0) {
+        return(
+            <div className="flex justify-center items-center">daftar produk atau pelanggan masih kosong</div>
+        )
+    }
+
     const [productId, setProductId] = useState(dataGet.product[dataGet.product.length - 1].data.id)
     const [parentProductId, setParentProductId] = useState(dataGet.product[dataGet.product.length - 1].data.product_id)
     const [amount, setAmount] = useState(0)
@@ -53,6 +59,8 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
     const [productType, setProductType] = useState(dataGet.product[dataGet.product.length - 1].data.type)
     const [priceList, setPriceList] = useState([])
     const [readyToSave, setReadyToSave] = useState(false)
+
+    console.log(dataGet.product)
     function addItem() {
         setAddProductCount(addProductCount + 1)
         setData('detail_item', [...data.detail_item, { product_id: productId, amount: amount, unit_id: unitId, type: productType, parentProductId: parentProductId },])
@@ -76,9 +84,13 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
         post('/admin/outcome')
         setReadyToSave(false)
         setAddProductCount(1)
+        setData('description', '')
+        setData('customer_id', 1)
+        setData('type', 'social')
+        setData('total_cost', 0)
         setData('detail_item', [])
         setPriceList([])
-        location.reload()
+        // location.reload()
     }
 
     console.log(data)

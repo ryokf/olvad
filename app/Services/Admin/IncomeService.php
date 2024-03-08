@@ -5,9 +5,9 @@ namespace App\Services\Admin;
 use App\Http\Resources\Income\IncomeResource;
 use App\Models\Income;
 use App\Models\IncomeDetail;
-use App\Models\Product;
 use App\Models\ProductFlavor;
 use App\Models\ProductSize;
+use App\Models\Wallet;
 use Illuminate\Support\Facades\DB;
 
 class IncomeService
@@ -33,10 +33,10 @@ class IncomeService
 
         $total = 0;
         foreach ($request->detail_items as $item) {
-            if($item['type'] == 'flavor'){
+            if ($item['type'] == 'flavor') {
                 $price = ProductFlavor::select('price')->where('id', $item['product_id'])->first()->price;
                 $total += $price * $item['amount'];
-            } elseif($item['type'] == 'size'){
+            } elseif ($item['type'] == 'size') {
                 $price = ProductSize::select('price')->where('id', $item['product_id'])->first()->price;
                 $total += $price * $item['amount'];
             } else {
@@ -64,6 +64,13 @@ class IncomeService
                     'product_type' => $item['type'],
                 ]);
             }
+
+            Wallet::create([
+                'balance' => Wallet::select('balance')->latest()->first()->balance + $total,
+                'outcome' => Wallet::select('outcome')->latest()->first()->outcome,
+                'income' => Wallet::select('income')->latest()->first()->income + $total,
+                'description' => 'menambah pemasukan',
+            ]);
             DB::commit();
 
             return true;

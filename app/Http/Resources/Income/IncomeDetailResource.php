@@ -4,7 +4,6 @@ namespace App\Http\Resources\Income;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Arr;
 
 class IncomeDetailResource extends JsonResource
 {
@@ -19,7 +18,7 @@ class IncomeDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'amount' => $this->amount,
-            'detail_item' =>  $this->product_type == 'flavor' ? new ProductFlavorResource($this->productFlavor) : new ProductSizeResource($this->productSize),
+            'detail_item' => $this->product_type == 'flavor' ? new ProductFlavorResource($this->productFlavor) : new ProductSizeResource($this->productSize),
         ];
     }
 }

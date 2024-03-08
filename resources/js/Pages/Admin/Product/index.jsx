@@ -81,8 +81,12 @@ export default function Product({ products, categories }) {
         post('/admin/product')
         setReadyToSave(false)
         setAddVariantCount(1)
+        setData('name', '')
+        setData('category_id', 1)
+        setData('description', '')
+        setData('image', '')
+        setData('type', 'flavor')
         setData('variant_products', [])
-        location.reload()
     }
 
     return (

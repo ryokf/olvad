@@ -17,7 +17,7 @@ class ProductSizeResource extends JsonResource
         return [
             'id' => $this->id,
             'product_id' => $this->product_id,
-            'name' => $this->product->name . ' (' . $this->size . ')',
+            'name' => $this->product->name.' ('.$this->size.')',
             'price' => $this->price,
             'type' => 'size',
         ];

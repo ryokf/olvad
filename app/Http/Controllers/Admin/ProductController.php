@@ -51,13 +51,13 @@ class ProductController extends Controller
                     $productFlavor->create([
                         'product_id' => $product_id,
                         'flavor' => $variant['variant'],
-                        'price' => $variant['price']
+                        'price' => $variant['price'],
                     ]);
                 } elseif ($request->type == 'size') {
                     $productSize->create([
                         'product_id' => $product_id,
                         'size' => $variant['variant'],
-                        'price' => $variant['price']
+                        'price' => $variant['price'],
                     ]);
                 } else {
                     dd('woilah');
@@ -80,8 +80,6 @@ class ProductController extends Controller
             'category_id' => 'required',
         ]);
 
-
-
         $product->where('id', $request->id)->update([
             'name' => $request->name,
             'description' => $request->description,
@@ -95,13 +93,13 @@ class ProductController extends Controller
                 $productFlavor->create([
                     'product_id' => $request->id,
                     'flavor' => $variant['flavor'],
-                    'price' => $variant['price']
+                    'price' => $variant['price'],
                 ]);
             } elseif ($request->type == 'size' && !$productSize->where('product_id', $request->id)->where('size', $variant['size'])->exists()) {
                 $productSize->create([
                     'product_id' => $request->id,
                     'size' => $variant['size'],
-                    'price' => $variant['price']
+                    'price' => $variant['price'],
                 ]);
             }
         }
@@ -118,12 +116,29 @@ class ProductController extends Controller
 
     public function destroyVariant(Request $request, ProductFlavor $productFlavor, ProductSize $productSize)
     {
+        // dd($request);
+
+        $flavorCount = $productFlavor->count();
+        $sizeCount = $productSize->count();
+
         if ($request->type == 'flavor') {
             $productFlavor->where('id', $request->id)->delete();
         } elseif ($request->type == 'size') {
             $productSize->where('id', $request->id)->delete();
+        } else {
+            dd('woilah');
         }
 
-        return redirect()->route('admin.product.index')->with('message', 'Product updated successfully');
+        if ($flavorCount == $productFlavor->count() && $sizeCount == $productSize->count()) {
+            if ($request->type == 'flavor') {
+                $productFlavor->where('id', $request->id)->delete();
+            } elseif ($request->type == 'size') {
+                $productSize->where('id', $request->id)->delete();
+            } else {
+                dd('woilah');
+            }
+        }
+
+        return redirect()->to('/admin/dashboard')->with('message', 'Product variant deleted successfully');
     }
 }

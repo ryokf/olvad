@@ -20,7 +20,7 @@ class OutcomeSocialDetailFactory extends Factory
             'outcome_detail_id' => fake()->unique()->numberBetween(71, 100),
             'outcome_social_id' => fake()->numberBetween(1, 10),
             'variant_product_id' => $this->faker->numberBetween(1, 10),
-            'product_type' => $this->faker->randomElement(['flavor', 'size'])
+            'product_type' => $this->faker->randomElement(['flavor', 'size']),
         ];
     }
 }

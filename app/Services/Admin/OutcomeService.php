@@ -10,7 +10,6 @@ use App\Models\OutcomeBuyDetail;
 use App\Models\OutcomeDetail;
 use App\Models\OutcomeSocial;
 use App\Models\OutcomeSocialDetail;
-use App\Models\Product;
 use App\Models\ProductFlavor;
 use App\Models\ProductSize;
 use App\Models\Wallet;
@@ -74,7 +73,7 @@ class OutcomeService
                 'reciepe' => $path,
             ]);
 
-            $outcomeDetailId = $outcomeDetail->select('id')->orderBy('id', 'desc')->first()->id;
+            $outcomeDetailId = $outcomeDetail->select('id')?->orderBy('id', 'desc')?->first()?->id == null ? 0 : $outcomeDetail->select('id')->orderBy('id', 'desc')->first()->id;
 
             foreach ($request->detail_item as $item) {
                 OutcomeDetail::create([
@@ -94,7 +93,6 @@ class OutcomeService
                 'balance' => Wallet::select('balance')->latest()->first()->balance - $request->total_cost,
                 'outcome' => Wallet::select('outcome')->latest()->first()->outcome + $request->total_cost,
                 'income' => Wallet::select('income')->latest()->first()->income,
-                'profit' => Wallet::select('profit')->latest()->first()->profit,
                 'description' => 'melakukan pembelian',
             ]);
 
@@ -113,10 +111,10 @@ class OutcomeService
 
         $total = 0;
         foreach ($request->detail_item as $item) {
-            if($item['type'] == 'flavor'){
+            if ($item['type'] == 'flavor') {
                 $price = ProductFlavor::select('price')->where('id', $item['product_id'])->first()->price;
                 $total += $price * $item['amount'];
-            } elseif($item['type'] == 'size'){
+            } elseif ($item['type'] == 'size') {
                 $price = ProductSize::select('price')->where('id', $item['product_id'])->first()->price;
                 $total += $price * $item['amount'];
             } else {
@@ -136,7 +134,7 @@ class OutcomeService
                 'customer_id' => $request->customer_id,
             ]);
 
-            $outcomeDetailId = $outcomeDetail->select('id')->orderBy('id', 'desc')->first()->id;
+            $outcomeDetailId = $outcomeDetail->select('id')?->orderBy('id', 'desc')?->first()?->id == null ? 0 : $outcomeDetail->select('id')->orderBy('id', 'desc')->first()->id;
 
             foreach ($request->detail_item as $item) {
                 OutcomeDetail::create([
@@ -157,7 +155,6 @@ class OutcomeService
                 'balance' => Wallet::select('balance')->latest()->first()->balance - $request->total_cost,
                 'outcome' => Wallet::select('outcome')->latest()->first()->outcome + $request->total_cost,
                 'income' => Wallet::select('income')->latest()->first()->income,
-                'profit' => Wallet::select('profit')->latest()->first()->profit,
                 'description' => 'melakukan bantuan',
             ]);
 
@@ -183,7 +180,6 @@ class OutcomeService
                 'balance' => Wallet::select('balance')->latest()->first()->balance + $total_cost,
                 'outcome' => Wallet::select('outcome')->latest()->first()->outcome - $total_cost,
                 'income' => Wallet::select('income')->latest()->first()->income,
-                'profit' => Wallet::select('profit')->latest()->first()->profit,
                 'description' => 'menghapus pengeluaran',
             ]);
             DB::commit();

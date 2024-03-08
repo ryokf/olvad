@@ -46,11 +46,19 @@ const IncomeData = (dataGet) => {
 }
 
 export default function Index({ incomes, products, customers }) {
+
+    const date = DateFormat();
+    if(products.length == 0 || customers.length == 0) {
+        return (
+            <Admin title="Pemasukan" subtitle={`${date.day}, ${date.dateNumber} ${date.month} ${date.year}`}>
+                <div className="flex justify-center">daftar produk atau pelanggan masih kosong</div>
+            </Admin>
+        )
+    }
     // console.log(products)
     const { flash } = usePage().props
     let [addProductCount, setAddProductCount] = useState(1);
 
-    const date = DateFormat();
 
     const { data, setData, post, processing, errors } = useForm({
         description: '',
@@ -58,12 +66,14 @@ export default function Index({ incomes, products, customers }) {
         detail_items: [],
     })
 
+    console.log(products)
+
     // const [productId, setProductId] = useState(products[products.length - 1].data.id)
-    const [productId, setProductId] = useState(1)
-    const [parentProductId, setParentProductId] = useState(1)
+    const [productId, setProductId] = useState(products[products.length - 1].data.id)
+    const [parentProductId, setParentProductId] = useState(products[products.length - 1].data.product_id)
     const [amount, setAmount] = useState(0)
-    const [price, setPrice] = useState(1)
-    const [productType, setProductType] = useState(1)
+    const [price, setPrice] = useState(products[products.length - 1].data.price)
+    const [productType, setProductType] = useState(products[products.length - 1].data.type)
     const [priceList, setPriceList] = useState([])
     const [readyToSave, setReadyToSave] = useState(false)
 
@@ -93,7 +103,7 @@ export default function Index({ incomes, products, customers }) {
         setReadyToSave(false)
         setAddProductCount(1)
         setData('detail_items', [])
-        location.reload()
+        // location.reload()
     }
 
     return (

@@ -17,7 +17,7 @@ class ProductFlavorResource extends JsonResource
         return [
             'id' => $this->id,
             'product_id' => $this->product_id,
-            'name' => $this->product->name . ' (' . $this->flavor . ')',
+            'name' => $this->product->name.' ('.$this->flavor.')',
             'price' => $this->price,
             'type' => 'flavor',
         ];

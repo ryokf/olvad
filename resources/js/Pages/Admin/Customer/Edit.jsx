@@ -1,8 +1,8 @@
 import { Button, Modal } from 'flowbite-react';
 import React, { useState } from 'react';
 import { FaEdit } from "react-icons/fa";
-import { useForm, Link } from '@inertiajs/react'
-import { Table, Label, Select, TextInput, Flowbite } from 'flowbite-react';
+import { useForm } from '@inertiajs/react'
+import { Label, TextInput } from 'flowbite-react';
 
 export default function Edit({ dataCustomer }) {
     const [openModal, setOpenModal] = useState(false);

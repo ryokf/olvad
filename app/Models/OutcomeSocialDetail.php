@@ -38,8 +38,6 @@ class OutcomeSocialDetail extends Model
 
     /**
      * Get the productFlavor that owns the OutcomeSocialDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function productFlavor(): BelongsTo
     {
@@ -48,8 +46,6 @@ class OutcomeSocialDetail extends Model
 
     /**
      * Get the productSize that owns the OutcomeSocialDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function productSize(): BelongsTo
     {

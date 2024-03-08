@@ -42,18 +42,25 @@ const OutcomeBuyData = (dataGet) => {
 export default function OutcomeBuy({ dataGet, paginationData }) {
     let [addIngredientCount, setAddIngredientCount] = useState(1);
 
+    console.log(dataGet)
+
+    if(dataGet.ingredient.length == 0 || dataGet.store.length == 0) {
+        return(
+            <div className="flex justify-center items-center">daftar bahan atau toko masih kossong</div>
+        )
+    }
 
     const { data, setData, post, processing, errors } = useForm(
         {
             type: 'buy',
             description: '',
-            store_id: 1,
+            store_id: dataGet.store[dataGet.store.length - 1].id,
             reciepe: '',
             detail_item: []
         }
     )
 
-    const [ingredientId, setIngredientId] = useState(1)
+    const [ingredientId, setIngredientId] = useState(dataGet.ingredient[dataGet.ingredient.length - 1].id)
     const [amount, setAmount] = useState(0)
     const [unitId, setUnitId] = useState(1)
     const [price, setPrice] = useState(0)
@@ -80,7 +87,7 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
         post('/admin/outcome')
         setReadyToSave(false)
         setAddIngredientCount(1)
-        location.reload()
+        // location.reload()
     }
 
     return (

@@ -17,7 +17,7 @@ class outcomeSocialDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'product' => $this->product_type == 'flavor' ? new ProductFlavorResource($this->productFlavor) : new ProductSizeResource($this->productSize),
-            'detail_item' => new OutcomeDetailResource($this->outcomeDetail,  $this->product_type == 'flavor' ? $this->productFlavor->price : $this->productSize->price),
+            'detail_item' => new OutcomeDetailResource($this->outcomeDetail, $this->product_type == 'flavor' ? $this->productFlavor->price : $this->productSize->price),
         ];
     }
 }

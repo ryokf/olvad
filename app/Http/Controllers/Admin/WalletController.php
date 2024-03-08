@@ -15,8 +15,7 @@ class WalletController extends Controller
             'balance' => $request->balance,
             'income' => $request->income,
             'outcome' => $request->outcome,
-            'profit' => $request->outcome - $request->income,
-            'description' => 'melakukan edit data manual'
+            'description' => 'melakukan edit data manual',
         ]);
 
         return redirect()->back();

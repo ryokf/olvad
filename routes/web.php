@@ -22,11 +22,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return 'halo';
-});
-
-// Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/admin/dashboard', 'index');
@@ -83,3 +78,7 @@ Route::controller(SettingController::class)->group(function () {
 Route::controller(WalletController::class)->group(function () {
     Route::post('/admin/wallet', 'store');
 });
+
+// Route::post('/admin/income', function () {
+//     return 'halo';
+// });

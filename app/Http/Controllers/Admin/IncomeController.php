@@ -7,12 +7,13 @@ use App\Http\Resources\Income\ProductFlavorResource;
 use App\Http\Resources\Income\ProductSizeResource;
 use App\Models\Customer;
 use App\Models\Income;
-use App\Models\Product;
 use App\Models\ProductFlavor;
 use App\Models\ProductSize;
+use App\Models\Wallet;
 use App\Services\Admin\IncomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class IncomeController extends Controller
@@ -51,8 +52,23 @@ class IncomeController extends Controller
 
     public function destroy(Request $request, Income $income)
     {
-        $income->where('id', $request->id)->delete();
+        $total = $income->select('total_cost')->where('id', $request->id)->first()->total_cost;
 
+        DB::beginTransaction();
+        try {
+            $income->where('id', $request->id)->delete();
+
+            Wallet::create([
+                'balance' => Wallet::select('balance')->latest()->first()->balance - $total,
+                'outcome' => Wallet::select('outcome')->latest()->first()->outcome,
+                'income' => Wallet::select('income')->latest()->first()->income - $total,
+                'description' => 'menghapus pemasukan',
+            ]);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
         return redirect()->back()->with('message', 'data pemasukan berhasil dihapus');
     }
 }

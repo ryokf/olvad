@@ -2,12 +2,10 @@ import React from "react";
 
 import Admin from "../../../Templates/Admin";
 import TableComp from "../../../Components/Table";
-import { Table, Label, Select, Button, TextInput, Flowbite } from 'flowbite-react';
-import { MdDelete } from "react-icons/md";
-import { useForm, Link } from '@inertiajs/react'
+import { Table, Label, Button, TextInput } from 'flowbite-react';
+import { useForm, usePage } from '@inertiajs/react'
 import DeleteConfirm from "../../../Components/DeleteConfirm";
 import Edit from "./Edit";
-import { usePage } from '@inertiajs/react'
 
 const CustomerData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -23,9 +21,6 @@ const CustomerData = (dataGet) => {
                 {item.address}
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex gap-4">
-                {/* <Link href="/admin/ingredient" method="delete" data={{ id: item.id }}>
-                    <Button size={'sm'} color="warning" className="bg-amber-400 hover:bg-red-600 text-white text-xl"><FaEdit /></Button>
-                </Link> */}
                 <Edit dataCustomer={item}></Edit>
                 <DeleteConfirm id={item.id} href={"/admin/customer"}></DeleteConfirm>
             </Table.Cell>
@@ -59,7 +54,7 @@ export default function Index({ customers, success }) {
                 <form onSubmit={submit} className="grid grid-cols-2 gap-2">
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="email1" value="Nama toko" />
+                            <Label htmlFor="email1" value="Nama pelanggan" />
                         </div>
                         <TextInput id="email1" type="text" placeholder="" value={data.name} onChange={e => setData('name', e.target.value)} required />
                         {errors.name && <div className="text-red-500 text-sm">{errors.name}</div>}

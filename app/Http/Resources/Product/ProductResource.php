@@ -22,7 +22,7 @@ class ProductResource extends JsonResource
             'image' => $this->image,
             'description' => $this->description,
             'flavor' => $this->productFlavors->count() > 0 ? ProductFlavorResource::collection($this->productFlavors) : null,
-            'size' => $this->productSizes->count() > 0 ? ProductSizeResource::collection($this->productSizes) : null
+            'size' => $this->productSizes->count() > 0 ? ProductSizeResource::collection($this->productSizes) : null,
         ];
     }
 }

@@ -30,8 +30,6 @@ class IncomeDetail extends Model
 
     /**
      * Get the productFlavor that owns the IncomeDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function productFlavor(): BelongsTo
     {
@@ -40,8 +38,6 @@ class IncomeDetail extends Model
 
     /**
      * Get the productSize that owns the IncomeDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function productSize(): BelongsTo
     {
