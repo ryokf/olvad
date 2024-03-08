@@ -90,8 +90,8 @@ class OutcomeService
             }
 
             Wallet::create([
-                'balance' => Wallet::select('balance')->latest()->first()->balance - $request->total_cost,
-                'outcome' => Wallet::select('outcome')->latest()->first()->outcome + $request->total_cost,
+                'balance' => Wallet::select('balance')->latest()->first()->balance - $total,
+                'outcome' => Wallet::select('outcome')->latest()->first()->outcome + $total,
                 'income' => Wallet::select('income')->latest()->first()->income,
                 'description' => 'melakukan pembelian',
             ]);

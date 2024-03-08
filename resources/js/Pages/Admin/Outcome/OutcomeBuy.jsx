@@ -147,13 +147,14 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                         <hr className="my-6" />
                         <div key={data.description} className="">
                             {Array.apply(0, Array(addIngredientCount)).map(function (x, i) {
+                                console.log(dataGet.ingredient[dataGet.ingredient.length - 1].id)
                                 return <div key={x} className="grid grid-cols-12 gap-6 items-end mt-2">
                                     <h1 className="pb-3 text-base font-medium cols-span-1 text-center">barang {++i}</h1>
                                     <div className="col-span-3">
                                         <div className="mb-2 block">
                                             <Label htmlFor="ingredient" value="pilih bahan" />
                                         </div>
-                                        <Select {...i != addIngredientCount || readyToSave ? { disabled: true } : {}} id="ingredient" value={data?.detail_item[i - 1]?.ingredient_id} onChange={e => setIngredientId(e.target.value)} required>
+                                        <Select {...i != addIngredientCount || readyToSave ? { disabled: true } : {}} id="ingredient" value={data?.detail_item[i - 1]?.ingredient_id == null ? ingredientId : data?.detail_item[i - 1]?.ingredient_id} onChange={e => setIngredientId(e.target.value)} required>
                                             {
                                                 dataGet.ingredient.map((item) => (
                                                     <option key={item.id} value={item.id}>{item.name}</option>

@@ -25,6 +25,8 @@ export default function Edit({ dataStore }) {
         setOpenModal(false)
     }
 
+    console.log(data.pic_name)
+
     return (
         <>
             <Button className='bg-amber-400' size={'sm'} color='warning' onClick={() => setOpenModal(true)}><FaEdit /></Button>
