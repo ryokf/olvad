@@ -40,7 +40,7 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
         {
             type: 'social',
             description: '',
-            customer_id: 1,
+            customer_id: dataGet.customer[dataGet.customer.length - 1].id,
             detail_item: []
         }
     )
@@ -117,7 +117,7 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
                                 <div className="mb-2 block">
                                     <Label htmlFor="customer" value="pilih pelanggan" />
                                 </div>
-                                <Select id="customer" value={dataGet.customer_id} onChange={e => setData('customer_id', e.target.value)} required>
+                                <Select id="customer" value={data.customer_id} onChange={e => setData('customer_id', e.target.value)} required>
                                     {
                                         dataGet.customer.map((store) => {
                                             return (
@@ -150,7 +150,7 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
                                         <div className="mb-2 block">
                                             <Label htmlFor="product" value="pilih produk" />
                                         </div>
-                                        <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" onClick={function (e) { console.log(""); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); setProductType(e.target.value.split(",")[2]); setParentProductId(parseInt(e.target.value.split(",")[3])); }} required>
+                                        <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" onChange={function (e) { console.log(""); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); setProductType(e.target.value.split(",")[2]); setParentProductId(parseInt(e.target.value.split(",")[3])); }} required>
                                             {
                                                 dataGet.product.map((item) => (
                                                     <option selected={item.data.id} key={item.data.name} value={[item.data.id, item.data.price, item.data.type, item.data.product_id]}>{item.data.name}</option>

@@ -48,7 +48,7 @@ const IncomeData = (dataGet) => {
 export default function Index({ incomes, products, customers }) {
 
     const date = DateFormat();
-    if(products.length == 0 || customers.length == 0) {
+    if (products.length == 0 || customers.length == 0) {
         return (
             <Admin title="Pemasukan" subtitle={`${date.day}, ${date.dateNumber} ${date.month} ${date.year}`}>
                 <div className="flex justify-center">daftar produk atau pelanggan masih kosong</div>
@@ -59,14 +59,16 @@ export default function Index({ incomes, products, customers }) {
     const { flash } = usePage().props
     let [addProductCount, setAddProductCount] = useState(1);
 
+    // console.log(customers[customers.length - 1].id)
 
     const { data, setData, post, processing, errors } = useForm({
         description: '',
-        customer_id: 1,
+        customer_id: customers[customers.length - 1].id,
         detail_items: [],
     })
 
-    console.log(products)
+    console.log(data);
+
 
     // const [productId, setProductId] = useState(products[products.length - 1].data.id)
     const [productId, setProductId] = useState(products[products.length - 1].data.id)
@@ -121,7 +123,7 @@ export default function Index({ incomes, products, customers }) {
                                     <div className="mb-2 block">
                                         <Label htmlFor="customer" value="pilih pelanggan" />
                                     </div>
-                                    <Select id="customer" onChange={e => setData('customer_id', e.target.value)} required>
+                                    <Select id="customer" value={data.customer_id} onChange={e => setData('customer_id', e.target.value)} required>
                                         {
                                             customers.map((customer) => {
                                                 return (
@@ -154,7 +156,7 @@ export default function Index({ incomes, products, customers }) {
                                             <div className="mb-2 block">
                                                 <Label htmlFor="product" value="pilih produk" />
                                             </div>
-                                            <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" onClick={function (e) { console.log(""); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); setProductType(e.target.value.split(",")[2]); setParentProductId(parseInt(e.target.value.split(",")[3])); }} required>
+                                            <Select {...i != addProductCount || readyToSave ? { disabled: true } : {}} id="product" onChange={function (e) { console.log(e.target.value.split(",")[0]); setProductId(parseInt(e.target.value.split(",")[0])); setPrice(e.target.value.split(",")[1]); setProductType(e.target.value.split(",")[2]); setParentProductId(parseInt(e.target.value.split(",")[3])); }} required>
                                                 {
                                                     products.map((item) => (
                                                         <option selected={item.data.id} key={item.data.name} value={[item.data.id, item.data.price, item.data.type, item.data.product_id]}>{item.data.name}</option>
