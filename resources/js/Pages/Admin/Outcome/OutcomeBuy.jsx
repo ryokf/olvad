@@ -87,7 +87,7 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
         post('/admin/outcome')
         setReadyToSave(false)
         setAddIngredientCount(1)
-        // location.reload()
+        location.reload()
     }
 
     return (

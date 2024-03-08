@@ -105,7 +105,7 @@ export default function Index({ incomes, products, customers }) {
         setReadyToSave(false)
         setAddProductCount(1)
         setData('detail_items', [])
-        // location.reload()
+        location.reload()
     }
 
     return (

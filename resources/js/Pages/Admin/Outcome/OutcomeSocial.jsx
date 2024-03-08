@@ -90,7 +90,7 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
         setData('total_cost', 0)
         setData('detail_item', [])
         setPriceList([])
-        // location.reload()
+        location.reload()
     }
 
     console.log(data)
