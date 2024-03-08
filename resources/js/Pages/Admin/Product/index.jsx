@@ -91,7 +91,7 @@ export default function Product({ products, categories }) {
 
     return (
         <div className="">
-            <Admin title="Produk" >
+            <Admin title="Produk" bannerMessage={flash}>
                 <div className="">
                     <TableComp isPageable={true} paginationData={products.meta} IsSearchable head={["#", "nama", "kategori", "deskripsi", " "]} tableContent={ProductData(products.data, categories)}></TableComp>
                 </div>
@@ -160,13 +160,13 @@ export default function Product({ products, categories }) {
                                             <div className="mb-2 block">
                                                 <Label htmlFor="amount" value="nama variant" />
                                             </div>
-                                            <TextInput {...i != addVariantCount || readyToSave ? { disabled: true } : {}} value={data?.variant_products[i]?.variant} onChange={e => setVariant(e.target.value)} type="text" placeholder="" required />
+                                            <TextInput {...i != addVariantCount || readyToSave ? { disabled: true } : {}} value={data?.variant_products[i-1]?.variant} onChange={e => setVariant(e.target.value)} type="text" placeholder="" required />
                                         </div>
                                         <div className="col-span-2">
                                             <div className="mb-2 block">
                                                 <Label htmlFor="" value="harga" />
                                             </div>
-                                            <TextInput {...i != addVariantCount || readyToSave ? { disabled: true } : {}} value={data?.variant_products[i]?.product} onChange={e => setPrice(e.target.value)} type="number" />
+                                            <TextInput {...i != addVariantCount || readyToSave ? { disabled: true } : {}} value={data?.variant_products[i - 1]?.product} onChange={e => setPrice(e.target.value)} type="number" />
                                         </div>
                                         {
                                             i == addVariantCount && !readyToSave &&
