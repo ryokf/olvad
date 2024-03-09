@@ -85,9 +85,17 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
     function submit(e) {
         e.preventDefault()
         post('/admin/outcome')
+        setIngredientId(dataGet.ingredient[dataGet.ingredient.length - 1].id)
+        setAmount(0)
+        setUnitId(1)
+        setPrice(0)
+        setData('description', '')
+        setData('store_id', dataGet.store[dataGet.store.length - 1].id)
+        setData('reciepe', '')
+        setData('detail_item', [])
         setReadyToSave(false)
         setAddIngredientCount(1)
-        location.reload()
+        // location.reload()
     }
 
     return (

@@ -104,8 +104,16 @@ export default function Index({ incomes, products, customers }) {
         post('/admin/income')
         setReadyToSave(false)
         setAddProductCount(1)
+        setParentProductId(products[products.length - 1].data.product_id)
+        setProductId(products[products.length - 1].data.id)
+        setPrice(products[products.length - 1].data.price)
+        setAmount(0)
+        setProductType(products[products.length - 1].data.type)
+        setPriceList([])
+        setData('description', '')
+        setData('customer_id', customers[customers.length - 1].id)
         setData('detail_items', [])
-        location.reload()
+        // location.reload()
     }
 
     return (
