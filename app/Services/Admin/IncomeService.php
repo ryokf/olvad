@@ -16,7 +16,7 @@ class IncomeService
     {
         $incomes = $income->with('customer')->with('incomeDetails')->latest()->paginate(10);
         // $products = $product->get();
-        $customers = $customer->get();
+        $customers = $customer->where('is_archived', false)->get();
 
         $incomes = IncomeResource::collection($incomes);
 

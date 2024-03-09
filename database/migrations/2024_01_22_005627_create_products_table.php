@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->text('description');
             $table->string('image');
+            $table->boolean('is_archived')->default(false);
             $table->timestamps();
         });
     }

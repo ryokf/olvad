@@ -11,7 +11,7 @@ class IngredientController extends Controller
 {
     public function index(Ingredient $ingredient)
     {
-        $ingredients = collect($ingredient->latest()->paginate(10));
+        $ingredients = collect($ingredient->where('is_archived', false)->latest()->paginate(10));
 
         return Inertia::render('Admin/Ingredient/index', compact('ingredients'));
     }
@@ -31,7 +31,7 @@ class IngredientController extends Controller
 
     public function destroy(Ingredient $ingredient)
     {
-        $ingredient->where('id', request('id') ?? '')->delete();
+        $ingredient->where('id', request('id') ?? '')->update(['is_archived' => true]);
 
         return redirect()->back()->with('message', 'data bahan berhasil dihapus');
     }

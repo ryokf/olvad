@@ -16,7 +16,7 @@ class ProductController extends Controller
 {
     public function index(Product $product, Category $categories)
     {
-        $products = $product->with('productFlavors')->latest()->paginate(10);
+        $products = $product->where('is_archived', false)->with('productFlavors')->latest()->paginate(10);
         $products = ProductResource::collection($products);
 
         $categories = $categories->get();
@@ -109,7 +109,7 @@ class ProductController extends Controller
 
     public function destroy(Request $request, Product $product)
     {
-        $product->where('id', $request->id)->delete();
+        $product->where('id', $request->id)->update(['is_archived' => true]);
 
         return redirect()->route('admin.product.index')->with('message', 'data produk berhasil dihapus');
     }
@@ -122,18 +122,18 @@ class ProductController extends Controller
         $sizeCount = $productSize->count();
 
         if ($request->type == 'flavor') {
-            $productFlavor->where('id', $request->id)->delete();
+            $productFlavor->where('id', $request->id)->update(['is_archived' => true]);
         } elseif ($request->type == 'size') {
-            $productSize->where('id', $request->id)->delete();
+            $productSize->where('id', $request->id)->update(['is_archived' => true]);
         } else {
             dd('woilah');
         }
 
         if ($flavorCount == $productFlavor->count() && $sizeCount == $productSize->count()) {
             if ($request->type == 'flavor') {
-                $productFlavor->where('id', $request->id)->delete();
+                $productFlavor->where('id', $request->id)->update(['is_archived' => true]);
             } elseif ($request->type == 'size') {
-                $productSize->where('id', $request->id)->delete();
+                $productSize->where('id', $request->id)->update(['is_archived' => true]);
             } else {
                 dd('woilah');
             }

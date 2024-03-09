@@ -11,7 +11,7 @@ class CustomerController extends Controller
 {
     public function index(Customer $customer)
     {
-        $customers = $customer->latest()->paginate(10);
+        $customers = $customer->where('is_archived', false)->latest()->paginate(10);
 
         return Inertia::render('Admin/Customer/index', compact('customers'));
     }
@@ -32,7 +32,7 @@ class CustomerController extends Controller
 
     public function destroy(Request $request, Customer $customer)
     {
-        $customer->where('id', $request->id)->delete();
+        $customer->where('id', $request->id)->update(['is_archived' => true]);
 
         return redirect()->back()->with('message', 'data pelanggan berhasil dihapus');
     }

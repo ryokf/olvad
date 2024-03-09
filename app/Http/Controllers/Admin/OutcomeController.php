@@ -42,12 +42,12 @@ class OutcomeController extends Controller
         Customer $customer
     ) {
         $outcomeData = $this->outcomeService->getData($request, $outcomeBuy, $outcomeSocial);
-        $store = $store->get();
-        $ingredient = $ingredient->get();
+        $store = $store->where('is_archived', false)->get();
+        $ingredient = $ingredient->where('is_archived', false)->get();
         $unit = $unit->get();
-        $productFlavor = ProductFlavorResource::collection($productFlavor->with('product')->get(), true); // $productFlavor->get();
-        $productSize = ProductSizeResource::collection($productSize->with('product')->get(), false); // $productFlavor->get();
-        $customer = $customer->get();
+        $productFlavor = ProductFlavorResource::collection($productFlavor->where('is_archived', false)->with('product')->get(), true); // $productFlavor->get();
+        $productSize = ProductSizeResource::collection($productSize->where('is_archived', false)->with('product')->get(), false); // $productFlavor->get();
+        $customer = $customer->where('is_archived', false)->get();
 
         $product = Arr::flatten([Arr::flatten($productFlavor), Arr::flatten($productSize)]);
         $product = collect($product)->sortBy('product.name')->values()->all();

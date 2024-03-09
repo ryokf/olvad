@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('flavor');
             $table->integer('price');
+            $table->boolean('is_archived')->default(false);
             $table->timestamps();
         });
     }

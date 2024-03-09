@@ -21,8 +21,8 @@ class ProductResource extends JsonResource
             'category_id' => $this->category->id,
             'image' => $this->image,
             'description' => $this->description,
-            'flavor' => $this->productFlavors->count() > 0 ? ProductFlavorResource::collection($this->productFlavors) : null,
-            'size' => $this->productSizes->count() > 0 ? ProductSizeResource::collection($this->productSizes) : null,
+            'flavor' => $this->productFlavors->count() > 0 ? ProductFlavorResource::collection($this->productFlavors->where('is_archived', false)) : null,
+            'size' => $this->productSizes->count() > 0 ? ProductSizeResource::collection($this->productSizes->where('is_archived', false)) : null,
         ];
     }
 }

@@ -11,7 +11,7 @@ class StoreController extends Controller
 {
     public function index(Store $store)
     {
-        $stores = $store->latest()->paginate(10);
+        $stores = $store->where('is_archived', false)->latest()->paginate(10);
 
         return Inertia::render('Admin/Store/index', compact('stores'));
     }
@@ -32,7 +32,7 @@ class StoreController extends Controller
 
     public function destroy(Store $store, Request $request)
     {
-        $store->where('id', $request->id)->delete();
+        $store->where('id', $request->id)->update(['is_archived' => true]);
 
         return redirect()->back()->with('message', 'data toko berhasil dihapus');
     }

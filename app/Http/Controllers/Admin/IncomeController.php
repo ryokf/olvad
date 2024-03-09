@@ -32,8 +32,8 @@ class IncomeController extends Controller
 
         // return $incomes;
 
-        $productFlavor = ProductFlavorResource::collection($productFlavor->with('product')->get(), true);
-        $productSize = ProductSizeResource::collection($productSize->with('product')->get(), false);
+        $productFlavor = ProductFlavorResource::collection($productFlavor->where('is_archived', false)->with('product')->get(), true);
+        $productSize = ProductSizeResource::collection($productSize->where('is_archived', false)->with('product')->get(), false);
         $products = Arr::flatten([Arr::flatten($productFlavor), Arr::flatten($productSize)]);
         $products = collect($products)->sortBy('product.name')->values()->all();
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('pic_name')->nullable();
+            $table->boolean('is_archived')->default(false);
             $table->timestamps();
         });
     }
