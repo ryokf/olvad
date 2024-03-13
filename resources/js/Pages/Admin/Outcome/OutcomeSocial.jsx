@@ -7,6 +7,7 @@ import { useForm } from '@inertiajs/react'
 import CustomTheme from "../../../theme/CustomTheme";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import DeleteConfirm from "../../../Components/DeleteConfirm";
+import CurrencyFormat from "../../../Helper/CurrencyFormat";
 
 const OutcomeSocialData = (data) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -23,7 +24,7 @@ const OutcomeSocialData = (data) => {
                 )
             }</Table.Cell>
             <Table.Cell>{item.customer}</Table.Cell>
-            <Table.Cell>Rp{item.cost}</Table.Cell>
+            <Table.Cell>{CurrencyFormat(item.cost)}</Table.Cell>
             <Table.Cell className="flex gap-4">
                 <DetailOutcome title={"•••"} data={item} headerTitle={"Detail Pengeluaran"}></DetailOutcome>
                 <DeleteConfirm id={item.outcome_id} href={"/admin/outcome"}></DeleteConfirm>
@@ -144,7 +145,7 @@ export default function OutcomeSocial({ dataGet, paginationData }) {
                                 <div className="mb-2 block">
                                     <Label htmlFor="" value="total biaya semua produk" />
                                 </div>
-                                <TextInput readOnly disabled id="" type="text" value={priceList.reduce((a, b) => a + b, 0)} />
+                                <TextInput readOnly disabled id="" type="text" value={CurrencyFormat(priceList.reduce((a, b) => a + b, 0))} />
                             </div>
                         </div>
                         <hr className="my-6" />

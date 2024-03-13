@@ -3,6 +3,7 @@ import { Button, Flowbite, Modal, Table } from 'flowbite-react';
 import React, { useState } from 'react';
 import TableComp from '../../../Components/Table';
 import CustomTheme from '../../../theme/CustomTheme';
+import CurrencyFormat from '../../../Helper/CurrencyFormat';
 
 
 const DetailItemData = (data) => {
@@ -22,10 +23,10 @@ const DetailItemData = (data) => {
                     {item.detail_item.unit}
                 </Table.Cell>
                 <Table.Cell className="">
-                    Rp{isBuyType ? item.price : item.product['price']}
+                    {CurrencyFormat(isBuyType ? item.price : item.product['price'])}
                 </Table.Cell>
                 <Table.Cell className="">
-                    Rp{item.detail_item.total}
+                    {CurrencyFormat(item.detail_item.total)}
                 </Table.Cell>
             </Table.Row>
         )

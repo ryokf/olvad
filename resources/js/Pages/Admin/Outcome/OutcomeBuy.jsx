@@ -8,12 +8,13 @@ import { useForm } from '@inertiajs/react'
 import { RiDeleteBack2Fill } from "react-icons/ri";
 
 import DeleteConfirm from "../../../Components/DeleteConfirm";
+import CurrencyFormat from "../../../Helper/CurrencyFormat";
 
 const OutcomeBuyData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
     // console.log(searchParams.has('page')); // price_descending
 
-    console.log(dataGet)
+
 
     return dataGet.map((item, index) => (
         <Table.Row key={item.id} className="bg-white border-none dark:bg-gray-800">
@@ -27,7 +28,7 @@ const OutcomeBuyData = (dataGet) => {
                 )
             }</Table.Cell>
             <Table.Cell>{item.store}</Table.Cell>
-            <Table.Cell>Rp{item.cost}</Table.Cell>
+            <Table.Cell>{CurrencyFormat(item.cost)}</Table.Cell>
             <Table.Cell className="flex gap-4">
                 <DetailOutcome title={"•••"} data={item} headerTitle={"Detail Pengeluaran"}></DetailOutcome>
                 <DeleteConfirm id={item.outcome_id} href={"/admin/outcome"}></DeleteConfirm>
@@ -149,7 +150,7 @@ export default function OutcomeBuy({ dataGet, paginationData }) {
                                 <div className="mb-2 block">
                                     <Label htmlFor="" value="total biaya semua bahan" />
                                 </div>
-                                <TextInput readOnly disabled id="" type="text" value={total.reduce((a, b) => a + b, 0)} />
+                                <TextInput readOnly disabled id="" type="text" value={CurrencyFormat(total.reduce((a, b) => a + b, 0))} />
                             </div>
                         </div>
                         <hr className="my-6" />

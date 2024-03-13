@@ -12,6 +12,7 @@ import CustomTheme from "../../../theme/CustomTheme";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import DateFormat from "../../../Helper/DateFormat";
 import DataOption from "./DataOption";
+import CurrencyFormat from "../../../Helper/CurrencyFormat";
 
 const IncomeData = (dataGet) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -35,7 +36,7 @@ const IncomeData = (dataGet) => {
                 {item.customer.name}
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap text-gray-600 dark:text-white">
-                {item.total}
+                {CurrencyFormat(item.total)}
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex gap-4">
                 <DetailIncome title={"•••"} data={item} headerTitle={"Detail Pemasukan"}></DetailIncome>
@@ -152,7 +153,7 @@ export default function Index({ incomes, products, customers }) {
                                     <div className="mb-2 block">
                                         <Label htmlFor="" value="total biaya semua produk" />
                                     </div>
-                                    <TextInput readOnly disabled id="" type="text" value={priceList.reduce((a, b) => a + b, 0)} />
+                                    <TextInput readOnly disabled id="" type="text" value={CurrencyFormat(priceList.reduce((a, b) => a + b, 0))} />
                                 </div>
                             </div>
                             <hr className="my-6" />
