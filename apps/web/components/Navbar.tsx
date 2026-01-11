@@ -31,7 +31,7 @@ export default function Navbar() {
             Home
           </a>
           <a
-            href="#menu"
+            href="/menu"
             className="text-gray-700 hover:text-amber-700 font-semibold transition-colors"
           >
             Menu
@@ -88,7 +88,7 @@ export default function Navbar() {
                 Home
               </a>
               <a
-                href="#menu"
+                href="/menu"
                 className="block text-gray-700 hover:text-amber-700 font-semibold py-2"
               >
                 Menu

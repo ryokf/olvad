@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Canvas } from '@react-three/fiber';
 import BakeryShop from './3D/BakeryShop';
 

@@ -14,7 +14,7 @@ export default function LocationHoursSection() {
   }, []);
 
   return (
-    <section className="py-20 sm:py-24 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <section className="py-20 sm:py-24 bg-linear-to-br from-gray-900 to-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
@@ -123,7 +123,7 @@ export default function LocationHoursSection() {
           </div>
 
           {/* Map Placeholder */}
-          <div className="h-96 lg:h-full min-h-[600px] rounded-2xl overflow-hidden border border-white/20 bg-gradient-to-br from-amber-900/20 to-orange-900/20 backdrop-blur-sm">
+          <div className="h-96 lg:h-full min-h-150 rounded-2xl overflow-hidden border border-white/20 bg-linear-to-br from-amber-900/20 to-orange-900/20 backdrop-blur-sm">
             <div className="w-full h-full flex items-center justify-center">
               <div className="text-center">
                 <p className="text-6xl mb-4">🗺️</p>

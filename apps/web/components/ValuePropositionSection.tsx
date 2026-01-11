@@ -35,7 +35,7 @@ const values = [
 
 export default function ValuePropositionSection() {
   return (
-    <section className="py-20 sm:py-24 bg-gradient-to-b from-amber-50 via-orange-50 to-white">
+    <section className="py-20 sm:py-24 bg-linear-to-b from-amber-50 via-orange-50 to-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
@@ -60,7 +60,7 @@ export default function ValuePropositionSection() {
               onMouseEnter={(e) => e.currentTarget.style.borderColor = '#ABC4AA'}
               onMouseLeave={(e) => e.currentTarget.style.borderColor = 'transparent'}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 bg-linear-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <span className="text-4xl">{value.icon}</span>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -74,7 +74,7 @@ export default function ValuePropositionSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-16 bg-gradient-to-r from-amber-700 to-orange-700 rounded-3xl p-12 text-center text-white shadow-2xl">
+        <div className="mt-16 bg-linear-to-r from-amber-700 to-orange-700 rounded-3xl p-12 text-center text-white shadow-2xl">
           <h3 className="font-display text-3xl font-bold mb-4">
             Siap Merasakan Perbedaannya?
           </h3>

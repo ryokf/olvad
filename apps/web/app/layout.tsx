@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Sour_Gummy } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/contexts/CartContext";
 
 const poppins = Poppins({
   variable: "--font-sans",
@@ -38,7 +39,9 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${sourGummy.variable} font-sans bg-white text-primary-900 antialiased`}
       >
-        {children}
+        <CartProvider>
+          {children}
+        </CartProvider>
       </body>
     </html>
   );

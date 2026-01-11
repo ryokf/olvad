@@ -2,14 +2,21 @@ import { useGSAP } from '@gsap/react';
 import { useGLTF } from '@react-three/drei'
 import { useRef } from 'react'
 import gsap from 'gsap'
+import * as THREE from 'three'
+import { GLTF } from 'three-stdlib'
+
+type GLTFResult = GLTF & {
+    nodes: Record<string, THREE.Mesh>
+    materials: Record<string, THREE.Material>
+}
 
 const BakeryShop = ({ ...props }) => {
-    const { nodes, materials } = useGLTF('./models/bakery_shop.glb')
+    const { nodes, materials } = useGLTF('./models/bakery_shop.glb') as GLTFResult
 
     const modelRef = useRef(null);
 
     useGSAP(() => {
-        gsap.to(modelRef.current.rotation, {
+        gsap.to(modelRef?.current?.rotation, {
             y: -1,
             duration: 1,
             ease: "power4.out",

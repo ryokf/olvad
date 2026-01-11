@@ -51,7 +51,7 @@ export default function BestsellersSection() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <section className="py-20 sm:py-24 bg-gradient-to-b from-white to-amber-50">
+    <section className="py-20 sm:py-24 bg-linear-to-b from-white to-amber-50">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
@@ -79,7 +79,7 @@ export default function BestsellersSection() {
               {/* Card */}
               <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
                 {/* Product Image Container */}
-                <div className="relative h-64 bg-gradient-to-br from-amber-50 to-orange-50 overflow-hidden">
+                <div className="relative h-64 bg-linear-to-br from-amber-50 to-orange-50 overflow-hidden">
                   {/* Label */}
                   {product.label && (
                     <div className="absolute top-3 right-3 text-white text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-md" style={{ backgroundColor: '#ABC4AA' }}>
@@ -94,7 +94,7 @@ export default function BestsellersSection() {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/10 to-transparent"></div>
                 </div>
 
                 {/* Product Info */}
