@@ -37,6 +37,12 @@ export default function Navbar() {
             Menu
           </a>
           <a
+            href="/profile/orders"
+            className="text-gray-700 hover:text-amber-700 font-semibold transition-colors"
+          >
+            Pesanan
+          </a>
+          <a
             href="#about"
             className="text-gray-700 hover:text-amber-700 font-semibold transition-colors"
           >
@@ -92,6 +98,12 @@ export default function Navbar() {
                 className="block text-gray-700 hover:text-amber-700 font-semibold py-2"
               >
                 Menu
+              </a>
+              <a
+                href="/profile/orders"
+                className="block text-gray-700 hover:text-amber-700 font-semibold py-2"
+              >
+                Pesanan
               </a>
               <a
                 href="#about"

@@ -209,15 +209,13 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                     <span>Rp {total.toLocaleString('id-ID')}</span>
                                 </div>
                             </div>
-                            <button
-                                className="w-full py-4 rounded-full font-bold text-lg text-white transition-all shadow-lg hover:shadow-xl hover:scale-105"
+                            <a
+                                href="/checkout"
+                                className="block w-full py-4 rounded-full font-bold text-lg text-white transition-all shadow-lg hover:shadow-xl hover:scale-105 text-center"
                                 style={{ backgroundColor: '#ABC4AA' }}
                             >
                                 Lanjut ke Checkout
-                            </button>
-                            <p className="text-center text-sm text-gray-500">
-                                *Checkout belum tersedia
-                            </p>
+                            </a>
                         </div>
                     </>
                 )}
