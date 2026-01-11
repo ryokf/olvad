@@ -6,12 +6,12 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white bg-opacity-95 backdrop-blur-md border-b border-primary-200 shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <span className="text-2xl">☕</span>
-          <span className="font-serif text-2xl font-bold text-primary-900">
+          <span className="font-serif text-2xl font-bold text-gray-900">
             Olvad
           </span>
         </div>
@@ -20,25 +20,25 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           <a
             href="#home"
-            className="text-primary-700 hover:text-primary-900 font-medium transition-colors"
+            className="text-gray-700 hover:text-amber-700 font-semibold transition-colors"
           >
             Home
           </a>
           <a
             href="#menu"
-            className="text-primary-700 hover:text-primary-900 font-medium transition-colors"
+            className="text-gray-700 hover:text-amber-700 font-semibold transition-colors"
           >
             Menu
           </a>
           <a
             href="#about"
-            className="text-primary-700 hover:text-primary-900 font-medium transition-colors"
+            className="text-gray-700 hover:text-amber-700 font-semibold transition-colors"
           >
             Tentang
           </a>
           <a
             href="#contact"
-            className="text-primary-700 hover:text-primary-900 font-medium transition-colors"
+            className="text-gray-700 hover:text-amber-700 font-semibold transition-colors"
           >
             Kontak
           </a>
@@ -46,7 +46,7 @@ export default function Navbar() {
 
         {/* CTA Button */}
         <div className="hidden md:flex items-center gap-4">
-          <button className="btn-hover px-6 py-2 bg-primary-600 text-white rounded-full font-medium hover:bg-primary-700 transition-colors">
+          <button className="btn-hover px-6 py-2.5 bg-amber-700 text-white rounded-full font-semibold hover:bg-amber-800 shadow-md hover:shadow-lg transition-all">
             Pesan Sekarang
           </button>
         </div>
@@ -54,7 +54,7 @@ export default function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-primary-900"
+          className="md:hidden p-2 text-gray-900"
         >
           <svg
             className="w-6 h-6"
@@ -73,33 +73,33 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white border-b border-primary-200 md:hidden">
+          <div className="absolute top-full left-0 right-0 bg-white border-b border-gray-200 md:hidden shadow-lg">
             <div className="p-6 space-y-4">
               <a
                 href="#home"
-                className="block text-primary-700 hover:text-primary-900 font-medium"
+                className="block text-gray-700 hover:text-amber-700 font-semibold py-2"
               >
                 Home
               </a>
               <a
                 href="#menu"
-                className="block text-primary-700 hover:text-primary-900 font-medium"
+                className="block text-gray-700 hover:text-amber-700 font-semibold py-2"
               >
                 Menu
               </a>
               <a
                 href="#about"
-                className="block text-primary-700 hover:text-primary-900 font-medium"
+                className="block text-gray-700 hover:text-amber-700 font-semibold py-2"
               >
                 Tentang
               </a>
               <a
                 href="#contact"
-                className="block text-primary-700 hover:text-primary-900 font-medium"
+                className="block text-gray-700 hover:text-amber-700 font-semibold py-2"
               >
                 Kontak
               </a>
-              <button className="w-full btn-hover px-6 py-2 bg-primary-600 text-white rounded-full font-medium hover:bg-primary-700 transition-colors">
+              <button className="w-full btn-hover px-6 py-3 bg-amber-700 text-white rounded-full font-semibold hover:bg-amber-800 shadow-md transition-all">
                 Pesan Sekarang
               </button>
             </div>

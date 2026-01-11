@@ -35,17 +35,17 @@ const values = [
 
 export default function ValuePropositionSection() {
   return (
-    <section className="py-section-sm sm:py-section bg-gradient-to-br from-white via-primary-50 to-white">
+    <section className="py-20 sm:py-24 bg-gradient-to-b from-amber-50 via-orange-50 to-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="text-tertiary-600 font-medium text-sm uppercase tracking-wide">
+          <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
             Mengapa Olvad?
           </p>
-          <h2 className="font-serif text-heading-2 text-primary-900">
+          <h2 className="font-serif text-5xl font-bold text-gray-900">
             Keunggulan Kami
           </h2>
-          <p className="text-lg text-primary-700 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Komitmen kami adalah memberikan yang terbaik untuk Anda
           </p>
         </div>
@@ -55,16 +55,18 @@ export default function ValuePropositionSection() {
           {values.map((value, index) => (
             <div
               key={index}
-              className="group animate-on-scroll p-8 bg-white rounded-2xl border border-primary-200 hover:border-tertiary-400 hover:shadow-lg transition-all duration-300"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group animate-on-scroll p-8 bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-transparent"
+              style={{ animationDelay: `${index * 0.1}s`, borderColor: 'transparent' }}
+              onMouseEnter={(e) => e.currentTarget.style.borderColor = '#ABC4AA'}
+              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'transparent'}
             >
-              <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300 inline-block">
-                {value.icon}
+              <div className="w-16 h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <span className="text-4xl">{value.icon}</span>
               </div>
-              <h3 className="text-xl font-serif font-bold text-primary-900 mb-3">
+              <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">
                 {value.title}
               </h3>
-              <p className="text-primary-700 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed">
                 {value.description}
               </p>
             </div>
@@ -72,14 +74,14 @@ export default function ValuePropositionSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-16 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-3xl p-12 text-center text-white">
-          <h3 className="font-serif text-2xl font-bold mb-4">
+        <div className="mt-16 bg-gradient-to-r from-amber-700 to-orange-700 rounded-3xl p-12 text-center text-white shadow-2xl">
+          <h3 className="font-serif text-3xl font-bold mb-4">
             Siap Merasakan Perbedaannya?
           </h3>
-          <p className="mb-6 text-primary-100">
+          <p className="mb-6 text-amber-50 text-lg">
             Kunjungi Olvad hari ini dan nikmati pengalaman kopi & roti yang tak terlupakan
           </p>
-          <button className="btn-hover px-8 py-4 bg-white text-primary-600 rounded-full font-bold hover:bg-primary-50 transition-colors inline-block">
+          <button className="btn-hover px-8 py-4 bg-white text-amber-900 rounded-full font-bold hover:bg-amber-50 transition-colors inline-block shadow-lg hover:shadow-xl">
             Datang Sekarang
           </button>
         </div>

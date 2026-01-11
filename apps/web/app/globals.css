@@ -26,14 +26,17 @@ html {
   scroll-behavior: smooth;
 }
 
-/* body {
-  background: var(--background);
-  color: var(--foreground);
+body {
   font-family: var(--font-sans);
   line-height: 1.6;
-} */
+}
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-serif);
 }
 
@@ -88,7 +91,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Blob animation */
 @keyframes blob {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
   33% {
@@ -124,3 +128,14 @@ a {
   }
 }
 
+/* Animation keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

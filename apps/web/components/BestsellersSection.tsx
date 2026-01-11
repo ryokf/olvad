@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 interface Product {
   id: number;
@@ -17,7 +18,7 @@ const products: Product[] = [
     name: "Latte Premium",
     category: "Specialty Coffee",
     price: 45000,
-    image: "☕",
+    image: "/images/product-latte.png",
     label: "Most Loved",
   },
   {
@@ -25,7 +26,7 @@ const products: Product[] = [
     name: "Manual Brew Ethiopia",
     category: "Single Origin",
     price: 55000,
-    image: "☕",
+    image: "/images/product-manual-brew.png",
     label: "Chef's Recommendation",
   },
   {
@@ -33,7 +34,7 @@ const products: Product[] = [
     name: "Butter Croissant",
     category: "Pastry",
     price: 35000,
-    image: "🥐",
+    image: "/images/product-croissant.png",
     label: "Most Loved",
   },
   {
@@ -41,7 +42,7 @@ const products: Product[] = [
     name: "Sourdough Toast",
     category: "Bread",
     price: 28000,
-    image: "🍞",
+    image: "/images/product-sourdough.png",
     label: undefined,
   },
 ];
@@ -50,17 +51,17 @@ export default function BestsellersSection() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <section className="py-section-sm sm:py-section bg-white">
+    <section className="py-20 sm:py-24 bg-gradient-to-b from-white to-amber-50">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="text-tertiary-600 font-medium text-sm uppercase tracking-wide">
+          <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
             Menu Unggulan
           </p>
-          <h2 className="font-serif text-heading-2 text-primary-900">
+          <h2 className="font-serif text-5xl font-bold text-gray-900">
             Menu Favorit Kami
           </h2>
-          <p className="text-lg text-primary-700 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Produk pilihan yang paling diminati oleh pelanggan setia kami
           </p>
         </div>
@@ -76,44 +77,48 @@ export default function BestsellersSection() {
               onMouseLeave={() => setHoveredId(null)}
             >
               {/* Card */}
-              <div className="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl overflow-hidden border border-primary-200 hover:border-primary-400 transition-colors">
+              <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
                 {/* Product Image Container */}
-                <div className="relative h-48 bg-gradient-to-br from-primary-100 to-secondary-100 flex items-center justify-center overflow-hidden">
+                <div className="relative h-64 bg-gradient-to-br from-amber-50 to-orange-50 overflow-hidden">
                   {/* Label */}
                   {product.label && (
-                    <div className="absolute top-3 right-3 bg-tertiary-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                    <div className="absolute top-3 right-3 text-white text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-md" style={{ backgroundColor: '#ABC4AA' }}>
                       {product.label}
                     </div>
                   )}
 
-                  {/* Image Emoji */}
-                  <div className="text-6xl group-hover:scale-110 transition-transform duration-300">
-                    {product.image}
-                  </div>
+                  {/* Product Image */}
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
                 </div>
 
                 {/* Product Info */}
                 <div className="p-6 space-y-4">
                   <div>
-                    <p className="text-xs text-secondary-600 uppercase tracking-wide font-medium">
+                    <p className="text-xs text-amber-700 uppercase tracking-wide font-bold">
                       {product.category}
                     </p>
-                    <h3 className="text-lg font-serif text-primary-900 mt-2">
+                    <h3 className="text-xl font-serif font-semibold text-gray-900 mt-2">
                       {product.name}
                     </h3>
                   </div>
 
                   {/* Price & CTA */}
-                  <div className="flex items-center justify-between pt-4 border-t border-primary-200">
-                    <p className="text-lg font-serif font-bold text-primary-900">
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                    <p className="text-2xl font-serif font-bold text-amber-900">
                       Rp {product.price.toLocaleString("id-ID")}
                     </p>
                     <button
-                      className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg transition-all ${
-                        hoveredId === product.id
-                          ? "bg-tertiary-500 text-white scale-110"
-                          : "bg-primary-100 text-primary-600 hover:bg-primary-200"
-                      }`}
+                      className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl transition-all shadow-md ${hoveredId === product.id
+                        ? "text-white scale-110 shadow-lg"
+                        : "bg-amber-100 text-amber-800 hover:bg-amber-200"
+                        }`}
+                      style={hoveredId === product.id ? { backgroundColor: '#ABC4AA' } : {}}
                     >
                       +
                     </button>
@@ -126,7 +131,7 @@ export default function BestsellersSection() {
 
         {/* CTA */}
         <div className="text-center mt-16">
-          <button className="btn-hover px-10 py-4 bg-primary-600 text-white rounded-full font-medium text-lg hover:bg-primary-700 transition-colors inline-block">
+          <button className="btn-hover px-10 py-4 bg-amber-700 text-white rounded-full font-semibold text-lg hover:bg-amber-800 shadow-lg hover:shadow-xl transition-all inline-block">
             Lihat Semua Menu
           </button>
         </div>
