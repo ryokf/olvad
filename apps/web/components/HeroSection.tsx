@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { Canvas } from '@react-three/fiber';
+import BakeryShop from './3D/BakeryShop';
 
 export default function HeroSection() {
     return (
@@ -15,13 +17,13 @@ export default function HeroSection() {
             <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Left Content */}
-                    <div className="space-y-8 animate-fade-in-up">
+                    <div className="space-y-8 animate-fade-in-up min-h-[60vh] flex flex-col justify-center">
                         <div className="space-y-4">
                             <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
-                                Roti Hangat & Kopi Terbaik untuk Memulai Harimu
+                                Feel The Happiness In Every Bite
                             </h1>
                             <p className="text-xl text-gray-700 font-light leading-relaxed max-w-lg">
-                                Dibuat fresh setiap pagi dengan bahan premium tanpa pengawet. Rasakan kehangatan dalam setiap gigitan.
+                                kombinasi dari bahan alami terbaik untuk manisnya setiap momen
                             </p>
                         </div>
 
@@ -37,17 +39,22 @@ export default function HeroSection() {
                     </div>
 
                     {/* Right Visual */}
-                    <div className="relative h-[500px] sm:h-full min-h-[500px] animate-fade-in">
-                        <div className="absolute inset-0 rounded-3xl overflow-hidden shadow-2xl">
-                            <Image
+                    <div className="relative sm:h-full animate-fade-in">
+
+                        {/* <Image
                                 src="/images/hero-coffee.png"
                                 alt="Premium Latte dengan Latte Art"
                                 fill
                                 className="object-cover"
                                 priority
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div> */}
+                        <Canvas orthographic camera={{ zoom: 32, position: [0, 5, 6], near: 0 }}>
+                            <ambientLight intensity={4} />
+                            <directionalLight position={[10, 10, 5]} intensity={1} />
+                            <BakeryShop />
+                        </Canvas>
+
                     </div>
                 </div>
             </div>

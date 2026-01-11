@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,12 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <span className="text-2xl">☕</span>
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={40}
+            height={40}
+          />
           <span className="font-serif text-2xl font-bold text-gray-900">
             Olvad
           </span>
