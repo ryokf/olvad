@@ -21,7 +21,7 @@ export default function LocationHoursSection() {
           <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
             Lokasi & Jam
           </p>
-          <h2 className="font-serif text-5xl font-bold">
+          <h2 className="font-display text-5xl font-bold">
             Kunjungi Olvad Sekarang
           </h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -52,7 +52,7 @@ export default function LocationHoursSection() {
 
             {/* Hours */}
             <div className="space-y-4">
-              <h3 className="font-serif text-2xl font-bold">Jam Operasional</h3>
+              <h3 className="text-2xl font-bold">Jam Operasional</h3>
               <div className="space-y-3 bg-white/5 rounded-xl p-6">
                 {[
                   { day: "Senin - Jumat", hours: "06:00 - 20:00" },
@@ -69,7 +69,7 @@ export default function LocationHoursSection() {
 
             {/* Address */}
             <div className="space-y-4">
-              <h3 className="font-serif text-2xl font-bold">Alamat</h3>
+              <h3 className="text-2xl font-bold">Alamat</h3>
               <div className="bg-white/5 rounded-xl p-6">
                 <p className="text-sm mb-2 font-semibold" style={{ color: '#ABC4AA' }}>Lokasi Utama</p>
                 <p className="text-gray-300 text-lg">
@@ -82,7 +82,7 @@ export default function LocationHoursSection() {
 
             {/* Contact */}
             <div className="space-y-4">
-              <h3 className="font-serif text-2xl font-bold">Hubungi Kami</h3>
+              <h3 className="text-2xl font-bold">Hubungi Kami</h3>
               <div className="flex flex-col gap-3 bg-white/5 rounded-xl p-6">
                 <a
                   href="tel:+6281234567890"

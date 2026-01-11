@@ -58,7 +58,7 @@ export default function BestsellersSection() {
           <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
             Menu Unggulan
           </p>
-          <h2 className="font-serif text-5xl font-bold text-gray-900">
+          <h2 className="text-5xl font-bold text-gray-900">
             Menu Favorit Kami
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -103,14 +103,14 @@ export default function BestsellersSection() {
                     <p className="text-xs text-amber-700 uppercase tracking-wide font-bold">
                       {product.category}
                     </p>
-                    <h3 className="text-xl font-serif font-semibold text-gray-900 mt-2">
+                    <h3 className="text-xl font-semibold text-gray-900 mt-2">
                       {product.name}
                     </h3>
                   </div>
 
                   {/* Price & CTA */}
                   <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <p className="text-2xl font-serif font-bold text-amber-900">
+                    <p className="text-2xl font-display font-bold text-amber-900">
                       Rp {product.price.toLocaleString("id-ID")}
                     </p>
                     <button

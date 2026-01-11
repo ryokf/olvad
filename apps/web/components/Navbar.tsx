@@ -17,7 +17,7 @@ export default function Navbar() {
             width={40}
             height={40}
           />
-          <span className="font-serif text-2xl font-bold text-gray-900">
+          <span className="font-display text-2xl font-bold text-gray-900">
             Olvad
           </span>
         </div>

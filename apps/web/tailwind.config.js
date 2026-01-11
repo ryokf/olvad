@@ -48,8 +48,8 @@ export default {
                 },
             },
             fontFamily: {
-                serif: ["Playfair Display", "Georgia", "serif"],
-                sans: ["Inter", "system-ui", "sans-serif"],
+                display: ["var(--font-display)", "cursive"],
+                sans: ["var(--font-sans)", "system-ui", "sans-serif"],
             },
             fontSize: {
                 "heading-1": ["3.5rem", { lineHeight: "1.1", fontWeight: "700" }],

@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-3xl">☕</span>
-              <h3 className="font-serif text-2xl font-bold">Olvad</h3>
+              <h3 className="font-display text-2xl font-bold">Olvad</h3>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               Specialty Coffee & Artisan Bakery yang menghadirkan kualitas premium dengan kehangatan lokal.

@@ -42,7 +42,7 @@ export default function ValuePropositionSection() {
           <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
             Mengapa Olvad?
           </p>
-          <h2 className="font-serif text-5xl font-bold text-gray-900">
+          <h2 className="text-5xl font-bold text-gray-900">
             Keunggulan Kami
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -63,7 +63,7 @@ export default function ValuePropositionSection() {
               <div className="w-16 h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <span className="text-4xl">{value.icon}</span>
               </div>
-              <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
                 {value.title}
               </h3>
               <p className="text-gray-600 leading-relaxed">
@@ -75,7 +75,7 @@ export default function ValuePropositionSection() {
 
         {/* Bottom CTA */}
         <div className="mt-16 bg-gradient-to-r from-amber-700 to-orange-700 rounded-3xl p-12 text-center text-white shadow-2xl">
-          <h3 className="font-serif text-3xl font-bold mb-4">
+          <h3 className="font-display text-3xl font-bold mb-4">
             Siap Merasakan Perbedaannya?
           </h3>
           <p className="mb-6 text-amber-50 text-lg">

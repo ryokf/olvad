@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Poppins, Sour_Gummy } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const poppins = Poppins({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-serif",
+const sourGummy = Sour_Gummy({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -34,7 +36,7 @@ export default function RootLayout({
         <link rel="icon" href="/logo.png" />
       </head>
       <body
-        className={`${inter.variable} ${playfair.variable} bg-white text-primary-900 antialiased`}
+        className={`${poppins.variable} ${sourGummy.variable} font-sans bg-white text-primary-900 antialiased`}
       >
         {children}
       </body>

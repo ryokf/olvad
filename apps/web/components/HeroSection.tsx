@@ -19,7 +19,7 @@ export default function HeroSection() {
                     {/* Left Content */}
                     <div className="space-y-8 animate-fade-in-up min-h-[60vh] flex flex-col justify-center">
                         <div className="space-y-4">
-                            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
+                            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
                                 Feel The Happiness In Every Bite
                             </h1>
                             <p className="text-xl text-gray-700 font-light leading-relaxed max-w-lg">

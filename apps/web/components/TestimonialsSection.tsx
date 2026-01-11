@@ -41,7 +41,7 @@ export default function TestimonialsSection() {
           <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
             Testimoni
           </p>
-          <h2 className="font-serif text-5xl font-bold text-gray-900">
+          <h2 className="text-5xl font-bold text-gray-900">
             Apa Kata Pelanggan Kami
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -73,7 +73,7 @@ export default function TestimonialsSection() {
 
               {/* Author */}
               <div className="border-t border-gray-200 pt-4">
-                <p className="font-serif font-bold text-gray-900 text-lg">
+                <p className="font-semibold text-gray-900 text-lg">
                   {testimonial.author}
                 </p>
                 <p className="text-sm text-gray-600 mt-1">
@@ -87,15 +87,15 @@ export default function TestimonialsSection() {
         {/* Social Proof Stats */}
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 p-12 bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl text-white text-center shadow-2xl">
           <div>
-            <p className="font-serif text-5xl font-bold mb-2 text-amber-400">4.8/5</p>
+            <p className="font-display text-5xl font-bold mb-2 text-amber-400">4.8/5</p>
             <p className="text-gray-300 text-lg">Rating Rata-rata</p>
           </div>
           <div>
-            <p className="font-serif text-5xl font-bold mb-2 text-amber-400">2,500+</p>
+            <p className="font-display text-5xl font-bold mb-2 text-amber-400">2,500+</p>
             <p className="text-gray-300 text-lg">Review Positif</p>
           </div>
           <div>
-            <p className="font-serif text-5xl font-bold mb-2 text-amber-400">98%</p>
+            <p className="font-display text-5xl font-bold mb-2 text-amber-400">98%</p>
             <p className="text-gray-300 text-lg">Rekomendasi</p>
           </div>
         </div>
