@@ -8,6 +8,7 @@
   --primary: #675d50;
   --secondary: #a9907e;
   --tertiary: #abc4aa;
+  --tertiary-dark: #9ab595;
 }
 
 @theme inline {

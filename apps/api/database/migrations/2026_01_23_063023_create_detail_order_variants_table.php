@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('detail_order_variants', function (Blueprint $table) {
             $table->id();
+            // Jika detail order dihapus, varian yang dipilih ikut terhapus
+            $table->foreignId('detail_order_id')->constrained('detail_orders')->onDelete('cascade');
+            $table->foreignId('product_variant_option_id')->constrained('product_variant_options');
             $table->timestamps();
         });
     }

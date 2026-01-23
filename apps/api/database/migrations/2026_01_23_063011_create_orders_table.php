@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->enum('type', ['delivery', 'pick-up']);
+            $table->text('message')->nullable();
+            $table->enum('payment_method', ['cash', 'cashless']);
+            $table->integer('total_price')->default(0);
+            $table->enum('status', ['onprocess', 'done', 'canceled'])->default('onprocess');
             $table->timestamps();
         });
     }

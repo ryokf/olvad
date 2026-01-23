@@ -16,6 +16,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariantOption whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariantOption whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariantOption whereUpdatedAt($value)
+ * @property int $product_variant_id
+ * @property string $name
+ * @property int $add_price
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariantOption whereAddPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariantOption whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariantOption whereProductVariantId($value)
  * @mixin \Eloquent
  */
 class ProductVariantOption extends Model

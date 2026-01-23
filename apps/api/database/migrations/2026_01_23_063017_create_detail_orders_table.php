@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('detail_orders', function (Blueprint $table) {
             $table->id();
+            // Jika order dihapus, detailnya ikut terhapus
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products');
+            $table->integer('qty');
+            $table->integer('subtotal_price')->default(0); // Kolom baru sesuai gambar 2
             $table->timestamps();
         });
     }

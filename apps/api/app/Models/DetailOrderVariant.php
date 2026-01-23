@@ -16,6 +16,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrderVariant whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrderVariant whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrderVariant whereUpdatedAt($value)
+ * @property int $detail_order_id
+ * @property int $product_variant_option_id
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrderVariant whereDetailOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrderVariant whereProductVariantOptionId($value)
  * @mixin \Eloquent
  */
 class DetailOrderVariant extends Model

@@ -16,6 +16,18 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUpdatedAt($value)
+ * @property int $user_id
+ * @property string $type
+ * @property string|null $message
+ * @property string $payment_method
+ * @property int $total_price
+ * @property string $status
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order wherePaymentMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereTotalPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUserId($value)
  * @mixin \Eloquent
  */
 class Order extends Model

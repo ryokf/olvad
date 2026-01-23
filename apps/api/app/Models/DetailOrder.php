@@ -16,6 +16,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrder whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrder whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrder whereUpdatedAt($value)
+ * @property int $order_id
+ * @property int $product_id
+ * @property int $qty
+ * @property int $subtotal_price
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrder whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrder whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrder whereQty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DetailOrder whereSubtotalPrice($value)
  * @mixin \Eloquent
  */
 class DetailOrder extends Model

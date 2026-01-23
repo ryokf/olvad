@@ -16,6 +16,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariant whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariant whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariant whereUpdatedAt($value)
+ * @property int $product_id
+ * @property string $name
+ * @property int $is_single_selection
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariant whereIsSingleSelection($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariant whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductVariant whereProductId($value)
  * @mixin \Eloquent
  */
 class ProductVariant extends Model

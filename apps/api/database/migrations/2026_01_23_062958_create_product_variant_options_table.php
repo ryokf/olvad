@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('product_variant_options', function (Blueprint $table) {
             $table->id();
+            // Jika varian dihapus, opsinya ikut terhapus (cascade)
+            $table->foreignId('product_variant_id')->constrained('product_variants')->onDelete('cascade');
+            $table->string('name', 50);
+            $table->integer('add_price')->default(0);
             $table->timestamps();
         });
     }

@@ -103,7 +103,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
                         onClick={() => onAddToCart(product)}
                         disabled={!product.available}
                         className={`px-6 py-3 rounded-full font-bold text-white transition-all shadow-md hover:shadow-lg ${product.available
-                                ? 'bg-tertiary hover:bg-tertiary-dark hover:scale-105'
+                                ? 'bg-tertiary hover:bg-tertiary hover:scale-105'
                                 : 'bg-gray-500 opacity-50 cursor-not-allowed'
                             }`}
                     >
