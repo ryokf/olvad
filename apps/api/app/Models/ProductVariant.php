@@ -28,4 +28,14 @@ class ProductVariant extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductVariantFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
+
+    public function productVariantOption(){
+        return $this->hasMany(ProductVariantOption::class);
+    }
 }

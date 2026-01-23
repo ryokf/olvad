@@ -26,4 +26,14 @@ class DetailOrderVariant extends Model
 {
     /** @use HasFactory<\Database\Factories\DetailOrderVariantFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function detailOrder(){
+        return $this->belongsTo(DetailOrder::class);
+    }
+
+    public function productVariantOption(){
+        return $this->belongsTo(ProductVariantOption::class);
+    }
 }

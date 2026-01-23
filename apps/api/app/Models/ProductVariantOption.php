@@ -28,4 +28,6 @@ class ProductVariantOption extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductVariantOptionFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
 }
