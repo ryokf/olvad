@@ -85,4 +85,13 @@ return [
      */
 
     'transform_null_to_optional' => false,
+
+    'type_mapping' => [
+        'bigint' => 'number',
+        'int' => 'number',
+        'integer' => 'number',
+        'tinyint' => 'boolean', // Atur default tinyint jadi boolean
+        'decimal' => 'number',
+        'double' => 'number',
+    ],
 ];
