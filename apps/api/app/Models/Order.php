@@ -35,12 +35,4 @@ class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
-
-    protected $casts = [
-        'user_id' => 'integer',
-        'total_price' => 'integer', // Mengubah unknown /* int */ jadi number
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'type' => OrderType::class, // <--- Casting ke Enum
-    ];
 }

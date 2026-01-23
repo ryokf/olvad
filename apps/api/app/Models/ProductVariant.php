@@ -28,9 +28,4 @@ class ProductVariant extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductVariantFactory> */
     use HasFactory;
-
-    protected $casts = [
-        'product_id' => 'integer',
-        'is_single_selection' => 'boolean', // Mengubah unknown /* tinyint */ jadi boolean
-    ];
 }
