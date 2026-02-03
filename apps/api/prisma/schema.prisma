@@ -36,7 +36,7 @@ enum OrderStatus {
 
 model User {
   id       Int     @id @default(autoincrement())
-  username String  @db.VarChar(50)
+  username String  @unique @db.VarChar(50)
   email    String  @unique @db.VarChar(50)
   photo    String? @db.Text // Menggunakan Text untuk string panjang/URL
   address  String? @db.Text
