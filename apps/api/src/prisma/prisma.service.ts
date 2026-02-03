@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PrismaService extends PrismaClient {
-    constructor(private configService: ConfigService) {
+    constructor(private readonly configService: ConfigService) {
         const databaseUrl = configService.get<string>('DATABASE_URL');
 
         // PrismaMariaDb accepts connection string directly
