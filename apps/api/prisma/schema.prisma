@@ -14,10 +14,132 @@ datasource db {
   provider = "mysql"
 }
 
+// --- ENUMS (Berdasarkan kolom di tabel orders) ---
+
+enum OrderType {
+  DELIVERY @map("delivery")
+  PICK_UP  @map("pick-up")
+}
+
+enum PaymentMethod {
+  CASH     @map("cash")
+  CASHLESS @map("cashless")
+}
+
+enum OrderStatus {
+  ON_PROCESS @map("onprocess")
+  DONE       @map("done")
+  CANCELED   @map("canceled")
+}
+
+// --- MODELS ---
+
 model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id       Int     @id @default(autoincrement())
+  username String  @db.VarChar(50)
+  email    String  @unique @db.VarChar(50)
+  photo    String? @db.Text // Menggunakan Text untuk string panjang/URL
+  address  String? @db.Text
+  password String  @db.Text
+  
+  // Relasi
+  orders   Order[]
+
+  @@map("users")
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(50)
+
+  // Relasi
+  products Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(50)
+  description String? @db.Text
+  categoryId  Int     @map("category_id")
+  photo       String? @db.Text
+  price       Int
+  tags        String? @db.VarChar(15)
+
+  // Relasi
+  category     Category         @relation(fields: [categoryId], references: [id])
+  variants     ProductVariant[]
+  detailOrders DetailOrder[]
+
+  @@map("products")
+}
+
+model Order {
+  id            Int           @id @default(autoincrement())
+  userId        Int           @map("user_id")
+  type          OrderType
+  message       String?       @db.Text
+  paymentMethod PaymentMethod @map("payment_method")
+  totalPrice    Int           @map("total_price")
+  status        OrderStatus
+
+  // Relasi
+  user         User          @relation(fields: [userId], references: [id])
+  detailOrders DetailOrder[]
+
+  @@map("orders")
+}
+
+model DetailOrder {
+  id            Int @id @default(autoincrement())
+  orderId       Int @map("order_id")
+  productId     Int @map("product_id")
+  qty           Int
+  subtotalPrice Int @map("subtotal_price")
+
+  // Relasi
+  order    Order                @relation(fields: [orderId], references: [id])
+  product  Product              @relation(fields: [productId], references: [id])
+  variants DetailOrderVariant[]
+
+  @@map("detail_orders")
+}
+
+model ProductVariant {
+  id                Int     @id @default(autoincrement())
+  productId         Int     @map("product_id")
+  name              String  @db.VarChar(50)
+  isSingleSelection Boolean @map("is_single_selection")
+
+  // Relasi
+  product Product                @relation(fields: [productId], references: [id])
+  options ProductVariantOption[]
+
+  @@map("product_variants")
+}
+
+model ProductVariantOption {
+  id               Int    @id @default(autoincrement())
+  productVariantId Int    @map("product_variant_id")
+  name             String @db.VarChar(50)
+  addPrice         Int    @map("add_price")
+
+  // Relasi
+  variant            ProductVariant       @relation(fields: [productVariantId], references: [id])
+  detailOrderVariant DetailOrderVariant[]
+
+  @@map("product_variant_options")
+}
+
+model DetailOrderVariant {
+  id                     Int @id @default(autoincrement())
+  detailOrderId          Int @map("detail_order_id")
+  productVariantOptionId Int @map("product_variant_option_id")
+
+  // Relasi
+  detailOrder          DetailOrder          @relation(fields: [detailOrderId], references: [id])
+  productVariantOption ProductVariantOption @relation(fields: [productVariantOptionId], references: [id])
+
+  @@map("detail_order_variants")
 }
