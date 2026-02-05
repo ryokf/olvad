@@ -6,13 +6,40 @@ export interface RegisterRequest {
     address?: string;
 }
 
-
 // ===== Category Types =====
 export interface Category {
     id: string;
     name: string;
-    slug: string;
-    icon?: string;
+    products: Product[];
+}
+
+export interface Product {
+    id: string;
+    name: string;
+    description: string;
+    category: Category;
+    photo: string;
+    price: number;
+    tags?: ('bestseller' | 'new' | 'spicy' | 'vegetarian' | 'recommended')[];
+    variants: ProductVariant[];
+}
+
+export interface CreateProductRequest {
+    name: string;
+    description?: string;
+    categoryId: number;
+    photo?: string;
+    price: number;
+    tags?: string;
+}
+
+export interface UpdateProductRequest {
+    name?: string;
+    description?: string;
+    categoryId?: number;
+    photo?: string;
+    price?: number;
+    tags?: string;
 }
 
 // ===== Product Variant Types =====
@@ -30,19 +57,6 @@ export interface ProductVariant {
 }
 
 // ===== Product Types =====
-export interface Product {
-    id: string;
-    name: string;
-    slug: string;
-    description: string;
-    basePrice: number;
-    image: string;
-    categoryId: string;
-    variants: ProductVariant[];
-    labels?: ('bestseller' | 'new' | 'spicy' | 'vegetarian' | 'recommended')[];
-    available: boolean;
-    preparationTime?: number; // in minutes
-}
 
 // ===== Cart Types =====
 export interface SelectedVariant {
@@ -86,7 +100,13 @@ export interface Order {
     tax: number;
     deliveryFee: number;
     total: number;
-    status: 'pending' | 'confirmed' | 'preparing' | 'ready' | 'completed' | 'cancelled';
+    status:
+        | 'pending'
+        | 'confirmed'
+        | 'preparing'
+        | 'ready'
+        | 'completed'
+        | 'cancelled';
     createdAt: Date;
     estimatedTime?: Date;
 }

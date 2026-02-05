@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import type { Product } from '../generated/prisma/client';
+import { CreateProductDto } from './dto/create.dto';
 
 @Controller('product')
 export class ProductController {
@@ -29,7 +30,9 @@ export class ProductController {
     }
 
     @Post('/')
-    async createProduct(@Body('data') data: Product): Promise<Product | null> {
+    async createProduct(
+        @Body('data') data: CreateProductDto,
+    ): Promise<Product | null> {
         const product = await this.productService.createProduct(data);
 
         return product;
