@@ -8,19 +8,20 @@ export interface RegisterRequest {
 
 // ===== Category Types =====
 export interface Category {
-    id: string;
+    id: number;
     name: string;
-    products: Product[];
+    products?: Product[];
 }
 
 export interface Product {
-    id: string;
+    id: number;
     name: string;
-    description: string;
+    description: string | null;
+    categoryId: number;
     category: Category;
-    photo: string;
+    photo: string | null;
     price: number;
-    tags?: ('bestseller' | 'new' | 'spicy' | 'vegetarian' | 'recommended')[];
+    tags: string | null;
     variants: ProductVariant[];
 }
 
@@ -43,17 +44,19 @@ export interface UpdateProductRequest {
 }
 
 // ===== Product Variant Types =====
-export interface VariantOption {
+export interface ProductVariantOption {
+    id: number;
+    productVariantId: number;
     name: string;
-    priceModifier: number;
+    addPrice: number;
 }
 
 export interface ProductVariant {
-    id: string;
+    id: number;
+    productId: number;
     name: string; // e.g., "Temperature", "Size", "Sugar Level"
-    type: 'single' | 'multiple'; // single = radio, multiple = checkbox
-    required: boolean;
-    options: VariantOption[];
+    isSingleSelection: boolean;
+    options: ProductVariantOption[];
 }
 
 // ===== Product Types =====
