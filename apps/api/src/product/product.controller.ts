@@ -11,7 +11,7 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create.dto';
 import { UpdateProductDto } from './dto/update.dto';
-import { Product } from '@olvad/types';
+import { Product, ProductDetail } from '@olvad/types';
 
 @Controller('product')
 export class ProductController {
@@ -27,7 +27,7 @@ export class ProductController {
     @Get('/:id')
     async getProductById(
         @Param('id', ParseIntPipe) id: number,
-    ): Promise<Product | null> {
+    ): Promise<ProductDetail | null> {
         const product = await this.productService.getProductById(id);
 
         return product;
