@@ -8,6 +8,7 @@ import { ProductModule } from './product/product.module';
 import { DatabaseModule } from './database/database.module';
 import { CategoryModule } from './category/category.module';
 import { ProductVariantModule } from './product-variant/product-variant.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { ProductVariantModule } from './product-variant/product-variant.module';
         DatabaseModule,
         CategoryModule,
         ProductVariantModule,
+        OrderModule,
     ],
 
     controllers: [AppController],

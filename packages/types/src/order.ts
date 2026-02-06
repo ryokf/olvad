@@ -1,19 +1,58 @@
-import { Product } from "./product";
+import { Product, ProductVariantOption } from './product';
+import { User } from './user';
 
+// ===== Enums =====
+export type OrderType = 'DELIVERY' | 'PICK_UP';
+export type PaymentMethod = 'CASH' | 'CASHLESS';
+export type OrderStatus = 'ON_PROCESS' | 'DONE' | 'CANCELED';
+
+// ===== Detail Order Variant =====
+export interface DetailOrderVariant {
+    id: number;
+    detailOrderId: number;
+    productVariantOptionId: number;
+    productVariantOption?: ProductVariantOption;
+}
+
+// ===== Detail Order =====
+export interface DetailOrder {
+    id: number;
+    orderId: number;
+    productId: number;
+    qty: number;
+    subtotalPrice: number;
+    product?: Partial<Product>;
+    variants?: DetailOrderVariant[];
+}
+
+// ===== Order =====
+export interface Order {
+    id: number;
+    userId: number;
+    type: OrderType;
+    message?: string | null;
+    paymentMethod: PaymentMethod;
+    totalPrice: number;
+    status: OrderStatus;
+    user?: Partial<User>;
+    detailOrders?: DetailOrder[];
+}
+
+// ===== Legacy Cart Types (untuk backward compatibility) =====
 export interface SelectedVariant {
     variantId: string;
     variantName: string;
-    selectedOptions: string[]; // array of option names
+    selectedOptions: string[];
     additionalPrice: number;
 }
 
 export interface CartItem {
-    id: string; // unique cart item id
+    id: string;
     product: Product;
     selectedVariants: SelectedVariant[];
     quantity: number;
     specialInstructions?: string;
-    totalPrice: number; // calculated: basePrice + variants * quantity
+    totalPrice: number;
 }
 
 export interface CartState {
@@ -24,30 +63,10 @@ export interface CartState {
     itemCount: number;
 }
 
-// ===== Order Types =====
 export interface DeliveryInfo {
     name: string;
     phone: string;
     address?: string;
     deliveryMethod: 'pickup' | 'delivery' | 'dinein';
     notes?: string;
-}
-
-export interface Order {
-    id: string;
-    items: CartItem[];
-    deliveryInfo: DeliveryInfo;
-    subtotal: number;
-    tax: number;
-    deliveryFee: number;
-    total: number;
-    status:
-        | 'pending'
-        | 'confirmed'
-        | 'preparing'
-        | 'ready'
-        | 'completed'
-        | 'cancelled';
-    createdAt: Date;
-    estimatedTime?: Date;
 }
