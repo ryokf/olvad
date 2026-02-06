@@ -6,6 +6,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { DatabaseModule } from './database/database.module';
+import { CategoryModule } from './category/category.module';
+import { ProductVariantModule } from './product-variant/product-variant.module';
 
 @Module({
     imports: [
@@ -16,7 +18,10 @@ import { DatabaseModule } from './database/database.module';
         UserModule,
         ProductModule,
         DatabaseModule,
+        CategoryModule,
+        ProductVariantModule,
     ],
+
     controllers: [AppController],
     providers: [AppService],
 })
