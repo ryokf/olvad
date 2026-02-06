@@ -16,12 +16,17 @@ export interface Category {
 export interface Product {
     id: number;
     name: string;
-    description: string | null;
+    // description: string | null;
     categoryId: number;
     category: Category;
     photo: string | null;
     price: number;
     tags: string | null;
+    // variants: ProductVariant[];
+}
+
+export interface ProductDetail extends Product {
+    description: string | null;
     variants: ProductVariant[];
 }
 

@@ -9,9 +9,9 @@ import {
     Put,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import type { Product } from '../generated/prisma/client';
 import { CreateProductDto } from './dto/create.dto';
 import { UpdateProductDto } from './dto/update.dto';
+import { Product } from '@olvad/types';
 
 @Controller('product')
 export class ProductController {
@@ -28,15 +28,13 @@ export class ProductController {
     async getProductById(
         @Param('id', ParseIntPipe) id: number,
     ): Promise<Product | null> {
-        const product = await this.productService.getProductById(Number(id));
+        const product = await this.productService.getProductById(id);
 
         return product;
     }
 
     @Post('/')
-    async createProduct(
-        @Body('data') data: CreateProductDto,
-    ): Promise<Product> {
+    async createProduct(@Body() data: CreateProductDto): Promise<Product> {
         const product = await this.productService.createProduct(data);
 
         return product;
@@ -45,7 +43,7 @@ export class ProductController {
     @Put('/:id')
     async editProduct(
         @Param('id', ParseIntPipe) id: number,
-        @Body('data') data: UpdateProductDto,
+        @Body() data: UpdateProductDto,
     ): Promise<Product> {
         const product = await this.productService.editProduct(id, data);
 
@@ -56,7 +54,7 @@ export class ProductController {
     async deleteProduct(
         @Param('id', ParseIntPipe) id: number,
     ): Promise<Product> {
-        const product = await this.productService.deleteProduct(Number(id));
+        const product = await this.productService.deleteProduct(id);
 
         return product;
     }
