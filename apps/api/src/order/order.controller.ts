@@ -11,7 +11,7 @@ import {
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create.dto';
 import { UpdateOrderDto } from './dto/update.dto';
-import { Order } from '../generated/prisma/client';
+import { Order } from '@olvad/types';
 
 @Controller('order')
 export class OrderController {
