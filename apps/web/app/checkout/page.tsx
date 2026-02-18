@@ -94,8 +94,8 @@ export default function CheckoutPage() {
                                 <button
                                     onClick={() => setOrderType('dine-in')}
                                     className={`p-4 rounded-2xl border-2 transition-all ${orderType === 'dine-in'
-                                            ? 'border-amber-500 bg-amber-50'
-                                            : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-primary-400 bg-primary-50'
+                                        : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
                                     <div className="text-3xl mb-2">🍽️</div>
@@ -106,8 +106,8 @@ export default function CheckoutPage() {
                                 <button
                                     onClick={() => setOrderType('pickup')}
                                     className={`p-4 rounded-2xl border-2 transition-all ${orderType === 'pickup'
-                                            ? 'border-amber-500 bg-amber-50'
-                                            : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-primary-400 bg-primary-50'
+                                        : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
                                     <div className="text-3xl mb-2">🚶</div>
@@ -118,8 +118,8 @@ export default function CheckoutPage() {
                                 <button
                                     onClick={() => setOrderType('delivery')}
                                     className={`p-4 rounded-2xl border-2 transition-all ${orderType === 'delivery'
-                                            ? 'border-amber-500 bg-amber-50'
-                                            : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-primary-400 bg-primary-50'
+                                        : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
                                     <div className="text-3xl mb-2">🏍️</div>
@@ -139,7 +139,7 @@ export default function CheckoutPage() {
                                         value={tableNumber}
                                         onChange={(e) => setTableNumber(e.target.value)}
                                         placeholder="Contoh: A12"
-                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary-400 focus:outline-none"
                                     />
                                 </div>
                             )}
@@ -153,7 +153,7 @@ export default function CheckoutPage() {
                                         type="time"
                                         value={pickupTime}
                                         onChange={(e) => setPickupTime(e.target.value)}
-                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary-400 focus:outline-none"
                                     />
                                     <p className="text-sm text-gray-600 mt-2">
                                         💡 Pesanan akan disiapkan 15 menit sebelum waktu pengambilan
@@ -172,7 +172,7 @@ export default function CheckoutPage() {
                                             onChange={(e) => setAddress(e.target.value)}
                                             placeholder="Jl. Contoh No. 123, RT/RW, Kelurahan, Kecamatan"
                                             rows={3}
-                                            className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none resize-none"
+                                            className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary-400 focus:outline-none resize-none"
                                         />
                                     </div>
                                     <div className="bg-gray-100 rounded-2xl p-6 text-center">
@@ -201,7 +201,7 @@ export default function CheckoutPage() {
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                         placeholder="John Doe"
-                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary-400 focus:outline-none"
                                     />
                                 </div>
 
@@ -214,7 +214,7 @@ export default function CheckoutPage() {
                                         value={phone}
                                         onChange={(e) => setPhone(e.target.value)}
                                         placeholder="08123456789"
-                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary-400 focus:outline-none"
                                     />
                                     <p className="text-sm text-gray-600 mt-2">
                                         📱 Anda akan menerima notifikasi status pesanan via WhatsApp
@@ -230,7 +230,7 @@ export default function CheckoutPage() {
                                         onChange={(e) => setNotes(e.target.value)}
                                         placeholder="Contoh: Tolong jangan terlalu manis"
                                         rows={3}
-                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none resize-none"
+                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary-400 focus:outline-none resize-none"
                                     />
                                 </div>
                             </div>
@@ -246,8 +246,8 @@ export default function CheckoutPage() {
                                 <button
                                     onClick={() => setPaymentMethod('qris')}
                                     className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${paymentMethod === 'qris'
-                                            ? 'border-amber-500 bg-amber-50'
-                                            : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-primary-400 bg-primary-50'
+                                        : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
                                     <div className="flex items-center justify-between">
@@ -263,7 +263,7 @@ export default function CheckoutPage() {
                                             </div>
                                         </div>
                                         {paymentMethod === 'qris' && (
-                                            <div className="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center">
+                                            <div className="w-6 h-6 rounded-full bg-primary-400 flex items-center justify-center">
                                                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                                 </svg>
@@ -275,8 +275,8 @@ export default function CheckoutPage() {
                                 <button
                                     onClick={() => setPaymentMethod('transfer')}
                                     className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${paymentMethod === 'transfer'
-                                            ? 'border-amber-500 bg-amber-50'
-                                            : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-primary-400 bg-primary-50'
+                                        : 'border-gray-200 hover:border-gray-300'
                                         }`}
                                 >
                                     <div className="flex items-center justify-between">
@@ -292,7 +292,7 @@ export default function CheckoutPage() {
                                             </div>
                                         </div>
                                         {paymentMethod === 'transfer' && (
-                                            <div className="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center">
+                                            <div className="w-6 h-6 rounded-full bg-primary-400 flex items-center justify-center">
                                                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                                 </svg>
@@ -305,8 +305,8 @@ export default function CheckoutPage() {
                                     <button
                                         onClick={() => setPaymentMethod('cashier')}
                                         className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${paymentMethod === 'cashier'
-                                                ? 'border-amber-500 bg-amber-50'
-                                                : 'border-gray-200 hover:border-gray-300'
+                                            ? 'border-primary-400 bg-primary-50'
+                                            : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                     >
                                         <div className="flex items-center justify-between">
@@ -322,7 +322,7 @@ export default function CheckoutPage() {
                                                 </div>
                                             </div>
                                             {paymentMethod === 'cashier' && (
-                                                <div className="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center">
+                                                <div className="w-6 h-6 rounded-full bg-primary-400 flex items-center justify-center">
                                                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                                     </svg>
@@ -388,8 +388,8 @@ export default function CheckoutPage() {
                                 onClick={handlePlaceOrder}
                                 disabled={!isFormValid()}
                                 className={`w-full mt-6 py-4 rounded-full font-bold text-lg text-white transition-all shadow-lg ${isFormValid()
-                                        ? 'hover:scale-105 hover:shadow-xl'
-                                        : 'opacity-50 cursor-not-allowed'
+                                    ? 'hover:scale-105 hover:shadow-xl'
+                                    : 'opacity-50 cursor-not-allowed'
                                     }`}
                                 style={
                                     isFormValid()

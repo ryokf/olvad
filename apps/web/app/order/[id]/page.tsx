@@ -122,7 +122,7 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                             {/* Progress Line */}
                             <div className="absolute top-12 left-0 right-0 h-1 bg-gray-200">
                                 <div
-                                    className="h-full bg-amber-500 transition-all duration-500"
+                                    className="h-full bg-primary-400 transition-all duration-500"
                                     style={{
                                         width: `${(currentStep / (orderStatuses.length - 1)) * 100}%`,
                                     }}
@@ -139,8 +139,8 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                                     >
                                         <div
                                             className={`w-24 h-24 rounded-full border-4 flex items-center justify-center text-4xl transition-all ${status.completed || status.active
-                                                    ? 'bg-amber-100 border-amber-500'
-                                                    : 'bg-white border-gray-300'
+                                                ? 'bg-primary-100 border-primary-400'
+                                                : 'bg-white border-gray-300'
                                                 } ${status.active
                                                     ? 'scale-110 shadow-lg animate-pulse'
                                                     : ''
@@ -150,8 +150,8 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                                         </div>
                                         <p
                                             className={`mt-4 text-center font-semibold text-sm ${status.completed || status.active
-                                                    ? 'text-gray-900'
-                                                    : 'text-gray-400'
+                                                ? 'text-gray-900'
+                                                : 'text-gray-400'
                                                 }`}
                                         >
                                             {status.label}
@@ -168,10 +168,10 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                             <div
                                 key={status.id}
                                 className={`flex items-center gap-4 p-4 rounded-2xl border-2 ${status.active
-                                        ? 'border-amber-500 bg-amber-50'
-                                        : status.completed
-                                            ? 'border-green-500 bg-green-50'
-                                            : 'border-gray-200 bg-white'
+                                    ? 'border-primary-400 bg-primary-50'
+                                    : status.completed
+                                        ? 'border-green-500 bg-green-50'
+                                        : 'border-gray-200 bg-white'
                                     }`}
                             >
                                 <div className="text-4xl">{status.icon}</div>
@@ -201,7 +201,7 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                 </div>
 
                 {/* Estimated Time */}
-                <div className="bg-linear-to-r from-amber-500 to-orange-500 rounded-3xl p-8 shadow-lg text-white mb-6 text-center">
+                <div className="bg-linear-to-r from-primary-400 to-primary-500 rounded-3xl p-8 shadow-lg text-white mb-6 text-center">
                     <div className="text-5xl mb-3">⏱️</div>
                     <h3 className="text-2xl font-bold mb-2">
                         Estimasi Waktu
@@ -209,7 +209,7 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                     <p className="text-4xl font-bold mb-2">
                         {mockOrder.estimatedTime} Menit
                     </p>
-                    <p className="text-amber-100">
+                    <p className="text-primary-100">
                         Pesananmu akan siap sekitar pukul {mockOrder.pickupTime}
                     </p>
                 </div>
@@ -290,8 +290,8 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                                 </p>
                             </div>
 
-                            <div className="bg-amber-50 rounded-2xl p-4 mt-4">
-                                <p className="text-sm text-amber-900">
+                            <div className="bg-primary-50 rounded-2xl p-4 mt-4">
+                                <p className="text-sm text-primary-800">
                                     📱 Anda akan menerima notifikasi via WhatsApp saat pesanan siap
                                 </p>
                             </div>

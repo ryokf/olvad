@@ -35,7 +35,7 @@ const values = [
 
 export default function ValuePropositionSection() {
   return (
-    <section className="py-20 sm:py-24 bg-linear-to-b from-amber-50 via-orange-50 to-white">
+    <section className="py-20 sm:py-24 bg-linear-to-b from-primary-50 via-primary-100 to-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
@@ -60,7 +60,7 @@ export default function ValuePropositionSection() {
               onMouseEnter={(e) => e.currentTarget.style.borderColor = '#ABC4AA'}
               onMouseLeave={(e) => e.currentTarget.style.borderColor = 'transparent'}
             >
-              <div className="w-16 h-16 bg-linear-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 bg-linear-to-br from-primary-100 to-primary-200 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <span className="text-4xl">{value.icon}</span>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -74,14 +74,14 @@ export default function ValuePropositionSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-16 bg-linear-to-r from-amber-700 to-orange-700 rounded-3xl p-12 text-center text-white shadow-2xl">
+        <div className="mt-16 bg-linear-to-r from-primary-600 to-primary-500 rounded-3xl p-12 text-center text-white shadow-2xl">
           <h3 className="font-display text-3xl font-bold mb-4">
             Siap Merasakan Perbedaannya?
           </h3>
-          <p className="mb-6 text-amber-50 text-lg">
+          <p className="mb-6 text-primary-50 text-lg">
             Kunjungi Olvad hari ini dan nikmati pengalaman kopi & roti yang tak terlupakan
           </p>
-          <button className="btn-hover px-8 py-4 bg-white text-amber-900 rounded-full font-bold hover:bg-amber-50 transition-colors inline-block shadow-lg hover:shadow-xl">
+          <button className="btn-hover px-8 py-4 bg-white text-primary-800 rounded-full font-bold hover:bg-primary-50 transition-colors inline-block shadow-lg hover:shadow-xl">
             Datang Sekarang
           </button>
         </div>

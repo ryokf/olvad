@@ -34,7 +34,7 @@ const testimonials: Testimonial[] = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-20 sm:py-24 bg-linear-to-b from-white to-amber-50">
+    <section className="py-20 sm:py-24 bg-linear-to-b from-white to-primary-50">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
@@ -60,7 +60,7 @@ export default function TestimonialsSection() {
               {/* Stars */}
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <span key={i} className="text-amber-500 text-xl">
+                  <span key={i} className="text-primary-400 text-xl">
                     ★
                   </span>
                 ))}
@@ -87,15 +87,15 @@ export default function TestimonialsSection() {
         {/* Social Proof Stats */}
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 p-12 bg-linear-to-r from-gray-900 to-gray-800 rounded-3xl text-white text-center shadow-2xl">
           <div>
-            <p className="font-display text-5xl font-bold mb-2 text-amber-400">4.8/5</p>
+            <p className="font-display text-5xl font-bold mb-2 text-primary-400">4.8/5</p>
             <p className="text-gray-300 text-lg">Rating Rata-rata</p>
           </div>
           <div>
-            <p className="font-display text-5xl font-bold mb-2 text-amber-400">2,500+</p>
+            <p className="font-display text-5xl font-bold mb-2 text-primary-400">2,500+</p>
             <p className="text-gray-300 text-lg">Review Positif</p>
           </div>
           <div>
-            <p className="font-display text-5xl font-bold mb-2 text-amber-400">98%</p>
+            <p className="font-display text-5xl font-bold mb-2 text-primary-400">98%</p>
             <p className="text-gray-300 text-lg">Rekomendasi</p>
           </div>
         </div>

@@ -136,7 +136,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                         {/* Product Info */}
                         <div>
                             <p className="text-gray-600 mb-3">{product.description}</p>
-                            <p className="text-2xl font-bold text-amber-900">
+                            <p className="text-2xl font-bold text-primary-800">
                                 Rp {product.basePrice.toLocaleString('id-ID')}
                             </p>
                         </div>
@@ -169,8 +169,8 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                         )
                                                     }
                                                     className={`w-full p-4 rounded-xl border-2 transition-all text-left ${isSelected
-                                                            ? 'border-amber-500 bg-amber-50'
-                                                            : 'border-gray-200 hover:border-gray-300'
+                                                        ? 'border-primary-400 bg-primary-50'
+                                                        : 'border-gray-200 hover:border-gray-300'
                                                         }`}
                                                 >
                                                     <div className="flex items-center justify-between">
@@ -178,7 +178,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                             {option.name}
                                                         </span>
                                                         {option.priceModifier !== 0 && (
-                                                            <span className="text-amber-700 font-semibold">
+                                                            <span className="text-primary-600 font-semibold">
                                                                 {option.priceModifier > 0
                                                                     ? '+'
                                                                     : ''}
@@ -211,16 +211,16 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                         )
                                                     }
                                                     className={`w-full p-4 rounded-xl border-2 transition-all text-left ${isSelected
-                                                            ? 'border-amber-500 bg-amber-50'
-                                                            : 'border-gray-200 hover:border-gray-300'
+                                                        ? 'border-primary-400 bg-primary-50'
+                                                        : 'border-gray-200 hover:border-gray-300'
                                                         }`}
                                                 >
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex items-center gap-3">
                                                             <div
                                                                 className={`w-5 h-5 rounded border-2 flex items-center justify-center ${isSelected
-                                                                        ? 'bg-amber-500 border-amber-500'
-                                                                        : 'border-gray-300'
+                                                                    ? 'bg-primary-400 border-primary-400'
+                                                                    : 'border-gray-300'
                                                                     }`}
                                                             >
                                                                 {isSelected && (
@@ -244,7 +244,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                             </span>
                                                         </div>
                                                         {option.priceModifier !== 0 && (
-                                                            <span className="text-amber-700 font-semibold">
+                                                            <span className="text-primary-600 font-semibold">
                                                                 {option.priceModifier > 0
                                                                     ? '+'
                                                                     : ''}
@@ -272,7 +272,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                 value={specialInstructions}
                                 onChange={(e) => setSpecialInstructions(e.target.value)}
                                 placeholder="Contoh: Gelas terpisah, es banyak, dll."
-                                className="w-full p-4 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none resize-none"
+                                className="w-full p-4 rounded-xl border-2 border-gray-200 focus:border-primary-400 focus:outline-none resize-none"
                                 rows={3}
                             />
                         </div>
@@ -306,8 +306,8 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                             onClick={handleAddToCart}
                             disabled={!isValid()}
                             className={`w-full py-4 rounded-full font-bold text-lg text-white transition-all shadow-lg ${isValid()
-                                    ? 'hover:scale-105 hover:shadow-xl'
-                                    : 'opacity-50 cursor-not-allowed'
+                                ? 'hover:scale-105 hover:shadow-xl'
+                                : 'opacity-50 cursor-not-allowed'
                                 }`}
                             style={
                                 isValid()

@@ -28,7 +28,7 @@ export default function MenuPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Header */}
-            <div className="bg-linear-to-br from-amber-50 to-orange-50 pt-24 pb-12">
+            <div className="bg-linear-to-br from-primary-50 to-primary-100 pt-24 pb-12">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center space-y-4">
                         <h1 className="text-5xl sm:text-6xl font-bold text-gray-900">

@@ -119,7 +119,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                     </span>{' '}
                                                     {variant.selectedOptions.join(', ')}
                                                     {variant.additionalPrice > 0 && (
-                                                        <span className="text-amber-700 ml-1">
+                                                        <span className="text-primary-600 ml-1">
                                                             (+Rp{' '}
                                                             {variant.additionalPrice.toLocaleString(
                                                                 'id-ID'
@@ -134,7 +134,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                                     {/* Special Instructions */}
                                     {item.specialInstructions && (
-                                        <div className="text-sm text-gray-600 bg-amber-50 p-2 rounded-lg">
+                                        <div className="text-sm text-gray-600 bg-primary-50 p-2 rounded-lg">
                                             <span className="font-semibold">Catatan:</span>{' '}
                                             {item.specialInstructions}
                                         </div>
@@ -169,7 +169,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                 +
                                             </button>
                                         </div>
-                                        <p className="text-lg font-bold text-amber-900">
+                                        <p className="text-lg font-bold text-primary-800">
                                             Rp {item.totalPrice.toLocaleString('id-ID')}
                                         </p>
                                     </div>

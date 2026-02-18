@@ -100,7 +100,7 @@ export default function OrderHistoryPage() {
     const getStatusBadge = (status: MockOrder['status']) => {
         const styles = {
             completed: 'bg-green-100 text-green-700 border-green-300',
-            preparing: 'bg-amber-100 text-amber-700 border-amber-300',
+            preparing: 'bg-primary-100 text-primary-600 border-primary-300',
             ready: 'bg-blue-100 text-blue-700 border-blue-300',
             cancelled: 'bg-red-100 text-red-700 border-red-300',
         };
@@ -174,8 +174,8 @@ export default function OrderHistoryPage() {
                     <button
                         onClick={() => setFilter('all')}
                         className={`flex-1 py-3 px-6 rounded-xl font-semibold transition-all ${filter === 'all'
-                                ? 'bg-amber-100 text-amber-900'
-                                : 'text-gray-600 hover:bg-gray-100'
+                            ? 'bg-primary-100 text-primary-800'
+                            : 'text-gray-600 hover:bg-gray-100'
                             }`}
                     >
                         Semua ({mockOrders.length})
@@ -183,8 +183,8 @@ export default function OrderHistoryPage() {
                     <button
                         onClick={() => setFilter('completed')}
                         className={`flex-1 py-3 px-6 rounded-xl font-semibold transition-all ${filter === 'completed'
-                                ? 'bg-green-100 text-green-900'
-                                : 'text-gray-600 hover:bg-gray-100'
+                            ? 'bg-green-100 text-green-900'
+                            : 'text-gray-600 hover:bg-gray-100'
                             }`}
                     >
                         Selesai ({mockOrders.filter((o) => o.status === 'completed').length})
@@ -192,8 +192,8 @@ export default function OrderHistoryPage() {
                     <button
                         onClick={() => setFilter('cancelled')}
                         className={`flex-1 py-3 px-6 rounded-xl font-semibold transition-all ${filter === 'cancelled'
-                                ? 'bg-red-100 text-red-900'
-                                : 'text-gray-600 hover:bg-gray-100'
+                            ? 'bg-red-100 text-red-900'
+                            : 'text-gray-600 hover:bg-gray-100'
                             }`}
                     >
                         Dibatalkan ({mockOrders.filter((o) => o.status === 'cancelled').length})
@@ -241,7 +241,7 @@ export default function OrderHistoryPage() {
                                     </div>
                                     <div>
                                         <p className="text-sm text-gray-600">Total Harga</p>
-                                        <p className="font-bold text-amber-900 text-lg">
+                                        <p className="font-bold text-primary-800 text-lg">
                                             Rp {order.total.toLocaleString('id-ID')}
                                         </p>
                                     </div>
@@ -274,7 +274,7 @@ export default function OrderHistoryPage() {
 
                                     <button
                                         onClick={() => router.push(`/order/${order.id}`)}
-                                        className="flex-1 py-3 px-6 rounded-full border-2 border-amber-500 text-amber-700 font-semibold hover:bg-amber-50 transition-all"
+                                        className="flex-1 py-3 px-6 rounded-full border-2 border-primary-400 text-primary-600 font-semibold hover:bg-primary-50 transition-all"
                                     >
                                         📍 Lacak Pesanan
                                     </button>
@@ -316,7 +316,7 @@ export default function OrderHistoryPage() {
                                                     {item.variants.map((variant, vIndex) => (
                                                         <span
                                                             key={vIndex}
-                                                            className="px-2 py-1 bg-amber-100 text-amber-700 rounded-lg text-xs font-semibold"
+                                                            className="px-2 py-1 bg-primary-100 text-primary-600 rounded-lg text-xs font-semibold"
                                                         >
                                                             {variant}
                                                         </span>
@@ -352,14 +352,14 @@ export default function OrderHistoryPage() {
                 )}
 
                 {/* Info Card */}
-                <div className="mt-8 bg-amber-50 rounded-3xl p-6 border-2 border-amber-200">
+                <div className="mt-8 bg-primary-50 rounded-3xl p-6 border-2 border-primary-200">
                     <div className="flex gap-4">
                         <div className="text-3xl">💡</div>
                         <div>
-                            <h4 className="font-bold text-amber-900 mb-2">
+                            <h4 className="font-bold text-primary-800 mb-2">
                                 Fitur "Pesan Lagi"
                             </h4>
-                            <p className="text-sm text-amber-900">
+                            <p className="text-sm text-primary-800">
                                 Dengan tombol "Pesan Lagi", semua item dari pesanan sebelumnya akan
                                 langsung masuk ke keranjang Anda. Sangat praktis untuk repeat
                                 order! ☕

@@ -9,7 +9,7 @@ interface ProductCardProps {
 }
 
 const labelColors = {
-    bestseller: 'bg-amber-500',
+    bestseller: 'bg-primary-400',
     new: 'bg-green-500',
     spicy: 'bg-red-500',
     vegetarian: 'bg-green-600',
@@ -28,7 +28,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
     return (
         <div className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 animate-on-scroll">
             {/* Product Image */}
-            <div className="relative h-56 bg-linear-to-br from-amber-50 to-orange-50 overflow-hidden">
+            <div className="relative h-56 bg-linear-to-br from-primary-50 to-primary-100 overflow-hidden">
                 {/* Labels */}
                 {product.labels && product.labels.length > 0 && (
                     <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
@@ -63,7 +63,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
             {/* Product Info */}
             <div className="p-5 space-y-3">
                 <div>
-                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-amber-700 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
                         {product.name}
                     </h3>
                     <p className="text-sm text-gray-600 mt-1 line-clamp-2">
@@ -95,7 +95,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
                 <div className="flex items-center justify-between pt-3 border-t border-gray-200">
                     <div>
                         <p className="text-xs text-gray-500">Mulai dari</p>
-                        <p className="text-2xl font-bold text-amber-900">
+                        <p className="text-2xl font-bold text-primary-800">
                             Rp {product.basePrice.toLocaleString('id-ID')}
                         </p>
                     </div>
@@ -103,8 +103,8 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
                         onClick={() => onAddToCart(product)}
                         disabled={!product.available}
                         className={`px-6 py-3 rounded-full font-bold text-white transition-all shadow-md hover:shadow-lg ${product.available
-                                ? 'hover:scale-105'
-                                : 'opacity-50 cursor-not-allowed'
+                            ? 'hover:scale-105'
+                            : 'opacity-50 cursor-not-allowed'
                             }`}
                         style={
                             product.available

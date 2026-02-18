@@ -16,7 +16,7 @@ import { LoginRequestDto } from './dto/login.dto';
 export class UserService {
     constructor(
         private readonly prisma: PrismaService,
-        private jwtService: JwtService,
+        private readonly jwtService: JwtService,
     ) {}
 
     async register(data: RegisterDto): Promise<User> {

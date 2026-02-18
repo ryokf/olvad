@@ -8,7 +8,7 @@ export default function HeroSection() {
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
             {/* Background decoration */}
             {/* <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-40 -right-40 w-96 h-96 bg-amber-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+                <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
                 <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-orange-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob animation-delay-2000"></div>
                 <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
             </div> */}
@@ -28,10 +28,10 @@ export default function HeroSection() {
 
                         {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                            <button className="btn-hover px-8 py-4 bg-amber-700 text-white rounded-full font-semibold text-lg hover:bg-amber-800 shadow-lg hover:shadow-xl transition-all">
+                            <button className="btn-hover px-8 py-4 bg-primary-600 text-white rounded-full font-semibold text-lg hover:bg-primary-700 shadow-lg hover:shadow-xl transition-all">
                                 Lihat Menu
                             </button>
-                            <button className="btn-hover px-8 py-4 border-2 border-amber-700 text-amber-800 rounded-full font-semibold text-lg hover:bg-amber-50 shadow-md hover:shadow-lg transition-all">
+                            <button className="btn-hover px-8 py-4 border-2 border-primary-600 text-primary-700 rounded-full font-semibold text-lg hover:bg-primary-50 shadow-md hover:shadow-lg transition-all">
                                 Pesan Sekarang
                             </button>
                         </div>
@@ -60,7 +60,7 @@ export default function HeroSection() {
 
             {/* Scroll indicator */}
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                <svg className="w-6 h-6 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-primary-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
             </div>

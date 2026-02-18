@@ -61,7 +61,7 @@ export default function LocationHoursSection() {
                 ].map((item, idx) => (
                   <div key={idx} className="flex justify-between items-center py-2 border-b border-white/10 last:border-0">
                     <p className="text-gray-300">{item.day}</p>
-                    <p className="font-semibold text-amber-400">{item.hours}</p>
+                    <p className="font-semibold text-primary-400">{item.hours}</p>
                   </div>
                 ))}
               </div>
@@ -123,7 +123,7 @@ export default function LocationHoursSection() {
           </div>
 
           {/* Map Placeholder */}
-          <div className="h-96 lg:h-full min-h-150 rounded-2xl overflow-hidden border border-white/20 bg-linear-to-br from-amber-900/20 to-orange-900/20 backdrop-blur-sm">
+          <div className="h-96 lg:h-full min-h-150 rounded-2xl overflow-hidden border border-white/20 bg-linear-to-br from-primary-800/20 to-primary-700/20 backdrop-blur-sm">
             <div className="w-full h-full flex items-center justify-center">
               <div className="text-center">
                 <p className="text-6xl mb-4">🗺️</p>
