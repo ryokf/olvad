@@ -17,7 +17,7 @@ export default function Navbar() {
             width={40}
             height={40}
           />
-          <span className="font-display text-2xl font-bold text-gray-900">
+          <span className="font-display text-3xl font-bold text-secondary">
             Olvad
           </span>
         </div>
@@ -26,31 +26,31 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           <a
             href="#home"
-            className="text-gray-700 hover:text-primary-600 font-semibold transition-colors"
+            className="text-gray-700 hover:text-primary-400 font-semibold transition-colors"
           >
             Home
           </a>
           <a
             href="/menu"
-            className="text-gray-700 hover:text-primary-600 font-semibold transition-colors"
+            className="text-gray-700 hover:text-primary-400 font-semibold transition-colors"
           >
             Menu
           </a>
           <a
             href="/profile/orders"
-            className="text-gray-700 hover:text-primary-600 font-semibold transition-colors"
+            className="text-gray-700 hover:text-primary-400 font-semibold transition-colors"
           >
             Pesanan
           </a>
           <a
             href="#about"
-            className="text-gray-700 hover:text-primary-600 font-semibold transition-colors"
+            className="text-gray-700 hover:text-primary-400 font-semibold transition-colors"
           >
             Tentang
           </a>
           <a
             href="#contact"
-            className="text-gray-700 hover:text-primary-600 font-semibold transition-colors"
+            className="text-gray-700 hover:text-primary-400 font-semibold transition-colors"
           >
             Kontak
           </a>
@@ -58,8 +58,8 @@ export default function Navbar() {
 
         {/* CTA Button */}
         <div className="hidden md:flex items-center gap-4">
-          <button className="btn-hover px-6 py-2.5 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 shadow-md hover:shadow-lg transition-all">
-            Pesan Sekarang
+          <button className="btn-hover px-6 py-2.5 bg-secondary text-white rounded-full font-semibold hover:bg-primary-500 shadow-md hover:shadow-lg transition-all">
+            Login
           </button>
         </div>
 
@@ -89,36 +89,36 @@ export default function Navbar() {
             <div className="p-6 space-y-4">
               <a
                 href="#home"
-                className="block text-gray-700 hover:text-primary-600 font-semibold py-2"
+                className="block text-gray-700 hover:text-primary-400 font-semibold py-2"
               >
                 Home
               </a>
               <a
                 href="/menu"
-                className="block text-gray-700 hover:text-primary-600 font-semibold py-2"
+                className="block text-gray-700 hover:text-primary-400 font-semibold py-2"
               >
                 Menu
               </a>
               <a
                 href="/profile/orders"
-                className="block text-gray-700 hover:text-primary-600 font-semibold py-2"
+                className="block text-gray-700 hover:text-primary-400 font-semibold py-2"
               >
                 Pesanan
               </a>
               <a
                 href="#about"
-                className="block text-gray-700 hover:text-primary-600 font-semibold py-2"
+                className="block text-gray-700 hover:text-primary-400 font-semibold py-2"
               >
                 Tentang
               </a>
               <a
                 href="#contact"
-                className="block text-gray-700 hover:text-primary-600 font-semibold py-2"
+                className="block text-gray-700 hover:text-primary-400 font-semibold py-2"
               >
                 Kontak
               </a>
-              <button className="w-full btn-hover px-6 py-3 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 shadow-md transition-all">
-                Pesan Sekarang
+              <button className="w-full btn-hover px-6 py-3 bg-primary-400 text-white rounded-full font-semibold hover:bg-primary-500 shadow-md transition-all">
+                Login
               </button>
             </div>
           </div>

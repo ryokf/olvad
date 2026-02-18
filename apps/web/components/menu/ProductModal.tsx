@@ -178,7 +178,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                             {option.name}
                                                         </span>
                                                         {option.priceModifier !== 0 && (
-                                                            <span className="text-primary-600 font-semibold">
+                                                            <span className="text-primary-400 font-semibold">
                                                                 {option.priceModifier > 0
                                                                     ? '+'
                                                                     : ''}
@@ -244,7 +244,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                             </span>
                                                         </div>
                                                         {option.priceModifier !== 0 && (
-                                                            <span className="text-primary-600 font-semibold">
+                                                            <span className="text-primary-400 font-semibold">
                                                                 {option.priceModifier > 0
                                                                     ? '+'
                                                                     : ''}

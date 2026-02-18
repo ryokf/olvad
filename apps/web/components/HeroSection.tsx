@@ -19,19 +19,19 @@ export default function HeroSection() {
                     <div className="space-y-8 animate-fade-in-up min-h-[60vh] flex flex-col justify-center">
                         <div className="space-y-4">
                             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
-                                Feel The Happiness In Every Bite
+                                Feel The <span className='font-display text-primary'> Happiness </span> In Every <span className='font-display text-primary'>  Bite </span>
                             </h1>
-                            <p className="text-xl text-gray-700 font-light leading-relaxed max-w-lg">
+                            <p className="text-xl text-secondary-300 font-light leading-relaxed max-w-lg">
                                 kombinasi dari bahan alami terbaik untuk manisnya setiap momen
                             </p>
                         </div>
 
                         {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                            <button className="btn-hover px-8 py-4 bg-primary-600 text-white rounded-full font-semibold text-lg hover:bg-primary-700 shadow-lg hover:shadow-xl transition-all">
+                            <button className="btn-hover px-8 py-4 bg-primary-400 text-white rounded-full font-semibold text-lg hover:bg-primary-500 shadow-lg hover:shadow-xl transition-all">
                                 Lihat Menu
                             </button>
-                            <button className="btn-hover px-8 py-4 border-2 border-primary-600 text-primary-700 rounded-full font-semibold text-lg hover:bg-primary-50 shadow-md hover:shadow-lg transition-all">
+                            <button className="btn-hover px-8 py-4 border-2 border-primary-400 text-primary-500 rounded-full font-semibold text-lg hover:bg-primary-50 shadow-md hover:shadow-lg transition-all">
                                 Pesan Sekarang
                             </button>
                         </div>
@@ -60,7 +60,7 @@ export default function HeroSection() {
 
             {/* Scroll indicator */}
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                <svg className="w-6 h-6 text-primary-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
             </div>

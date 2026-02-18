@@ -119,7 +119,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                                     </span>{' '}
                                                     {variant.selectedOptions.join(', ')}
                                                     {variant.additionalPrice > 0 && (
-                                                        <span className="text-primary-600 ml-1">
+                                                        <span className="text-primary-400 ml-1">
                                                             (+Rp{' '}
                                                             {variant.additionalPrice.toLocaleString(
                                                                 'id-ID'

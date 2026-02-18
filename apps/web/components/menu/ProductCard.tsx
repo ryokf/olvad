@@ -63,7 +63,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
             {/* Product Info */}
             <div className="p-5 space-y-3">
                 <div>
-                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-400 transition-colors">
                         {product.name}
                     </h3>
                     <p className="text-sm text-gray-600 mt-1 line-clamp-2">
@@ -94,15 +94,15 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
                 {/* Price & CTA */}
                 <div className="flex items-center justify-between pt-3 border-t border-gray-200">
                     <div>
-                        <p className="text-xs text-gray-500">Mulai dari</p>
-                        <p className="text-2xl font-bold text-primary-800">
+                        <p className="text-xs text-gray-500 mb-0.5">Mulai dari</p>
+                        <p className="text-xl font-bold text-secondary">
                             Rp {product.basePrice.toLocaleString('id-ID')}
                         </p>
                     </div>
                     <button
                         onClick={() => onAddToCart(product)}
                         disabled={!product.available}
-                        className={`px-6 py-3 rounded-full font-bold text-white transition-all shadow-md hover:shadow-lg ${product.available
+                        className={`w-12 aspect-square rounded-full font-bold text-white transition-all shadow-md hover:shadow-lg ${product.available
                             ? 'hover:scale-105'
                             : 'opacity-50 cursor-not-allowed'
                             }`}
@@ -112,7 +112,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
                                 : { backgroundColor: '#6B7280' }
                         }
                     >
-                        {product.available ? 'Tambah' : 'Habis'}
+                        {product.available ? '+' : ''}
                     </button>
                 </div>
             </div>

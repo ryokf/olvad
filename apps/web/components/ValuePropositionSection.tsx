@@ -35,13 +35,13 @@ const values = [
 
 export default function ValuePropositionSection() {
   return (
-    <section className="py-20 sm:py-24 bg-linear-to-b from-primary-50 via-primary-100 to-white">
+    <section className="py-20 sm:py-24 bg-linear-to-b from-secondary-100 via-secondary-100 to-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
+          {/* <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
             Mengapa Olvad?
-          </p>
+          </p> */}
           <h2 className="text-5xl font-bold text-gray-900">
             Keunggulan Kami
           </h2>
@@ -74,14 +74,14 @@ export default function ValuePropositionSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-16 bg-linear-to-r from-primary-600 to-primary-500 rounded-3xl p-12 text-center text-white shadow-2xl">
+        <div className="mt-16 bg-primary rounded-3xl p-12 text-center text-white shadow-2xl">
           <h3 className="font-display text-3xl font-bold mb-4">
             Siap Merasakan Perbedaannya?
           </h3>
           <p className="mb-6 text-primary-50 text-lg">
             Kunjungi Olvad hari ini dan nikmati pengalaman kopi & roti yang tak terlupakan
           </p>
-          <button className="btn-hover px-8 py-4 bg-white text-primary-800 rounded-full font-bold hover:bg-primary-50 transition-colors inline-block shadow-lg hover:shadow-xl">
+          <button className="btn-hover px-8 py-4 bg-white text-primary rounded-full font-bold hover:bg-primary-50 transition-colors inline-block shadow-lg hover:shadow-xl">
             Datang Sekarang
           </button>
         </div>

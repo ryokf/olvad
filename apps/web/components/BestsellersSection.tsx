@@ -51,7 +51,7 @@ export default function BestsellersSection() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <section className="py-20 sm:py-24 bg-linear-to-b from-white to-primary-50">
+    <section className="py-20 sm:py-24 bg-linear-to-b from-white to-secondary-100">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
@@ -100,7 +100,7 @@ export default function BestsellersSection() {
                 {/* Product Info */}
                 <div className="p-6 space-y-4">
                   <div>
-                    <p className="text-xs text-primary-600 uppercase tracking-wide font-bold">
+                    <p className="text-xs text-secondary uppercase tracking-wide font-bold">
                       {product.category}
                     </p>
                     <h3 className="text-xl font-semibold text-gray-900 mt-2">
@@ -110,13 +110,13 @@ export default function BestsellersSection() {
 
                   {/* Price & CTA */}
                   <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <p className="text-2xl font-display font-bold text-primary-800">
+                    <p className="text-2xl font-bold text-primary">
                       Rp {product.price.toLocaleString("id-ID")}
                     </p>
                     <button
                       className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl transition-all shadow-md ${hoveredId === product.id
                         ? "text-white scale-110 shadow-lg"
-                        : "bg-primary-100 text-primary-700 hover:bg-primary-200"
+                        : "bg-primary-100 text-primary-500 hover:bg-primary-200"
                         }`}
                       style={hoveredId === product.id ? { backgroundColor: '#ABC4AA' } : {}}
                     >
@@ -131,7 +131,7 @@ export default function BestsellersSection() {
 
         {/* CTA */}
         <div className="text-center mt-16">
-          <button className="btn-hover px-10 py-4 bg-primary-600 text-white rounded-full font-semibold text-lg hover:bg-primary-700 shadow-lg hover:shadow-xl transition-all inline-block">
+          <button className="btn-hover px-10 py-4 bg-primary-400 text-white rounded-full font-semibold text-lg hover:bg-primary-500 shadow-lg hover:shadow-xl transition-all inline-block">
             Lihat Semua Menu
           </button>
         </div>

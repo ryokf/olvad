@@ -100,7 +100,7 @@ export default function OrderHistoryPage() {
     const getStatusBadge = (status: MockOrder['status']) => {
         const styles = {
             completed: 'bg-green-100 text-green-700 border-green-300',
-            preparing: 'bg-primary-100 text-primary-600 border-primary-300',
+            preparing: 'bg-primary-100 text-primary-400 border-primary-300',
             ready: 'bg-blue-100 text-blue-700 border-blue-300',
             cancelled: 'bg-red-100 text-red-700 border-red-300',
         };
@@ -274,7 +274,7 @@ export default function OrderHistoryPage() {
 
                                     <button
                                         onClick={() => router.push(`/order/${order.id}`)}
-                                        className="flex-1 py-3 px-6 rounded-full border-2 border-primary-400 text-primary-600 font-semibold hover:bg-primary-50 transition-all"
+                                        className="flex-1 py-3 px-6 rounded-full border-2 border-primary-400 text-primary-400 font-semibold hover:bg-primary-50 transition-all"
                                     >
                                         📍 Lacak Pesanan
                                     </button>
@@ -316,7 +316,7 @@ export default function OrderHistoryPage() {
                                                     {item.variants.map((variant, vIndex) => (
                                                         <span
                                                             key={vIndex}
-                                                            className="px-2 py-1 bg-primary-100 text-primary-600 rounded-lg text-xs font-semibold"
+                                                            className="px-2 py-1 bg-primary-100 text-primary-400 rounded-lg text-xs font-semibold"
                                                         >
                                                             {variant}
                                                         </span>

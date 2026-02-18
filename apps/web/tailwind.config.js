@@ -8,6 +8,19 @@ export default {
         extend: {
             colors: {
                 primary: {
+                    50: "#f6faf4",
+                    100: "#eef5e8",
+                    200: "#deebd1",
+                    300: "#c7deac",
+                    400: "#abc4aa",
+                    500: "#8fb597",
+                    600: "#6fa082",
+                    700: "#588570",
+                    800: "#486d5f",
+                    900: "#3b574d",
+                    DEFAULT: "#ABC4AA",
+                },
+                secondary: {
                     50: "#f5f3f1",
                     100: "#ede9e4",
                     200: "#ddd4ca",
@@ -18,19 +31,6 @@ export default {
                     700: "#554c43",
                     800: "#47403a",
                     900: "#3c3530",
-                    DEFAULT: "#A9907F",
-                },
-                secondary: {
-                    50: "#faf8f6",
-                    100: "#f3ede8",
-                    200: "#e8ddd2",
-                    300: "#d9c9b2",
-                    400: "#A9907F",
-                    500: "#8b7355",
-                    600: "#6f5f50",
-                    700: "#5d4f45",
-                    800: "#50443c",
-                    900: "#453a32",
                     DEFAULT: "#A9907F",
                 },
                 tertiary: {
