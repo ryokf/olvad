@@ -25,10 +25,10 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Cari menu favorit kamu... (cth: Latte, Croissant)"
-                className="w-full px-6 pl-14 py-4 rounded-full border-2 border-gray-200 focus:border-primary-400 focus:outline-none transition-colors text-gray-900 placeholder-gray-400"
+                className="w-full px-6 pl-14 py-4 rounded-full border-2 border-gray-200 focus:border-primary-400 focus:outline-none transition-colors text-secondary placeholder-secondary-300"
             />
             <svg
-                className="absolute left-5 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
+                className="absolute left-5 top-1/2 transform -translate-y-1/2 w-6 h-6 text-secondary-300"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -46,7 +46,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
                     className="absolute right-5 top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors"
                 >
                     <svg
-                        className="w-5 h-5 text-gray-600"
+                        className="w-5 h-5 text-secondary-300"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"

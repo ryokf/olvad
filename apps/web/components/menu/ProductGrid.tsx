@@ -32,10 +32,10 @@ export default function ProductGrid({
         return (
             <div className="text-center py-20">
                 <div className="text-6xl mb-4">🔍</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                <h3 className="text-2xl font-bold text-secondary mb-2">
                     Tidak menemukan menu
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-secondary-300">
                     Coba kata kunci lain atau lihat semua menu kami
                 </p>
             </div>
@@ -50,7 +50,7 @@ export default function ProductGrid({
                         <div key={category.id} id={`category-${category.id}`}>
                             {/* Category Header */}
                             <div className="mb-8">
-                                <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+                                <h2 className="text-3xl font-bold text-secondary flex items-center gap-3">
                                     <span className="text-4xl">{category.icon}</span>
                                     {category.name}
                                 </h2>

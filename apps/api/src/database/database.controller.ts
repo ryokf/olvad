@@ -10,22 +10,20 @@ import {
 export class DatabaseController {
     constructor(private readonly prisma: PrismaService) {}
 
-    // Helper untuk pilih random item dari array
     private randomItem<T>(items: T[]): T {
         return items[Math.floor(Math.random() * items.length)];
     }
 
-    // Helper untuk random number range
     private randomNumber(min: number, max: number): number {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     @Get('/seed')
     async seed() {
-        console.log('🌱 Starting Massive Seeding...');
+        console.log('🌱 Starting Massive Seeding for Olvad Menu...');
 
         // ==========================================
-        // 1. CLEAN UP (Hapus data lama)
+        // 1. CLEAN UP
         // ==========================================
         await this.prisma.$transaction([
             this.prisma.detailOrderVariant.deleteMany(),
@@ -39,59 +37,245 @@ export class DatabaseController {
         ]);
 
         // ==========================================
-        // 2. CREATE USERS (5 User Dummy)
+        // 2. CREATE USERS
         // ==========================================
         const usersData = Array.from({ length: 5 }).map((_, i) => ({
             username: `user${i + 1}`,
             email: `user${i + 1}@example.com`,
-            password: 'password123', // Di real app ini harus di-hash
+            password: 'password123',
             address: `Jl. Raya No. ${i + 1}, Semarang`,
             photo: `https://api.dicebear.com/7.x/avataaars/svg?seed=user${i + 1}`,
         }));
 
         await this.prisma.user.createMany({ data: usersData });
-        const allUsers = await this.prisma.user.findMany(); // Ambil balik utk dapat ID-nya
+        const allUsers = await this.prisma.user.findMany();
 
         // ==========================================
-        // 3. CREATE MENU (Categories -> Products -> Variants)
+        // 3. COMMON VARIANTS TEMPLATE (Untuk kemudahan re-use)
+        // ==========================================
+        const tempVariant = {
+            name: 'Temperature',
+            isSingleSelection: true,
+            options: {
+                create: [
+                    { name: 'Hot', addPrice: 0 },
+                    { name: 'Ice', addPrice: 2000 },
+                ],
+            },
+        };
+        const sweetnessVariant = {
+            name: 'Sweetness',
+            isSingleSelection: true,
+            options: {
+                create: [
+                    { name: 'Normal', addPrice: 0 },
+                    { name: 'Less Sugar', addPrice: 0 },
+                ],
+            },
+        };
+        const milkVariant = {
+            name: 'Milk Choice',
+            isSingleSelection: true,
+            options: {
+                create: [
+                    { name: 'Fresh Milk', addPrice: 0 },
+                    { name: 'Oat Milk', addPrice: 8000 },
+                ],
+            },
+        };
+        const coffeeAddonVariant = {
+            name: 'Add-ons',
+            isSingleSelection: false, // Bisa pilih ekstra shot & sirup sekaligus
+            options: {
+                create: [
+                    { name: 'Extra Shot Espresso', addPrice: 5000 },
+                    { name: 'Vanilla Syrup', addPrice: 4000 },
+                ],
+            },
+        };
+
+        const spicyVariant = {
+            name: 'Level Pedas',
+            isSingleSelection: true,
+            options: {
+                create: [
+                    { name: 'Tidak Pedas', addPrice: 0 },
+                    { name: 'Sedang', addPrice: 0 },
+                    { name: 'Pedas', addPrice: 0 },
+                ],
+            },
+        };
+
+        const pastryPrepVariant = {
+            name: 'Preparation',
+            isSingleSelection: true,
+            options: {
+                create: [
+                    { name: 'Sajikan Hangat (Toasted)', addPrice: 0 },
+                    { name: 'Biasa (Room Temp)', addPrice: 0 },
+                ],
+            },
+        };
+
+        // ==========================================
+        // 4. CREATE MENU & VARIANTS
         // ==========================================
 
-        // --- Kategori: Coffee ---
+        // --- Kategori: Signature Coffee ---
         await this.prisma.category.create({
             data: {
-                name: 'Coffee',
+                name: 'Signature Coffee',
                 products: {
                     create: [
                         {
                             name: 'Kopi Susu Gula Aren',
-                            description: 'Signature coffee with palm sugar',
-                            price: 18000,
+                            description:
+                                'Rekomendasi - Kopi susu dengan gula aren pilihan',
+                            price: 28000,
                             photo: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=300',
                             variants: {
                                 create: [
+                                    tempVariant,
+                                    sweetnessVariant,
+                                    coffeeAddonVariant,
+                                ],
+                            },
+                        },
+                        {
+                            name: 'Avocado Coffee',
+                            description:
+                                'Rekomendasi - Perpaduan kopi dan alpukat segar',
+                            price: 32000,
+                            photo: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&q=80&w=300',
+                            variants: { create: [sweetnessVariant] }, // Hanya manis/tidak
+                        },
+                    ],
+                },
+            },
+        });
+
+        // --- Kategori: Espresso Based ---
+        await this.prisma.category.create({
+            data: {
+                name: 'Espresso Based',
+                products: {
+                    create: [
+                        {
+                            name: 'Latte Premium',
+                            description:
+                                'Espresso dengan steamed milk premium [cite: 23]',
+                            price: 30000,
+                            photo: 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&q=80&w=300',
+                            variants: {
+                                create: [
+                                    tempVariant,
+                                    milkVariant,
+                                    coffeeAddonVariant,
+                                ],
+                            },
+                        },
+                        {
+                            name: 'Cappuccino',
+                            description:
+                                'Classic espresso with thick foam [cite: 24]',
+                            price: 30000,
+                            photo: 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=300',
+                            variants: {
+                                create: [
+                                    tempVariant,
+                                    milkVariant,
+                                    coffeeAddonVariant,
+                                ],
+                            },
+                        },
+                        {
+                            name: 'Mocha',
+                            description:
+                                'Espresso, cokelat, dan susu [cite: 25]',
+                            price: 30000,
+                            photo: 'https://images.unsplash.com/photo-1596078841242-12f73dc697c6?auto=format&fit=crop&q=80&w=300',
+                            variants: { create: [tempVariant, milkVariant] },
+                        },
+                        {
+                            name: 'Americano',
+                            description: 'Espresso dengan air [cite: 26]',
+                            price: 25000,
+                            photo: 'https://images.unsplash.com/photo-1551024601-bec045bd703c?auto=format&fit=crop&q=80&w=300',
+                            variants: {
+                                create: [tempVariant, coffeeAddonVariant],
+                            },
+                        },
+                    ],
+                },
+            },
+        });
+
+        // --- Kategori: Non Coffee ---
+        await this.prisma.category.create({
+            data: {
+                name: 'Non Coffee',
+                products: {
+                    create: [
+                        {
+                            name: 'Matcha Latte',
+                            description:
+                                'Rekomendasi - Minuman matcha kualitas premium [cite: 33]',
+                            price: 30000,
+                            photo: 'https://images.unsplash.com/photo-1515823662972-da6a2b4d3002?auto=format&fit=crop&q=80&w=300',
+                            variants: {
+                                create: [
+                                    tempVariant,
+                                    milkVariant,
+                                    sweetnessVariant,
+                                ],
+                            },
+                        },
+                        {
+                            name: 'Chocolate Premium',
+                            description: 'Cokelat pilihan terbaik [cite: 34]',
+                            price: 25000,
+                            photo: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&q=80&w=300',
+                            variants: { create: [tempVariant, milkVariant] },
+                        },
+                        {
+                            name: 'Teh Tarik',
+                            description: 'Teh tarik otentik [cite: 35]',
+                            price: 22000,
+                            photo: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&q=80&w=300',
+                            variants: { create: [tempVariant] },
+                        },
+                    ],
+                },
+            },
+        });
+
+        // --- Kategori: Pastry ---
+        await this.prisma.category.create({
+            data: {
+                name: 'Pastry',
+                products: {
+                    create: [
+                        {
+                            name: 'Butter Croissant',
+                            description: 'Rekomendasi pastry renyah [cite: 41]',
+                            price: 25000,
+                            photo: 'https://images.unsplash.com/photo-1555507036-ab1f40ce88cb?auto=format&fit=crop&q=80&w=300',
+                            variants: {
+                                create: [
+                                    pastryPrepVariant,
                                     {
-                                        name: 'Size',
-                                        isSingleSelection: true,
+                                        name: 'Extra Dip',
+                                        isSingleSelection: false,
                                         options: {
                                             create: [
                                                 {
-                                                    name: 'Regular',
-                                                    addPrice: 0,
+                                                    name: 'Butter Curls',
+                                                    addPrice: 4000,
                                                 },
                                                 {
-                                                    name: 'Large',
+                                                    name: 'Strawberry Jam',
                                                     addPrice: 5000,
                                                 },
-                                            ],
-                                        },
-                                    },
-                                    {
-                                        name: 'Sugar',
-                                        isSingleSelection: true,
-                                        options: {
-                                            create: [
-                                                { name: 'Normal', addPrice: 0 },
-                                                { name: 'Less', addPrice: 0 },
                                             ],
                                         },
                                     },
@@ -99,24 +283,45 @@ export class DatabaseController {
                             },
                         },
                         {
-                            name: 'Americano',
-                            description: 'Espresso with water',
-                            price: 15000,
-                            photo: 'https://images.unsplash.com/photo-1551024601-bec045bd703c?auto=format&fit=crop&q=80&w=300',
+                            name: 'Chocolate Croissant',
+                            description:
+                                'Croissant dengan isian cokelat lumer [cite: 46]',
+                            price: 28000,
+                            photo: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&q=80&w=300',
+                            variants: { create: [pastryPrepVariant] },
+                        },
+                        {
+                            name: 'Sourdough Toast',
+                            description: 'Roti artisan panggang [cite: 49]',
+                            price: 22000,
+                            photo: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&q=80&w=300',
                             variants: {
                                 create: [
                                     {
-                                        name: 'Temperature',
-                                        isSingleSelection: true,
+                                        name: 'Spread',
+                                        isSingleSelection: false,
                                         options: {
                                             create: [
-                                                { name: 'Hot', addPrice: 0 },
-                                                { name: 'Ice', addPrice: 2000 },
+                                                {
+                                                    name: 'Peanut Butter',
+                                                    addPrice: 5000,
+                                                },
+                                                {
+                                                    name: 'Cream Cheese',
+                                                    addPrice: 7000,
+                                                },
                                             ],
                                         },
                                     },
                                 ],
                             },
+                        },
+                        {
+                            name: 'Banana Bread',
+                            description: 'Bolu pisang klasik [cite: 62]',
+                            price: 24000,
+                            photo: 'https://images.unsplash.com/photo-1596541656832-c70e3ed6c5ea?auto=format&fit=crop&q=80&w=300',
+                            variants: { create: [pastryPrepVariant] },
                         },
                     ],
                 },
@@ -130,41 +335,24 @@ export class DatabaseController {
                 products: {
                     create: [
                         {
-                            name: 'Nasi Goreng Spesial',
-                            description: 'Nasi goreng dengan telur dan ayam',
-                            price: 25000,
-                            photo: 'https://images.unsplash.com/photo-1603133872878-684f57143854?auto=format&fit=crop&q=80&w=300',
+                            name: 'Chicken Sandwich',
+                            description: 'Sandwich ayam porsi pas [cite: 54]',
+                            price: 38000,
+                            photo: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=300',
                             variants: {
                                 create: [
                                     {
-                                        name: 'Level Pedas',
-                                        isSingleSelection: true,
+                                        name: 'Extra',
+                                        isSingleSelection: false,
                                         options: {
                                             create: [
                                                 {
-                                                    name: 'Tidak Pedas',
-                                                    addPrice: 0,
-                                                },
-                                                { name: 'Sedang', addPrice: 0 },
-                                                {
-                                                    name: 'Pedas Mampus',
-                                                    addPrice: 2000,
-                                                },
-                                            ],
-                                        },
-                                    },
-                                    {
-                                        name: 'Topping',
-                                        isSingleSelection: false, // Bisa pilih banyak
-                                        options: {
-                                            create: [
-                                                {
-                                                    name: 'Telur Ceplok',
-                                                    addPrice: 3000,
+                                                    name: 'Extra Cheese',
+                                                    addPrice: 5000,
                                                 },
                                                 {
-                                                    name: 'Kerupuk',
-                                                    addPrice: 1000,
+                                                    name: 'Extra Chicken',
+                                                    addPrice: 12000,
                                                 },
                                             ],
                                         },
@@ -173,43 +361,101 @@ export class DatabaseController {
                             },
                         },
                         {
-                            name: 'Mie Goreng Jawa',
-                            description: 'Mie goreng bumbu desa',
-                            price: 22000,
-                            photo: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&q=80&w=300',
-                            variants: { create: [] }, // Tanpa varian
+                            name: 'Pasta Aglio Olio',
+                            description: 'Pasta klasik gaya Italia [cite: 55]',
+                            price: 42000,
+                            photo: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=300',
+                            variants: {
+                                create: [
+                                    spicyVariant,
+                                    {
+                                        name: 'Topping',
+                                        isSingleSelection: false,
+                                        options: {
+                                            create: [
+                                                {
+                                                    name: 'Smoked Beef',
+                                                    addPrice: 10000,
+                                                },
+                                                {
+                                                    name: 'Mushroom',
+                                                    addPrice: 6000,
+                                                },
+                                            ],
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                        {
+                            name: 'Nasi Goreng Olvad',
+                            description:
+                                'Nasi goreng signature Olvad [cite: 58]',
+                            price: 35000,
+                            photo: 'https://images.unsplash.com/photo-1603133872878-684f57143854?auto=format&fit=crop&q=80&w=300',
+                            variants: {
+                                create: [
+                                    spicyVariant,
+                                    {
+                                        name: 'Topping',
+                                        isSingleSelection: false,
+                                        options: {
+                                            create: [
+                                                {
+                                                    name: 'Telur Mata Sapi',
+                                                    addPrice: 5000,
+                                                },
+                                                {
+                                                    name: 'Sosis',
+                                                    addPrice: 6000,
+                                                },
+                                            ],
+                                        },
+                                    },
+                                ],
+                            },
                         },
                     ],
                 },
             },
         });
 
-        // Ambil semua produk & varian lengkap untuk proses ordering
         const allProducts = await this.prisma.product.findMany({
             include: { variants: { include: { options: true } } },
         });
 
         // ==========================================
-        // 4. CREATE TRANSACTIONS (10 Order Random)
+        // 5. CREATE TRANSACTIONS (10 Order Random)
         // ==========================================
 
-        // Loop 10 kali untuk membuat 10 order
         for (let i = 0; i < 10; i++) {
             const randomUser = this.randomItem(allUsers);
             const randomProduct = this.randomItem(allProducts);
             const orderQty = this.randomNumber(1, 3);
 
-            // Hitung harga varian
             let variantTotalPrice = 0;
             const selectedVariantOptionsIds: number[] = [];
 
-            // Pilih 1 opsi secara acak untuk setiap varian produk (simulasi user milih)
+            // Proses simulasi user memilih varian
             if (randomProduct.variants.length > 0) {
                 randomProduct.variants.forEach((variant) => {
                     if (variant.options.length > 0) {
-                        const randomOption = this.randomItem(variant.options);
-                        selectedVariantOptionsIds.push(randomOption.id);
-                        variantTotalPrice += randomOption.addPrice;
+                        if (variant.isSingleSelection) {
+                            // Jika single selection, pilih tepat 1 opsi
+                            const randomOption = this.randomItem(
+                                variant.options,
+                            );
+                            selectedVariantOptionsIds.push(randomOption.id);
+                            variantTotalPrice += randomOption.addPrice;
+                        } else {
+                            // Jika multi selection (seperti Add-ons / Topping), acak mau nambah atau tidak (50% chance)
+                            variant.options.forEach((opt) => {
+                                if (Math.random() > 0.5) {
+                                    selectedVariantOptionsIds.push(opt.id);
+                                    variantTotalPrice += opt.addPrice;
+                                }
+                            });
+                        }
                     }
                 });
             }
@@ -220,13 +466,14 @@ export class DatabaseController {
             await this.prisma.order.create({
                 data: {
                     userId: randomUser.id,
-                    type: this.randomItem(Object.values(OrderType)), // Random Type
+                    type: this.randomItem(Object.values(OrderType)),
                     paymentMethod: this.randomItem(
                         Object.values(PaymentMethod),
-                    ), // Random Payment
-                    status: this.randomItem(Object.values(OrderStatus)), // Random Status
+                    ),
+                    status: this.randomItem(Object.values(OrderStatus)),
                     totalPrice: totalOrderPrice,
-                    message: i % 3 === 0 ? 'Mohon dipercepat ya kak' : null, // Random message
+                    message:
+                        i % 4 === 0 ? 'Tolong siapkan secepatnya ya!' : null,
 
                     detailOrders: {
                         create: {
@@ -246,9 +493,12 @@ export class DatabaseController {
             });
         }
 
-        console.log('✅ Seeding Complete: 5 Users, Menu, & 10 Orders created.');
+        console.log(
+            '✅ Seeding Complete: Users, Olvad Menu with Real Variants, & Orders created.',
+        );
         return {
-            message: 'Success! Database has been populated.',
+            message:
+                'Success! Database has been populated with varied Olvad menu.',
             stats: { users: 5, orders: 10, products: allProducts.length },
         };
     }

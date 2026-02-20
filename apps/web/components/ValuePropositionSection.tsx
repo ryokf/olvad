@@ -42,10 +42,10 @@ export default function ValuePropositionSection() {
           {/* <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
             Mengapa Olvad?
           </p> */}
-          <h2 className="text-5xl font-bold text-gray-900">
+          <h2 className="text-5xl font-bold text-secondary">
             Keunggulan Kami
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-secondary-300 max-w-2xl mx-auto">
             Komitmen kami adalah memberikan yang terbaik untuk Anda
           </p>
         </div>
@@ -63,10 +63,10 @@ export default function ValuePropositionSection() {
               <div className="w-16 h-16 bg-linear-to-br from-primary-100 to-primary-200 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <span className="text-4xl">{value.icon}</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3 className="text-xl font-bold text-secondary mb-3">
                 {value.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-secondary-300 leading-relaxed">
                 {value.description}
               </p>
             </div>

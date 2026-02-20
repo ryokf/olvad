@@ -18,10 +18,10 @@ export default function HeroSection() {
                     {/* Left Content */}
                     <div className="space-y-8 animate-fade-in-up min-h-[60vh] flex flex-col justify-center">
                         <div className="space-y-4">
-                            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
+                            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold text-secondary leading-tight">
                                 Feel The <span className='font-display text-primary'> Happiness </span> In Every <span className='font-display text-primary'>  Bite </span>
                             </h1>
-                            <p className="text-xl text-secondary-300 font-light leading-relaxed max-w-lg">
+                            <p className="text-xl text-secondary leading-relaxed max-w-lg">
                                 kombinasi dari bahan alami terbaik untuk manisnya setiap momen
                             </p>
                         </div>

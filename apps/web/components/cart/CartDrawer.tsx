@@ -24,7 +24,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl flex flex-col animate-slide-in-right">
                 {/* Header */}
                 <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-                    <h2 className="text-2xl font-bold text-gray-900">
+                    <h2 className="text-2xl font-bold text-secondary">
                         Keranjang Belanja
                     </h2>
                     <button
@@ -32,7 +32,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                         className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
                     >
                         <svg
-                            className="w-6 h-6 text-gray-600"
+                            className="w-6 h-6 text-secondary-300"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -51,10 +51,10 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 {items.length === 0 ? (
                     <div className="flex-1 flex flex-col items-center justify-center p-6">
                         <div className="text-8xl mb-4">🛒</div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        <h3 className="text-2xl font-bold text-secondary mb-2">
                             Keranjang Kosong
                         </h3>
-                        <p className="text-gray-600 text-center">
+                        <p className="text-secondary-300 text-center">
                             Yuk mulai pesan menu favoritmu!
                         </p>
                         <button
@@ -76,10 +76,10 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                     {/* Product Name & Price */}
                                     <div className="flex items-start justify-between">
                                         <div className="flex-1">
-                                            <h3 className="font-bold text-gray-900">
+                                            <h3 className="font-bold text-secondary">
                                                 {item.product.name}
                                             </h3>
-                                            <p className="text-sm text-gray-600 mt-1">
+                                            <p className="text-sm text-secondary-300 mt-1">
                                                 Rp{' '}
                                                 {item.product.basePrice.toLocaleString(
                                                     'id-ID'
@@ -112,7 +112,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                             {item.selectedVariants.map((variant) => (
                                                 <div
                                                     key={variant.variantId}
-                                                    className="text-sm text-gray-600"
+                                                    className="text-sm text-secondary-300"
                                                 >
                                                     <span className="font-semibold">
                                                         {variant.variantName}:
@@ -134,7 +134,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                                     {/* Special Instructions */}
                                     {item.specialInstructions && (
-                                        <div className="text-sm text-gray-600 bg-primary-50 p-2 rounded-lg">
+                                        <div className="text-sm text-secondary-300 bg-primary-50 p-2 rounded-lg">
                                             <span className="font-semibold">Catatan:</span>{' '}
                                             {item.specialInstructions}
                                         </div>
@@ -154,7 +154,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                             >
                                                 −
                                             </button>
-                                            <span className="font-bold text-gray-900 w-8 text-center">
+                                            <span className="font-bold text-secondary w-8 text-center">
                                                 {item.quantity}
                                             </span>
                                             <button
@@ -200,11 +200,11 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                         {/* Footer Summary */}
                         <div className="p-6 border-t border-gray-200 bg-gray-50 space-y-4">
                             <div className="space-y-2">
-                                <div className="flex justify-between text-gray-600">
+                                <div className="flex justify-between text-secondary-300">
                                     <span>Subtotal</span>
                                     <span>Rp {subtotal.toLocaleString('id-ID')}</span>
                                 </div>
-                                <div className="flex justify-between text-2xl font-bold text-gray-900">
+                                <div className="flex justify-between text-2xl font-bold text-secondary">
                                     <span>Total</span>
                                     <span>Rp {total.toLocaleString('id-ID')}</span>
                                 </div>

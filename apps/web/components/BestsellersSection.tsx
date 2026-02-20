@@ -58,10 +58,10 @@ export default function BestsellersSection() {
           <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
             Menu Unggulan
           </p>
-          <h2 className="text-5xl font-bold text-gray-900">
+          <h2 className="text-5xl font-bold text-secondary">
             Menu Favorit Kami
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-secondary-300 max-w-2xl mx-auto">
             Produk pilihan yang paling diminati oleh pelanggan setia kami
           </p>
         </div>
@@ -100,10 +100,10 @@ export default function BestsellersSection() {
                 {/* Product Info */}
                 <div className="p-6 space-y-4">
                   <div>
-                    <p className="text-xs text-secondary uppercase tracking-wide font-bold">
+                    <p className="text-xs text-primary uppercase tracking-wide font-bold">
                       {product.category}
                     </p>
-                    <h3 className="text-xl font-semibold text-gray-900 mt-2">
+                    <h3 className="text-xl font-semibold text-secondary mt-2">
                       {product.name}
                     </h3>
                   </div>

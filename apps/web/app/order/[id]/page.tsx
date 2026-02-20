@@ -91,28 +91,28 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                 {/* Header */}
                 <div className="text-center mb-12">
                     <div className="text-6xl mb-4">☕</div>
-                    <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                    <h1 className="text-4xl font-bold text-secondary mb-2">
                         Pesanan Anda Sedang Diproses!
                     </h1>
-                    <p className="text-gray-600 text-lg">
+                    <p className="text-secondary-300 text-lg">
                         Terima kasih telah memesan di Olvad Coffee & Bakery
                     </p>
                 </div>
 
                 {/* Order ID */}
                 <div className="bg-white rounded-3xl p-6 shadow-md mb-6 text-center">
-                    <p className="text-sm text-gray-600 mb-1">Order ID</p>
-                    <p className="text-2xl font-bold text-gray-900 font-mono">
+                    <p className="text-sm text-secondary-300 mb-1">Order ID</p>
+                    <p className="text-2xl font-bold text-secondary font-mono">
                         {mockOrder.id}
                     </p>
-                    <p className="text-sm text-gray-600 mt-2">
+                    <p className="text-sm text-secondary-300 mt-2">
                         {mockOrder.date}
                     </p>
                 </div>
 
                 {/* Status Stepper */}
                 <div className="bg-white rounded-3xl p-8 shadow-md mb-6">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+                    <h2 className="text-2xl font-bold text-secondary mb-8 text-center">
                         Status Pesanan
                     </h2>
 
@@ -150,8 +150,8 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                                         </div>
                                         <p
                                             className={`mt-4 text-center font-semibold text-sm ${status.completed || status.active
-                                                ? 'text-gray-900'
-                                                : 'text-gray-400'
+                                                ? 'text-secondary'
+                                                : 'text-secondary-300'
                                                 }`}
                                         >
                                             {status.label}
@@ -176,7 +176,7 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                             >
                                 <div className="text-4xl">{status.icon}</div>
                                 <div className="flex-1">
-                                    <p className="font-semibold text-gray-900">
+                                    <p className="font-semibold text-secondary">
                                         {status.label}
                                     </p>
                                 </div>
@@ -217,7 +217,7 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                 <div className="grid md:grid-cols-2 gap-6">
                     {/* Order Details */}
                     <div className="bg-white rounded-3xl p-6 shadow-md">
-                        <h3 className="text-xl font-bold text-gray-900 mb-4">
+                        <h3 className="text-xl font-bold text-secondary mb-4">
                             Detail Pesanan
                         </h3>
 
@@ -225,29 +225,29 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                             {mockOrder.items.map((item, index) => (
                                 <div key={index} className="border-b border-gray-200 pb-3">
                                     <div className="flex justify-between mb-1">
-                                        <span className="font-semibold text-gray-900">
+                                        <span className="font-semibold text-secondary">
                                             {item.quantity}x {item.name}
                                         </span>
-                                        <span className="font-semibold text-gray-900">
+                                        <span className="font-semibold text-secondary">
                                             Rp {item.price.toLocaleString('id-ID')}
                                         </span>
                                     </div>
-                                    <div className="text-sm text-gray-600">
+                                    <div className="text-sm text-secondary-300">
                                         {item.variants.join(', ')}
                                     </div>
                                 </div>
                             ))}
 
                             <div className="pt-3 space-y-2">
-                                <div className="flex justify-between text-gray-700">
+                                <div className="flex justify-between text-secondary-400">
                                     <span>Subtotal</span>
                                     <span>Rp {mockOrder.subtotal.toLocaleString('id-ID')}</span>
                                 </div>
-                                <div className="flex justify-between text-gray-700">
+                                <div className="flex justify-between text-secondary-400">
                                     <span>Pajak (10%)</span>
                                     <span>Rp {mockOrder.tax.toLocaleString('id-ID')}</span>
                                 </div>
-                                <div className="flex justify-between text-xl font-bold text-gray-900 pt-2 border-t-2 border-gray-200">
+                                <div className="flex justify-between text-xl font-bold text-secondary pt-2 border-t-2 border-gray-200">
                                     <span>Total</span>
                                     <span>Rp {mockOrder.total.toLocaleString('id-ID')}</span>
                                 </div>
@@ -257,35 +257,35 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
 
                     {/* Customer Info */}
                     <div className="bg-white rounded-3xl p-6 shadow-md">
-                        <h3 className="text-xl font-bold text-gray-900 mb-4">
+                        <h3 className="text-xl font-bold text-secondary mb-4">
                             Informasi Pengambilan
                         </h3>
 
                         <div className="space-y-4">
                             <div>
-                                <p className="text-sm text-gray-600 mb-1">Tipe Pesanan</p>
-                                <p className="font-semibold text-gray-900 text-lg">
+                                <p className="text-sm text-secondary-300 mb-1">Tipe Pesanan</p>
+                                <p className="font-semibold text-secondary text-lg">
                                     🚶 {mockOrder.orderType}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-600 mb-1">Waktu Pengambilan</p>
-                                <p className="font-semibold text-gray-900 text-lg">
+                                <p className="text-sm text-secondary-300 mb-1">Waktu Pengambilan</p>
+                                <p className="font-semibold text-secondary text-lg">
                                     ⏰ {mockOrder.pickupTime} WIB
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-600 mb-1">Nama Pemesan</p>
-                                <p className="font-semibold text-gray-900">
+                                <p className="text-sm text-secondary-300 mb-1">Nama Pemesan</p>
+                                <p className="font-semibold text-secondary">
                                     {mockOrder.customerName}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-600 mb-1">Nomor WhatsApp</p>
-                                <p className="font-semibold text-gray-900">
+                                <p className="text-sm text-secondary-300 mb-1">Nomor WhatsApp</p>
+                                <p className="font-semibold text-secondary">
                                     {mockOrder.customerPhone}
                                 </p>
                             </div>
@@ -303,7 +303,7 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                 <div className="mt-8 grid grid-cols-2 gap-4">
                     <button
                         onClick={() => router.push('/')}
-                        className="py-4 px-6 rounded-full border-2 border-gray-300 text-gray-700 font-semibold hover:border-gray-400 transition-all"
+                        className="py-4 px-6 rounded-full border-2 border-gray-300 text-secondary font-semibold hover:border-gray-400 transition-all"
                     >
                         Kembali ke Home
                     </button>

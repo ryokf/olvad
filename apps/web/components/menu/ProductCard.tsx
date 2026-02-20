@@ -63,17 +63,17 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
             {/* Product Info */}
             <div className="p-5 space-y-3">
                 <div>
-                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-400 transition-colors">
+                    <h3 className="text-xl font-bold text-secondary group-hover:text-primary-400 transition-colors">
                         {product.name}
                     </h3>
-                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+                    <p className="text-sm text-secondary-300 mt-1 line-clamp-2">
                         {product.description}
                     </p>
                 </div>
 
                 {/* Preparation Time */}
                 {product.preparationTime && (
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <div className="flex items-center gap-2 text-sm text-secondary-300">
                         <svg
                             className="w-4 h-4"
                             fill="none"
@@ -94,7 +94,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
                 {/* Price & CTA */}
                 <div className="flex items-center justify-between pt-3 border-t border-gray-200">
                     <div>
-                        <p className="text-xs text-gray-500 mb-0.5">Mulai dari</p>
+                        <p className="text-xs text-secondary-300 mb-0.5">Mulai dari</p>
                         <p className="text-xl font-bold text-secondary">
                             Rp {product.basePrice.toLocaleString('id-ID')}
                         </p>

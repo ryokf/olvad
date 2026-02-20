@@ -26,31 +26,31 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           <a
             href="#home"
-            className="text-gray-700 hover:text-primary-400 font-semibold transition-colors"
+            className="text-secondary hover:text-primary-400 font-semibold transition-colors"
           >
             Home
           </a>
           <a
             href="/menu"
-            className="text-gray-700 hover:text-primary-400 font-semibold transition-colors"
+            className="text-secondary hover:text-primary-400 font-semibold transition-colors"
           >
             Menu
           </a>
           <a
             href="/profile/orders"
-            className="text-gray-700 hover:text-primary-400 font-semibold transition-colors"
+            className="text-secondary hover:text-primary-400 font-semibold transition-colors"
           >
             Pesanan
           </a>
           <a
             href="#about"
-            className="text-gray-700 hover:text-primary-400 font-semibold transition-colors"
+            className="text-secondary hover:text-primary-400 font-semibold transition-colors"
           >
             Tentang
           </a>
           <a
             href="#contact"
-            className="text-gray-700 hover:text-primary-400 font-semibold transition-colors"
+            className="text-secondary hover:text-primary-400 font-semibold transition-colors"
           >
             Kontak
           </a>
@@ -66,7 +66,7 @@ export default function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-gray-900"
+          className="md:hidden p-2 text-secondary"
         >
           <svg
             className="w-6 h-6"
@@ -89,31 +89,31 @@ export default function Navbar() {
             <div className="p-6 space-y-4">
               <a
                 href="#home"
-                className="block text-gray-700 hover:text-primary-400 font-semibold py-2"
+                className="block text-secondary hover:text-primary-400 font-semibold py-2"
               >
                 Home
               </a>
               <a
                 href="/menu"
-                className="block text-gray-700 hover:text-primary-400 font-semibold py-2"
+                className="block text-secondary hover:text-primary-400 font-semibold py-2"
               >
                 Menu
               </a>
               <a
                 href="/profile/orders"
-                className="block text-gray-700 hover:text-primary-400 font-semibold py-2"
+                className="block text-secondary hover:text-primary-400 font-semibold py-2"
               >
                 Pesanan
               </a>
               <a
                 href="#about"
-                className="block text-gray-700 hover:text-primary-400 font-semibold py-2"
+                className="block text-secondary hover:text-primary-400 font-semibold py-2"
               >
                 Tentang
               </a>
               <a
                 href="#contact"
-                className="block text-gray-700 hover:text-primary-400 font-semibold py-2"
+                className="block text-secondary hover:text-primary-400 font-semibold py-2"
               >
                 Kontak
               </a>

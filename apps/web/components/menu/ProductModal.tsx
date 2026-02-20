@@ -108,7 +108,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                 >
                     {/* Header */}
                     <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between z-10">
-                        <h2 className="text-2xl font-bold text-gray-900">
+                        <h2 className="text-2xl font-bold text-secondary">
                             {product.name}
                         </h2>
                         <button
@@ -116,7 +116,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                             className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
                         >
                             <svg
-                                className="w-6 h-6 text-gray-600"
+                                className="w-6 h-6 text-secondary-300"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -135,7 +135,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                     <div className="overflow-y-auto max-h-[calc(90vh-180px)] p-6 space-y-6">
                         {/* Product Info */}
                         <div>
-                            <p className="text-gray-600 mb-3">{product.description}</p>
+                            <p className="text-secondary-300 mb-3">{product.description}</p>
                             <p className="text-2xl font-bold text-primary-800">
                                 Rp {product.basePrice.toLocaleString('id-ID')}
                             </p>
@@ -144,7 +144,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                         {/* Variants */}
                         {product.variants.map((variant) => (
                             <div key={variant.id} className="space-y-3">
-                                <h3 className="text-lg font-bold text-gray-900">
+                                <h3 className="text-lg font-bold text-secondary">
                                     {variant.name}
                                     {variant.required && (
                                         <span className="text-red-500 ml-1">*</span>
@@ -174,7 +174,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                         }`}
                                                 >
                                                     <div className="flex items-center justify-between">
-                                                        <span className="font-semibold text-gray-900">
+                                                        <span className="font-semibold text-secondary">
                                                             {option.name}
                                                         </span>
                                                         {option.priceModifier !== 0 && (
@@ -239,7 +239,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                                     </svg>
                                                                 )}
                                                             </div>
-                                                            <span className="font-semibold text-gray-900">
+                                                            <span className="font-semibold text-secondary">
                                                                 {option.name}
                                                             </span>
                                                         </div>
@@ -265,7 +265,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
 
                         {/* Special Instructions */}
                         <div className="space-y-3">
-                            <h3 className="text-lg font-bold text-gray-900">
+                            <h3 className="text-lg font-bold text-secondary">
                                 Catatan Khusus (Opsional)
                             </h3>
                             <textarea
@@ -279,7 +279,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
 
                         {/* Quantity Selector */}
                         <div className="space-y-3">
-                            <h3 className="text-lg font-bold text-gray-900">Jumlah</h3>
+                            <h3 className="text-lg font-bold text-secondary">Jumlah</h3>
                             <div className="flex items-center gap-4">
                                 <button
                                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -287,7 +287,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                 >
                                     −
                                 </button>
-                                <span className="text-2xl font-bold text-gray-900 w-12 text-center">
+                                <span className="text-2xl font-bold text-secondary w-12 text-center">
                                     {quantity}
                                 </span>
                                 <button

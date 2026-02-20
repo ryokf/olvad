@@ -14,17 +14,17 @@ export default function LocationHoursSection() {
   }, []);
 
   return (
-    <section className="py-20 sm:py-24 bg-white text-gray-800">
+    <section className="py-20 sm:py-24 bg-white text-secondary">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
           <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#7a9a78' }}>
             Lokasi & Jam
           </p>
-          <h2 className="font-display text-5xl font-bold text-gray-900">
+          <h2 className="font-display text-5xl font-bold text-secondary">
             Kunjungi Olvad Sekarang
           </h2>
-          <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+          <p className="text-xl text-secondary-300 max-w-2xl mx-auto">
             Kami menunggu Anda di lokasi kami yang nyaman
           </p>
         </div>
@@ -39,11 +39,11 @@ export default function LocationHoursSection() {
                   className="w-4 h-4 rounded-full animate-pulse shadow-lg"
                   style={{ backgroundColor: isOpen ? '#7a9a78' : '#f87171' }}
                 ></div>
-                <p className="text-xl font-bold text-gray-900">
+                <p className="text-xl font-bold text-secondary">
                   {isOpen ? "BUKA SEKARANG" : "TUTUP SEKARANG"}
                 </p>
               </div>
-              <p className="text-gray-500">
+              <p className="text-secondary-300">
                 {isOpen
                   ? "Silakan datang, kami siap melayani Anda!"
                   : "Buka kembali besok pukul 06:00"}
@@ -52,7 +52,7 @@ export default function LocationHoursSection() {
 
             {/* Hours */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900">Jam Operasional</h3>
+              <h3 className="text-2xl font-bold text-secondary">Jam Operasional</h3>
               <div className="space-y-3 bg-gray-50 rounded-xl p-6">
                 {[
                   { day: "Senin - Jumat", hours: "06:00 - 20:00" },
@@ -60,7 +60,7 @@ export default function LocationHoursSection() {
                   { day: "Minggu", hours: "08:00 - 19:00" },
                 ].map((item, idx) => (
                   <div key={idx} className="flex justify-between items-center py-2 border-b border-gray-200 last:border-0">
-                    <p className="text-gray-500">{item.day}</p>
+                    <p className="text-secondary-300">{item.day}</p>
                     <p className="font-semibold" style={{ color: '#7a9a78' }}>{item.hours}</p>
                   </div>
                 ))}
@@ -69,10 +69,10 @@ export default function LocationHoursSection() {
 
             {/* Address */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900">Alamat</h3>
+              <h3 className="text-2xl font-bold text-secondary">Alamat</h3>
               <div className="bg-gray-50 rounded-xl p-6">
                 <p className="text-sm mb-2 font-semibold" style={{ color: '#7a9a78' }}>Lokasi Utama</p>
-                <p className="text-gray-600 text-lg">
+                <p className="text-secondary-300 text-lg">
                   Jl. Merdeka No. 123<br />
                   Jakarta Selatan, 12345<br />
                   Indonesia
@@ -82,11 +82,11 @@ export default function LocationHoursSection() {
 
             {/* Contact */}
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-900">Hubungi Kami</h3>
+              <h3 className="text-2xl font-bold text-secondary">Hubungi Kami</h3>
               <div className="flex flex-col gap-3 bg-gray-50 rounded-xl p-6">
                 <a
                   href="tel:+6281234567890"
-                  className="text-gray-600 transition-colors flex items-center gap-3 text-lg"
+                  className="text-secondary-300 transition-colors flex items-center gap-3 text-lg"
                   onMouseEnter={(e) => e.currentTarget.style.color = '#7a9a78'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#4b5563'}
                 >
@@ -127,8 +127,8 @@ export default function LocationHoursSection() {
             <div className="w-full h-full flex items-center justify-center">
               <div className="text-center">
                 <p className="text-6xl mb-4">🗺️</p>
-                <p className="text-gray-600 font-semibold text-lg">Embedded Google Maps</p>
-                <p className="text-gray-400 text-sm mt-2">
+                <p className="text-secondary-300 font-semibold text-lg">Embedded Google Maps</p>
+                <p className="text-secondary-300 text-sm mt-2">
                   Replace dengan iframe Google Maps
                 </p>
               </div>

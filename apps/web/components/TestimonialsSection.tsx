@@ -41,10 +41,10 @@ export default function TestimonialsSection() {
           <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
             Testimoni
           </p>
-          <h2 className="text-5xl font-bold text-gray-900">
+          <h2 className="text-5xl font-bold text-secondary">
             Apa Kata Pelanggan Kami
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-secondary-300 max-w-2xl mx-auto">
             Kepuasan pelanggan adalah bukti kualitas kami
           </p>
         </div>
@@ -67,16 +67,16 @@ export default function TestimonialsSection() {
               </div>
 
               {/* Testimonial Text */}
-              <p className="text-gray-700 italic leading-relaxed mb-6 text-lg font-light">
+              <p className="text-secondary-400 italic leading-relaxed mb-6 text-lg font-light">
                 &quot;{testimonial.text}&quot;
               </p>
 
               {/* Author */}
               <div className="border-t border-gray-200 pt-4">
-                <p className="font-semibold text-gray-900 text-lg">
+                <p className="font-semibold text-secondary text-lg">
                   {testimonial.author}
                 </p>
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-sm text-secondary-300 mt-1">
                   {testimonial.source}
                 </p>
               </div>

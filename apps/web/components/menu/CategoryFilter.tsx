@@ -28,8 +28,8 @@ export default function CategoryFilter({
     return (
         <div
             className={`${isSticky
-                    ? 'fixed top-0 left-0 right-0 z-40 shadow-lg bg-white/95 backdrop-blur-md'
-                    : 'relative bg-white'
+                ? 'fixed top-0 left-0 right-0 z-40 shadow-lg bg-white/95 backdrop-blur-md'
+                : 'relative bg-white'
                 } transition-all duration-300`}
         >
             <div className="max-w-7xl mx-auto px-6 py-4">
@@ -38,8 +38,8 @@ export default function CategoryFilter({
                     <button
                         onClick={() => onCategoryChange(null)}
                         className={`flex-shrink-0 px-6 py-3 rounded-full font-semibold transition-all duration-200 snap-center ${activeCategory === null
-                                ? 'text-white shadow-lg scale-105'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            ? 'text-white shadow-lg scale-105'
+                            : 'bg-gray-100 text-secondary hover:bg-gray-200'
                             }`}
                         style={
                             activeCategory === null
@@ -72,8 +72,8 @@ export default function CategoryFilter({
                                 }
                             }}
                             className={`flex-shrink-0 px-6 py-3 rounded-full font-semibold transition-all duration-200 snap-center ${activeCategory === category.id
-                                    ? 'text-white shadow-lg scale-105'
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                ? 'text-white shadow-lg scale-105'
+                                : 'bg-gray-100 text-secondary hover:bg-gray-200'
                                 }`}
                             style={
                                 activeCategory === category.id

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { categories, products } from '@/data/products';
 import { Product } from '@olvad/types';
 import CategoryFilter from '@/components/menu/CategoryFilter';
@@ -8,6 +8,7 @@ import SearchBar from '@/components/menu/SearchBar';
 import ProductGrid from '@/components/menu/ProductGrid';
 import ProductModal from '@/components/menu/ProductModal';
 import FloatingCart from '@/components/cart/FloatingCart';
+import { getAllProduct } from '@/services/product';
 
 export default function MenuPage() {
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -25,16 +26,31 @@ export default function MenuPage() {
         setTimeout(() => setSelectedProduct(null), 300); // Wait for animation
     };
 
+    const [products1, setProducts1] = useState<Product | undefined>()
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const data = await getAllProduct()
+            if (data != null || undefined) {
+                setProducts1(data)
+            }
+        }
+
+        fetchProduct()
+    }, [])
+
+    console.log(products1)
+
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Header */}
             <div className="bg-linear-to-br from-primary-50 to-primary-100 pt-24 pb-12">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center space-y-4">
-                        <h1 className="text-5xl sm:text-6xl font-bold text-gray-900">
+                        <h1 className="text-5xl sm:text-6xl font-bold text-secondary">
                             Menu Kami
                         </h1>
-                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                        <p className="text-xl text-secondary-300 max-w-2xl mx-auto">
                             Pilih menu favoritmu dan nikmati cita rasa terbaik dari Olvad
                         </p>
                     </div>
