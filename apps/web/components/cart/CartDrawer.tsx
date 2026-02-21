@@ -7,7 +7,7 @@ interface CartDrawerProps {
     onClose: () => void;
 }
 
-export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
+export default function CartDrawer({ isOpen, onClose }: Readonly<CartDrawerProps>) {
     const { items, subtotal, total, updateQuantity, removeItem, clearCart } = useCart();
 
     if (!isOpen) return null;

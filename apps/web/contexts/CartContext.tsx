@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef, ReactNode } from 'react';
 import { CartItem, CartState, Product, SelectedVariant } from '@olvad/types';
 
 interface CartContextType extends CartState {
@@ -26,22 +26,27 @@ const calculateTotalPrice = (
 
 export function CartProvider({ children }: Readonly<{ children: ReactNode }>) {
     const [items, setItems] = useState<CartItem[]>([]);
+    const hasLoadedRef = useRef(false);
 
-    // Load cart from localStorage on mount
+    // Load cart from localStorage on mount (after hydration)
     useEffect(() => {
         const savedCart = localStorage.getItem('olvad-cart');
         if (savedCart) {
             try {
-                setItems(JSON.parse(savedCart));
+                const parsed = JSON.parse(savedCart);
+                queueMicrotask(() => setItems(parsed));
             } catch (error) {
                 console.error('Failed to load cart from localStorage:', error);
             }
         }
+        hasLoadedRef.current = true;
     }, []);
 
-    // Save cart to localStorage whenever it changes
+    // Save cart to localStorage whenever it changes (skip initial empty render)
     useEffect(() => {
-        localStorage.setItem('olvad-cart', JSON.stringify(items));
+        if (hasLoadedRef.current) {
+            localStorage.setItem('olvad-cart', JSON.stringify(items));
+        }
     }, [items]);
 
     const removeItem = useCallback((itemId: string) => {

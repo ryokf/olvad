@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { ProductDetail, ProductVariant, SelectedVariant } from '@olvad/types';
+import { ProductDetail, SelectedVariant } from '@olvad/types';
 import { useCart } from '@/contexts/CartContext';
 import { getProductById } from '@/services/product';
 
@@ -9,6 +9,102 @@ interface ProductModalProps {
     productId: number;
     isOpen: boolean;
     onClose: () => void;
+}
+
+interface VariantOption {
+    name: string;
+    addPrice: number;
+}
+
+interface VariantOptionButtonProps {
+    option: VariantOption;
+    isSelected: boolean;
+    onClick: () => void;
+}
+
+function PriceLabel({ addPrice }: Readonly<{ addPrice: number }>) {
+    if (addPrice === 0) return null;
+    return (
+        <span className="text-primary-400 font-semibold">
+            {addPrice > 0 ? '+' : ''}Rp {addPrice.toLocaleString('id-ID')}
+        </span>
+    );
+}
+
+function VariantOptionButton({ option, isSelected, onClick }: Readonly<VariantOptionButtonProps>) {
+    return (
+        <button
+            onClick={onClick}
+            className={`w-full p-4 rounded-xl border-2 transition-all text-left ${isSelected
+                ? 'border-primary-400 bg-primary-50'
+                : 'border-gray-200 hover:border-gray-300'
+                }`}
+        >
+            <div className="flex items-center justify-between">
+                <span className="font-semibold text-secondary">
+                    {option.name}
+                </span>
+                <PriceLabel addPrice={option.addPrice} />
+            </div>
+        </button>
+    );
+}
+
+function CheckboxOptionButton({ option, isSelected, onClick }: Readonly<VariantOptionButtonProps>) {
+    return (
+        <button
+            onClick={onClick}
+            className={`w-full p-4 rounded-xl border-2 transition-all text-left ${isSelected
+                ? 'border-primary-400 bg-primary-50'
+                : 'border-gray-200 hover:border-gray-300'
+                }`}
+        >
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <div
+                        className={`w-5 h-5 rounded border-2 flex items-center justify-center ${isSelected
+                            ? 'bg-primary-400 border-primary-400'
+                            : 'border-gray-300'
+                            }`}
+                    >
+                        {isSelected && (
+                            <svg
+                                className="w-3 h-3 text-white"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={3}
+                                    d="M5 13l4 4L19 7"
+                                />
+                            </svg>
+                        )}
+                    </div>
+                    <span className="font-semibold text-secondary">
+                        {option.name}
+                    </span>
+                </div>
+                <PriceLabel addPrice={option.addPrice} />
+            </div>
+        </button>
+    );
+}
+
+function calculateOptionPrice(options: VariantOption[], selectedOptionNames: string[]): number {
+    return selectedOptionNames.reduce((sum, optionName) => {
+        const option = options.find((o) => o.name === optionName);
+        return sum + (option?.addPrice ?? 0);
+    }, 0);
+}
+
+function getAdditionalPrice(options: VariantOption[], optionNames: string[]): number {
+    return optionNames.reduce((sum, name) => {
+        const opt = options.find((o) => o.name === name);
+        return sum + (opt?.addPrice ?? 0);
+    }, 0);
 }
 
 export default function ProductModal({ productId, isOpen, onClose }: Readonly<ProductModalProps>) {
@@ -32,16 +128,19 @@ export default function ProductModal({ productId, isOpen, onClose }: Readonly<Pr
         }
     }, [productId]);
 
-    // Reset state when modal opens
-    useEffect(() => {
-        if (isOpen) {
-            setSelectedVariants({});
-            setQuantity(1);
-            setSpecialInstructions('');
-        }
-    }, [isOpen, productId]);
-
-    console.log(product)
+    // Reset state when modal opens (without useEffect to avoid cascading renders)
+    const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+    const [prevProductId, setPrevProductId] = useState(productId);
+    if (isOpen && (!prevIsOpen || productId !== prevProductId)) {
+        setSelectedVariants({});
+        setQuantity(1);
+        setSpecialInstructions('');
+        setPrevIsOpen(isOpen);
+        setPrevProductId(productId);
+    }
+    if (isOpen !== prevIsOpen) {
+        setPrevIsOpen(isOpen);
+    }
 
     if (!isOpen || !product) return null;
 
@@ -62,19 +161,12 @@ export default function ProductModal({ productId, isOpen, onClose }: Readonly<Pr
     };
 
     const calculateTotalPrice = (): number => {
-        let total = product.price;
-
-        product.variants.forEach((variant) => {
+        const variantTotal = product.variants.reduce((sum, variant) => {
             const selected = selectedVariants[variant.id] || [];
-            selected.forEach((optionName) => {
-                const option = variant.options.find((o) => o.name === optionName);
-                if (option) {
-                    total += option.addPrice;
-                }
-            });
-        });
+            return sum + calculateOptionPrice(variant.options, selected);
+        }, 0);
 
-        return total * quantity;
+        return (product.price + variantTotal) * quantity;
     };
 
     // const isValid = (): boolean => {
@@ -89,20 +181,12 @@ export default function ProductModal({ productId, isOpen, onClose }: Readonly<Pr
 
         const formattedVariants: SelectedVariant[] = product.variants
             .filter((v) => selectedVariants[v.id] && selectedVariants[v.id].length > 0)
-            .map((variant) => {
-                const options = selectedVariants[variant.id];
-                const additionalPrice = options.reduce((sum, optionName) => {
-                    const option = variant.options.find((o) => o.name === optionName);
-                    return sum + (option?.addPrice || 0);
-                }, 0);
-
-                return {
-                    variantId: variant.id,
-                    variantName: variant.name,
-                    selectedOptions: options,
-                    additionalPrice,
-                };
-            });
+            .map((variant) => ({
+                variantId: variant.id.toString(),
+                variantName: variant.name,
+                selectedOptions: selectedVariants[variant.id],
+                additionalPrice: getAdditionalPrice(variant.options, selectedVariants[variant.id]),
+            }));
 
         addItem(product, formattedVariants, quantity, specialInstructions || undefined);
         onClose();
@@ -162,120 +246,21 @@ export default function ProductModal({ productId, isOpen, onClose }: Readonly<Pr
                             <div key={variant.id} className="space-y-3">
                                 <h3 className="text-lg font-bold text-secondary">
                                     {variant.name}
-                                    {/* {variant.required && (
-                                        <span className="text-red-500 ml-1">*</span>
-                                    )} */}
                                 </h3>
 
-                                {variant.isSingleSelection === true ? (
-                                    // Radio buttons
-                                    <div className="space-y-2">
-                                        {variant.options.map((option) => {
-                                            const isSelected = selectedVariants[
-                                                variant.id
-                                            ]?.includes(option.name);
-                                            return (
-                                                <button
-                                                    key={option.name}
-                                                    onClick={() =>
-                                                        handleVariantChange(
-                                                            variant.id.toString(),
-                                                            option.name,
-                                                            false
-                                                        )
-                                                    }
-                                                    className={`w-full p-4 rounded-xl border-2 transition-all text-left ${isSelected
-                                                        ? 'border-primary-400 bg-primary-50'
-                                                        : 'border-gray-200 hover:border-gray-300'
-                                                        }`}
-                                                >
-                                                    <div className="flex items-center justify-between">
-                                                        <span className="font-semibold text-secondary">
-                                                            {option.name}
-                                                        </span>
-                                                        {option.addPrice !== 0 && (
-                                                            <span className="text-primary-400 font-semibold">
-                                                                {option.addPrice > 0
-                                                                    ? '+'
-                                                                    : ''}
-                                                                Rp{' '}
-                                                                {option.addPrice.toLocaleString(
-                                                                    'id-ID'
-                                                                )}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                ) : (
-                                    // Checkboxes
-                                    <div className="space-y-2">
-                                        {variant.options.map((option) => {
-                                            const isSelected = selectedVariants[
-                                                variant.id
-                                            ]?.includes(option.name);
-                                            return (
-                                                <button
-                                                    key={option.name}
-                                                    onClick={() =>
-                                                        handleVariantChange(
-                                                            variant.id.toString(),
-                                                            option.name,
-                                                            true
-                                                        )
-                                                    }
-                                                    className={`w-full p-4 rounded-xl border-2 transition-all text-left ${isSelected
-                                                        ? 'border-primary-400 bg-primary-50'
-                                                        : 'border-gray-200 hover:border-gray-300'
-                                                        }`}
-                                                >
-                                                    <div className="flex items-center justify-between">
-                                                        <div className="flex items-center gap-3">
-                                                            <div
-                                                                className={`w-5 h-5 rounded border-2 flex items-center justify-center ${isSelected
-                                                                    ? 'bg-primary-400 border-primary-400'
-                                                                    : 'border-gray-300'
-                                                                    }`}
-                                                            >
-                                                                {isSelected && (
-                                                                    <svg
-                                                                        className="w-3 h-3 text-white"
-                                                                        fill="none"
-                                                                        stroke="currentColor"
-                                                                        viewBox="0 0 24 24"
-                                                                    >
-                                                                        <path
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                            strokeWidth={3}
-                                                                            d="M5 13l4 4L19 7"
-                                                                        />
-                                                                    </svg>
-                                                                )}
-                                                            </div>
-                                                            <span className="font-semibold text-secondary">
-                                                                {option.name}
-                                                            </span>
-                                                        </div>
-                                                        {option.addPrice !== 0 && (
-                                                            <span className="text-primary-400 font-semibold">
-                                                                {option.addPrice > 0
-                                                                    ? '+'
-                                                                    : ''}
-                                                                Rp{' '}
-                                                                {option.addPrice.toLocaleString(
-                                                                    'id-ID'
-                                                                )}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                )}
+                                <div className="space-y-2">
+                                    {variant.options.map((option) => {
+                                        const isSelected = selectedVariants[variant.id]?.includes(option.name) ?? false;
+                                        const isMultiple = !variant.isSingleSelection;
+                                        const handleClick = () => handleVariantChange(variant.id.toString(), option.name, isMultiple);
+
+                                        return isMultiple ? (
+                                            <CheckboxOptionButton key={option.name} option={option} isSelected={isSelected} onClick={handleClick} />
+                                        ) : (
+                                            <VariantOptionButton key={option.name} option={option} isSelected={isSelected} onClick={handleClick} />
+                                        );
+                                    })}
+                                </div>
                             </div>
                         ))}
 
