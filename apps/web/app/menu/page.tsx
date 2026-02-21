@@ -1,20 +1,22 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { categories, products } from '@/data/products';
-import { Product } from '@olvad/types';
+import { Category, Product } from '@olvad/types';
 import CategoryFilter from '@/components/menu/CategoryFilter';
 import SearchBar from '@/components/menu/SearchBar';
 import ProductGrid from '@/components/menu/ProductGrid';
 import ProductModal from '@/components/menu/ProductModal';
 import FloatingCart from '@/components/cart/FloatingCart';
 import { getAllProduct } from '@/services/product';
+import { getAllCategories } from '@/services/category';
 
 export default function MenuPage() {
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [products, setProducts] = useState<Product[]>([])
+    const [categories, setCategories] = useState<Category[]>([])
 
     const handleProductSelect = (product: Product) => {
         setSelectedProduct(product);
@@ -26,20 +28,28 @@ export default function MenuPage() {
         setTimeout(() => setSelectedProduct(null), 300); // Wait for animation
     };
 
-    const [products1, setProducts1] = useState<Product | undefined>()
 
     useEffect(() => {
         const fetchProduct = async () => {
             const data = await getAllProduct()
             if (data != null || undefined) {
-                setProducts1(data)
+                setProducts(data)
             }
         }
 
+        const fetchCategories = async () => {
+            const data = await getAllCategories()
+            setCategories(data)
+        }
+
         fetchProduct()
+        fetchCategories()
     }, [])
 
-    console.log(products1)
+    console.log(products)
+    console.log(categories)
+
+    if (!(products || categories)) return {}
 
     return (
         <div className="min-h-screen bg-white">

@@ -51,7 +51,7 @@ export default function ProductGrid({
                             {/* Category Header */}
                             <div className="mb-8">
                                 <h2 className="text-3xl font-bold text-secondary flex items-center gap-3">
-                                    <span className="text-4xl">{category.icon}</span>
+                                    {/* <span className="text-4xl">{category.icon}</span> */}
                                     {category.name}
                                 </h2>
                                 <div

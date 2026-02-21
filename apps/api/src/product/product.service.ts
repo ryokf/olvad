@@ -23,6 +23,7 @@ export class ProductService {
                 photo: true,
                 price: true,
                 tags: true,
+                available: true,
                 category: true,
             },
         });

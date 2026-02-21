@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
   moduleFormat = "cjs"
 }
 
@@ -41,9 +41,9 @@ model User {
   photo    String? @db.Text // Menggunakan Text untuk string panjang/URL
   address  String? @db.Text
   password String  @db.Text
-  
+
   // Relasi
-  orders   Order[]
+  orders Order[]
 
   @@map("users")
 }
@@ -63,6 +63,7 @@ model Product {
   name        String  @db.VarChar(50)
   description String? @db.Text
   categoryId  Int     @map("category_id")
+  available   Boolean @default(true)
   photo       String? @db.Text
   price       Int
   tags        String? @db.VarChar(15)

@@ -13,6 +13,7 @@ export interface Product {
     photo: string | null;
     price: number;
     tags: string | null;
+    available: boolean;
     // variants: ProductVariant[];
 }
 

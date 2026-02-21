@@ -39,6 +39,7 @@ export class CategoryService {
                         photo: true,
                         price: true,
                         tags: true,
+                        available: true,
                     },
                 },
             },

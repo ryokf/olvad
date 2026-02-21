@@ -8,38 +8,25 @@ interface ProductCardProps {
     onAddToCart: (product: Product) => void;
 }
 
-const labelColors = {
-    bestseller: 'bg-primary-400',
-    new: 'bg-green-500',
-    spicy: 'bg-red-500',
-    vegetarian: 'bg-green-600',
-    recommended: 'bg-purple-500',
-};
+export default function ProductCard({ product, onAddToCart }: Readonly<ProductCardProps>) {
 
-const labelText = {
-    bestseller: 'Terlaris',
-    new: 'Baru',
-    spicy: 'Pedas',
-    vegetarian: 'Vegetarian',
-    recommended: 'Rekomendasi',
-};
+    console.log(product)
 
-export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
     return (
         <div className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 animate-on-scroll">
             {/* Product Image */}
             <div className="relative h-56 bg-linear-to-br from-primary-50 to-primary-100 overflow-hidden">
                 {/* Labels */}
-                {product.labels && product.labels.length > 0 && (
+                {product.tags && product.tags.length > 0 && (
                     <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
-                        {product.labels.slice(0, 2).map((label) => (
+                        {/* {product.tags.slice(0, 2).map((tag) => (
                             <span
-                                key={label}
-                                className={`${labelColors[label]} text-white text-xs font-bold px-3 py-1 rounded-full shadow-md`}
+                                key={tag}
+                                className={`text-white text-xs font-bold px-3 py-1 rounded-full shadow-md`}
                             >
-                                {labelText[label]}
+                                {tag}
                             </span>
-                        ))}
+                        ))} */}
                     </div>
                 )}
 
@@ -52,51 +39,28 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
 
                 {/* Image Placeholder - Replace with actual images */}
                 <div className="w-full h-full flex items-center justify-center text-6xl group-hover:scale-110 transition-transform duration-500">
-                    {product.categoryId === 'signature' && '☕'}
-                    {product.categoryId === 'espresso' && '☕'}
-                    {product.categoryId === 'non-coffee' && '🥤'}
-                    {product.categoryId === 'pastry' && '🥐'}
-                    {product.categoryId === 'heavy-meal' && '🍽️'}
+                    <Image
+                        src={product.photo as string}
+                        alt={product.photo as string}
+                        width={100}
+                        height={100}
+                        className='w-full object-cover aspect-square'
+                    ></Image>
                 </div>
             </div>
 
             {/* Product Info */}
             <div className="p-5 space-y-3">
-                <div>
-                    <h3 className="text-xl font-bold text-secondary group-hover:text-primary-400 transition-colors">
-                        {product.name}
-                    </h3>
-                    <p className="text-sm text-secondary-300 mt-1 line-clamp-2">
-                        {product.description}
-                    </p>
-                </div>
-
-                {/* Preparation Time */}
-                {product.preparationTime && (
-                    <div className="flex items-center gap-2 text-sm text-secondary-300">
-                        <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
-                        <span>{product.preparationTime} menit</span>
-                    </div>
-                )}
+                <h3 className="text-xl font-bold text-secondary group-hover:text-primary-400 transition-colors">
+                    {product.name}
+                </h3>
 
                 {/* Price & CTA */}
                 <div className="flex items-center justify-between pt-3 border-t border-gray-200">
                     <div>
                         <p className="text-xs text-secondary-300 mb-0.5">Mulai dari</p>
                         <p className="text-xl font-bold text-secondary">
-                            Rp {product.basePrice.toLocaleString('id-ID')}
+                            Rp {product.price.toLocaleString('id-ID')}
                         </p>
                     </div>
                     <button
