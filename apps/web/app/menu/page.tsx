@@ -13,19 +13,20 @@ import { getAllCategories } from '@/services/category';
 export default function MenuPage() {
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [selectedProductId, setSelectedProductId] = useState<number>();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [products, setProducts] = useState<Product[]>([])
     const [categories, setCategories] = useState<Category[]>([])
 
     const handleProductSelect = (product: Product) => {
-        setSelectedProduct(product);
+        setSelectedProductId(product.id);
+        console.log(product.id)
         setIsModalOpen(true);
     };
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
-        setTimeout(() => setSelectedProduct(null), 300); // Wait for animation
+        setTimeout(() => setSelectedProductId(0), 300); // Wait for animation
     };
 
 
@@ -45,9 +46,6 @@ export default function MenuPage() {
         fetchProduct()
         fetchCategories()
     }, [])
-
-    console.log(products)
-    console.log(categories)
 
     if (!(products || categories)) return {}
 
@@ -93,7 +91,7 @@ export default function MenuPage() {
 
             {/* Product Customization Modal */}
             <ProductModal
-                product={selectedProduct}
+                productId={selectedProductId as number}
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
             />

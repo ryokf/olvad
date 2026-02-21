@@ -81,7 +81,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                             </h3>
                                             <p className="text-sm text-secondary-300 mt-1">
                                                 Rp{' '}
-                                                {item.product.basePrice.toLocaleString(
+                                                {item.product.price.toLocaleString(
                                                     'id-ID'
                                                 )}
                                             </p>

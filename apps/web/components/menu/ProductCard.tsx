@@ -10,8 +10,6 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, onAddToCart }: Readonly<ProductCardProps>) {
 
-    console.log(product)
-
     return (
         <div className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 animate-on-scroll">
             {/* Product Image */}

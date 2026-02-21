@@ -15,11 +15,11 @@ export default function ProductGrid({
     categories,
     searchQuery,
     onProductSelect,
-}: ProductGridProps) {
+}: Readonly<ProductGridProps>) {
     // Filter products based on search
     const filteredProducts = products.filter((product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase())
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        // product.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     // Group products by category

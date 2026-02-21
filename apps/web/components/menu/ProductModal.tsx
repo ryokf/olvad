@@ -1,31 +1,47 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Product, ProductVariant, SelectedVariant } from '@olvad/types';
+import { ProductDetail, ProductVariant, SelectedVariant } from '@olvad/types';
 import { useCart } from '@/contexts/CartContext';
+import { getProductById } from '@/services/product';
 
 interface ProductModalProps {
-    product: Product | null;
+    productId: number;
     isOpen: boolean;
     onClose: () => void;
 }
 
-export default function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
+export default function ProductModal({ productId, isOpen, onClose }: Readonly<ProductModalProps>) {
     const { addItem } = useCart();
     const [selectedVariants, setSelectedVariants] = useState<
         Record<string, string[]>
     >({});
     const [quantity, setQuantity] = useState(1);
     const [specialInstructions, setSpecialInstructions] = useState('');
+    const [product, setProduct] = useState<ProductDetail>()
 
-    // Reset state when modal opens/closes
+    // Fetch product when productId changes
     useEffect(() => {
-        if (isOpen && product) {
+        const fetchProduct = async (id: number) => {
+            const data = await getProductById(id)
+            setProduct(data)
+        }
+
+        if (productId > 0) {
+            fetchProduct(productId)
+        }
+    }, [productId]);
+
+    // Reset state when modal opens
+    useEffect(() => {
+        if (isOpen) {
             setSelectedVariants({});
             setQuantity(1);
             setSpecialInstructions('');
         }
-    }, [isOpen, product]);
+    }, [isOpen, productId]);
+
+    console.log(product)
 
     if (!isOpen || !product) return null;
 
@@ -46,14 +62,14 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
     };
 
     const calculateTotalPrice = (): number => {
-        let total = product.basePrice;
+        let total = product.price;
 
         product.variants.forEach((variant) => {
             const selected = selectedVariants[variant.id] || [];
             selected.forEach((optionName) => {
                 const option = variant.options.find((o) => o.name === optionName);
                 if (option) {
-                    total += option.priceModifier;
+                    total += option.addPrice;
                 }
             });
         });
@@ -61,15 +77,15 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
         return total * quantity;
     };
 
-    const isValid = (): boolean => {
-        // Check if all required variants are selected
-        return product.variants
-            .filter((v) => v.required)
-            .every((v) => selectedVariants[v.id] && selectedVariants[v.id].length > 0);
-    };
+    // const isValid = (): boolean => {
+    //     // Check if all required variants are selected
+    //     return product.variants
+    //         .filter((v) => v.required)
+    //         .every((v) => selectedVariants[v.id] && selectedVariants[v.id].length > 0);
+    // };
 
     const handleAddToCart = () => {
-        if (!isValid()) return;
+        // if (!isValid()) return;
 
         const formattedVariants: SelectedVariant[] = product.variants
             .filter((v) => selectedVariants[v.id] && selectedVariants[v.id].length > 0)
@@ -77,7 +93,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                 const options = selectedVariants[variant.id];
                 const additionalPrice = options.reduce((sum, optionName) => {
                     const option = variant.options.find((o) => o.name === optionName);
-                    return sum + (option?.priceModifier || 0);
+                    return sum + (option?.addPrice || 0);
                 }, 0);
 
                 return {
@@ -137,7 +153,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                         <div>
                             <p className="text-secondary-300 mb-3">{product.description}</p>
                             <p className="text-2xl font-bold text-primary-800">
-                                Rp {product.basePrice.toLocaleString('id-ID')}
+                                Rp {product.price.toLocaleString('id-ID')}
                             </p>
                         </div>
 
@@ -146,12 +162,12 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                             <div key={variant.id} className="space-y-3">
                                 <h3 className="text-lg font-bold text-secondary">
                                     {variant.name}
-                                    {variant.required && (
+                                    {/* {variant.required && (
                                         <span className="text-red-500 ml-1">*</span>
-                                    )}
+                                    )} */}
                                 </h3>
 
-                                {variant.type === 'single' ? (
+                                {variant.isSingleSelection === true ? (
                                     // Radio buttons
                                     <div className="space-y-2">
                                         {variant.options.map((option) => {
@@ -163,7 +179,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                     key={option.name}
                                                     onClick={() =>
                                                         handleVariantChange(
-                                                            variant.id,
+                                                            variant.id.toString(),
                                                             option.name,
                                                             false
                                                         )
@@ -177,13 +193,13 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                         <span className="font-semibold text-secondary">
                                                             {option.name}
                                                         </span>
-                                                        {option.priceModifier !== 0 && (
+                                                        {option.addPrice !== 0 && (
                                                             <span className="text-primary-400 font-semibold">
-                                                                {option.priceModifier > 0
+                                                                {option.addPrice > 0
                                                                     ? '+'
                                                                     : ''}
                                                                 Rp{' '}
-                                                                {option.priceModifier.toLocaleString(
+                                                                {option.addPrice.toLocaleString(
                                                                     'id-ID'
                                                                 )}
                                                             </span>
@@ -205,7 +221,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                     key={option.name}
                                                     onClick={() =>
                                                         handleVariantChange(
-                                                            variant.id,
+                                                            variant.id.toString(),
                                                             option.name,
                                                             true
                                                         )
@@ -243,13 +259,13 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                                                                 {option.name}
                                                             </span>
                                                         </div>
-                                                        {option.priceModifier !== 0 && (
+                                                        {option.addPrice !== 0 && (
                                                             <span className="text-primary-400 font-semibold">
-                                                                {option.priceModifier > 0
+                                                                {option.addPrice > 0
                                                                     ? '+'
                                                                     : ''}
                                                                 Rp{' '}
-                                                                {option.priceModifier.toLocaleString(
+                                                                {option.addPrice.toLocaleString(
                                                                     'id-ID'
                                                                 )}
                                                             </span>
@@ -304,13 +320,16 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                     <div className="sticky bottom-0 bg-white border-t border-gray-200 p-6">
                         <button
                             onClick={handleAddToCart}
-                            disabled={!isValid()}
-                            className={`w-full py-4 rounded-full font-bold text-lg text-white transition-all shadow-lg ${isValid()
-                                ? 'hover:scale-105 hover:shadow-xl'
-                                : 'opacity-50 cursor-not-allowed'
+                            // disabled={!isValid()}
+                            className={`w-full py-4 rounded-full font-bold text-lg text-white transition-all shadow-lg ${
+                                // isValid()
+                                true
+                                    ? 'hover:scale-105 hover:shadow-xl'
+                                    : 'opacity-50 cursor-not-allowed'
                                 }`}
                             style={
-                                isValid()
+                                // isValid()
+                                true
                                     ? { backgroundColor: '#ABC4AA' }
                                     : { backgroundColor: '#6B7280' }
                             }

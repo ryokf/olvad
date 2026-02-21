@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react';
 import { CartItem, CartState, Product, SelectedVariant } from '@olvad/types';
 
 interface CartContextType extends CartState {
@@ -12,7 +12,19 @@ interface CartContextType extends CartState {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export function CartProvider({ children }: { children: ReactNode }) {
+const calculateTotalPrice = (
+    basePrice: number,
+    selectedVariants: SelectedVariant[],
+    quantity: number
+): number => {
+    const variantsTotal = selectedVariants.reduce(
+        (sum, variant) => sum + variant.additionalPrice,
+        0
+    );
+    return (basePrice + variantsTotal) * quantity;
+};
+
+export function CartProvider({ children }: Readonly<{ children: ReactNode }>) {
     const [items, setItems] = useState<CartItem[]>([]);
 
     // Load cart from localStorage on mount
@@ -32,37 +44,29 @@ export function CartProvider({ children }: { children: ReactNode }) {
         localStorage.setItem('olvad-cart', JSON.stringify(items));
     }, [items]);
 
-    const calculateTotalPrice = (
-        basePrice: number,
-        selectedVariants: SelectedVariant[],
-        quantity: number
-    ): number => {
-        const variantsTotal = selectedVariants.reduce(
-            (sum, variant) => sum + variant.additionalPrice,
-            0
-        );
-        return (basePrice + variantsTotal) * quantity;
-    };
+    const removeItem = useCallback((itemId: string) => {
+        setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+    }, []);
 
-    const addItem = (
+    const addItem = useCallback((
         product: Product,
         selectedVariants: SelectedVariant[],
         quantity: number,
         specialInstructions?: string
     ) => {
         const newItem: CartItem = {
-            id: `cart-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            id: `cart-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
             product,
             selectedVariants,
             quantity,
             specialInstructions,
-            totalPrice: calculateTotalPrice(product.basePrice, selectedVariants, quantity),
+            totalPrice: calculateTotalPrice(product.price, selectedVariants, quantity),
         };
 
         setItems((prevItems) => [...prevItems, newItem]);
-    };
+    }, []);
 
-    const updateQuantity = (itemId: string, quantity: number) => {
+    const updateQuantity = useCallback((itemId: string, quantity: number) => {
         if (quantity <= 0) {
             removeItem(itemId);
             return;
@@ -75,7 +79,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                         ...item,
                         quantity,
                         totalPrice: calculateTotalPrice(
-                            item.product.basePrice,
+                            item.product.price,
                             item.selectedVariants,
                             quantity
                         ),
@@ -83,15 +87,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
                     : item
             )
         );
-    };
+    }, [removeItem]);
 
-    const removeItem = (itemId: string) => {
-        setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-    };
-
-    const clearCart = () => {
+    const clearCart = useCallback(() => {
         setItems([]);
-    };
+    }, []);
 
     // Calculate cart summary
     const subtotal = items.reduce((sum, item) => sum + item.totalPrice, 0);
@@ -99,7 +99,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const total = subtotal + tax;
     const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
-    const value: CartContextType = {
+    const value = useMemo<CartContextType>(() => ({
         items,
         subtotal,
         tax,
@@ -109,7 +109,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         updateQuantity,
         removeItem,
         clearCart,
-    };
+    }), [items, subtotal, tax, total, itemCount, addItem, updateQuantity, removeItem, clearCart]);
 
     return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
