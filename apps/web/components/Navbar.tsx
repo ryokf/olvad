@@ -58,9 +58,9 @@ export default function Navbar() {
 
         {/* CTA Button */}
         <div className="hidden md:flex items-center gap-4">
-          <button className="btn-hover px-6 py-2.5 bg-secondary text-white rounded-full font-semibold hover:bg-primary-500 shadow-md hover:shadow-lg transition-all">
+          <a href="/login" className="btn-hover px-6 py-2.5 bg-secondary text-white rounded-full font-semibold hover:bg-primary-500 shadow-md hover:shadow-lg transition-all">
             Login
-          </button>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -117,9 +117,9 @@ export default function Navbar() {
               >
                 Kontak
               </a>
-              <button className="w-full btn-hover px-6 py-3 bg-primary-400 text-white rounded-full font-semibold hover:bg-primary-500 shadow-md transition-all">
+              <a href="/login" className="block w-full btn-hover px-6 py-3 bg-primary-400 text-white rounded-full font-semibold hover:bg-primary-500 shadow-md transition-all text-center">
                 Login
-              </button>
+              </a>
             </div>
           </div>
         )}
