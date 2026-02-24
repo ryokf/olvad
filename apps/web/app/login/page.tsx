@@ -4,6 +4,7 @@ import { useState, FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { login } from "@/services/auth";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ export default function LoginPage() {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const { setAuth } = useAuth();
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -19,9 +21,8 @@ export default function LoginPage() {
 
         try {
             const result = await login({ email, password });
-            localStorage.setItem("token", result.accessToken);
-            localStorage.setItem("user", JSON.stringify(result.user));
-            window.location.href = "/";
+            setAuth(result.accessToken, result.user);
+            globalThis.location.href = "/";
         } catch (err) {
             setError(err instanceof Error ? err.message : "Login gagal");
         } finally {
