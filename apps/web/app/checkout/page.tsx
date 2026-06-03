@@ -124,8 +124,7 @@ export default function CheckoutPage() {
                         </p>
                         <button
                             onClick={() => router.push('/menu')}
-                            className="px-8 py-4 rounded-full font-bold text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
-                            style={{ backgroundColor: '#ABC4AA' }}
+                            className="px-8 py-4 rounded-full font-bold text-white shadow-lg hover:shadow-xl transition-all hover:scale-105 bg-primary"
                         >
                             Lihat Menu
                         </button>

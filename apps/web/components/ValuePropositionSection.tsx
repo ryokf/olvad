@@ -39,7 +39,7 @@ export default function ValuePropositionSection() {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          {/* <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
+          {/* <p className="font-semibold text-sm uppercase tracking-wide text-primary">
             Mengapa Olvad?
           </p> */}
           <h2 className="text-5xl font-bold text-secondary">
@@ -55,10 +55,8 @@ export default function ValuePropositionSection() {
           {values.map((value, index) => (
             <div
               key={index}
-              className="group animate-on-scroll p-8 bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-transparent"
-              style={{ animationDelay: `${index * 0.1}s`, borderColor: 'transparent' }}
-              onMouseEnter={(e) => e.currentTarget.style.borderColor = '#ABC4AA'}
-              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'transparent'}
+              className="group animate-on-scroll p-8 bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="w-16 h-16 bg-linear-to-br from-primary-100 to-primary-200 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <span className="text-4xl">{value.icon}</span>

@@ -26,23 +26,18 @@ export default function AdminSidebar({
 }: SidebarProps) {
     return (
         <aside
-            className="fixed top-0 left-0 h-full z-30 flex flex-col transition-all duration-300 overflow-hidden"
-            style={{
-                width: isOpen ? "260px" : "72px",
-                background: "linear-gradient(180deg, #1a1a2e 0%, #16213e 100%)",
-                borderRight: "1px solid rgba(255,255,255,0.07)",
-            }}
+            className={`fixed top-0 left-0 h-full z-30 flex flex-col transition-all duration-300 overflow-hidden bg-gradient-to-b from-[#1a1a2e] to-[#16213e] border-r border-white/10 ${
+                isOpen ? "w-[260px]" : "w-[72px]"
+            }`}
         >
             {/* Logo / Toggle */}
             <div
-                className="flex items-center gap-3 px-4 py-5"
-                style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}
+                className="flex items-center gap-3 px-4 py-5 border-b border-white/10"
             >
                 <button
                     id="sidebar-toggle"
                     onClick={onToggle}
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all hover:opacity-80"
-                    style={{ background: "rgba(171,196,170,0.15)" }}
+                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all hover:opacity-80 bg-primary/15"
                     title="Toggle Sidebar"
                 >
                     <span className="text-xl">☕</span>
@@ -50,7 +45,7 @@ export default function AdminSidebar({
                 {isOpen && (
                     <div className="overflow-hidden whitespace-nowrap">
                         <p className="text-white font-bold text-sm leading-tight">Olvad Admin</p>
-                        <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+                        <p className="text-xs text-white/35">
                             Management Panel
                         </p>
                     </div>
@@ -60,7 +55,7 @@ export default function AdminSidebar({
             {/* Section label */}
             {isOpen && (
                 <div className="px-4 pt-5 pb-1">
-                    <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.25)" }}>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-white/25">
                         Menu
                     </p>
                 </div>
@@ -75,16 +70,11 @@ export default function AdminSidebar({
                             key={item.key}
                             id={`nav-${item.key}`}
                             onClick={() => onTabChange(item.key)}
-                            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all"
-                            style={{
-                                background: isActive
-                                    ? "rgba(171,196,170,0.2)"
-                                    : "transparent",
-                                border: isActive
-                                    ? "1px solid rgba(171,196,170,0.3)"
-                                    : "1px solid transparent",
-                                color: isActive ? "#abc4aa" : "rgba(255,255,255,0.55)",
-                            }}
+                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border ${
+                                isActive
+                                    ? "bg-primary/20 border-primary/30 text-primary"
+                                    : "bg-transparent border-transparent text-white/55"
+                            }`}
                             title={item.desc}
                         >
                             <span className="text-xl flex-shrink-0">{item.icon}</span>
@@ -92,8 +82,9 @@ export default function AdminSidebar({
                                 <div className="overflow-hidden">
                                     <p className="text-sm font-medium leading-tight">{item.label}</p>
                                     <p
-                                        className="text-xs leading-tight mt-0.5"
-                                        style={{ color: isActive ? "rgba(171,196,170,0.7)" : "rgba(255,255,255,0.3)" }}
+                                        className={`text-xs leading-tight mt-0.5 ${
+                                            isActive ? "text-primary/70" : "text-white/30"
+                                        }`}
                                     >
                                         {item.desc}
                                     </p>
@@ -105,12 +96,11 @@ export default function AdminSidebar({
             </nav>
 
             {/* Footer */}
-            <div className="p-3" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+            <div className="p-3 border-t border-white/10">
                 <button
                     id="admin-logout-btn"
                     onClick={onLogout}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all hover:opacity-80"
-                    style={{ color: "rgba(255,255,255,0.35)" }}
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all hover:opacity-80 text-white/35"
                     title="Keluar"
                 >
                     <span className="text-xl flex-shrink-0">🚪</span>

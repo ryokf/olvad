@@ -90,15 +90,14 @@ export default function CategoriesSection() {
             {/* Toolbar */}
             <div className="flex items-center justify-between">
                 <div>
-                    <p className="text-sm" style={{ color: "#9ca3af" }}>
+                    <p className="text-sm text-gray-400">
                         {categories.length} kategori terdaftar
                     </p>
                 </div>
                 <button
                     id="add-category-btn"
                     onClick={openCreate}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
-                    style={{ background: "linear-gradient(135deg, #1a1a2e, #16213e)" }}
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 bg-gradient-to-br from-[#1a1a2e] to-[#16213e]"
                 >
                     ＋ Tambah Kategori
                 </button>
@@ -116,20 +115,18 @@ export default function CategoriesSection() {
                         <div
                             key={cat.id}
                             id={`category-card-${cat.id}`}
-                            className="rounded-2xl p-5 flex flex-col gap-3 transition-all hover:shadow-md"
-                            style={{ background: "white", border: "1px solid #e5e7eb" }}
+                            className="rounded-2xl p-5 flex flex-col gap-3 transition-all hover:shadow-md bg-white border border-gray-200"
                         >
                             <div
-                                className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
-                                style={{ background: "rgba(171,196,170,0.15)" }}
+                                className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl bg-primary/15"
                             >
                                 🏷️
                             </div>
                             <div className="flex-1">
-                                <p className="font-bold text-base" style={{ color: "#1a1a2e" }}>
+                                <p className="font-bold text-base text-[#1a1a2e]">
                                     {cat.name}
                                 </p>
-                                <p className="text-xs mt-1" style={{ color: "#9ca3af" }}>
+                                <p className="text-xs mt-1 text-gray-400">
                                     ID: #{cat.id}
                                 </p>
                             </div>
@@ -137,16 +134,14 @@ export default function CategoriesSection() {
                                 <button
                                     id={`edit-cat-${cat.id}`}
                                     onClick={() => openEdit(cat)}
-                                    className="flex-1 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80"
-                                    style={{ background: "rgba(99,102,241,0.1)", color: "#6366f1" }}
+                                    className="flex-1 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80 bg-indigo-500/10 text-indigo-500"
                                 >
                                     ✏️ Edit
                                 </button>
                                 <button
                                     id={`delete-cat-${cat.id}`}
                                     onClick={() => handleDelete(cat)}
-                                    className="flex-1 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80"
-                                    style={{ background: "rgba(239,68,68,0.1)", color: "#ef4444" }}
+                                    className="flex-1 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80 bg-red-500/10 text-red-500"
                                 >
                                     🗑 Hapus
                                 </button>
@@ -189,15 +184,13 @@ export default function CategoriesSection() {
 export function EmptyState({ label, onAdd }: { label: string; onAdd: () => void }) {
     return (
         <div
-            className="flex flex-col items-center justify-center py-24 gap-4 rounded-2xl"
-            style={{ background: "white", border: "1px solid #e5e7eb" }}
+            className="flex flex-col items-center justify-center py-24 gap-4 rounded-2xl bg-white border border-gray-200"
         >
             <span className="text-5xl">📭</span>
             <p className="text-gray-500 font-medium">{label}</p>
             <button
                 onClick={onAdd}
-                className="px-6 py-2.5 rounded-xl text-white text-sm font-semibold"
-                style={{ background: "#abc4aa" }}
+                className="px-6 py-2.5 rounded-xl text-white text-sm font-semibold bg-primary"
             >
                 Tambah Baru
             </button>
@@ -218,32 +211,24 @@ export function Modal({
 }) {
     return (
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(4px)" }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/45 backdrop-blur-sm"
             onClick={onClose}
         >
             <div
-                className="w-full rounded-2xl overflow-hidden"
+                className="w-full rounded-2xl overflow-hidden bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
                 style={{
                     maxWidth: wide ? "720px" : "480px",
-                    background: "white",
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
                     animation: "fadeInUp 0.2s ease-out",
                 }}
                 onClick={(e) => e.stopPropagation()}
             >
                 <div
-                    className="flex items-center justify-between px-6 py-4"
-                    style={{
-                        background: "linear-gradient(135deg, #1a1a2e, #16213e)",
-                        borderBottom: "1px solid rgba(255,255,255,0.07)",
-                    }}
+                    className="flex items-center justify-between px-6 py-4 bg-gradient-to-br from-[#1a1a2e] to-[#16213e] border-b border-white/10"
                 >
                     <h2 className="text-white font-bold text-base">{title}</h2>
                     <button
                         onClick={onClose}
-                        className="w-8 h-8 rounded-xl flex items-center justify-center text-white/60 hover:text-white transition-all"
-                        style={{ background: "rgba(255,255,255,0.1)" }}
+                        className="w-8 h-8 rounded-xl flex items-center justify-center text-white/60 hover:text-white transition-all bg-white/10"
                     >
                         ✕
                     </button>
@@ -277,8 +262,8 @@ export function FormField({
 }) {
     return (
         <div>
-            <label className="block text-xs font-semibold mb-1.5" style={{ color: "#374151" }}>
-                {label} {required && <span style={{ color: "#ef4444" }}>*</span>}
+            <label className="block text-xs font-semibold mb-1.5 text-gray-700">
+                {label} {required && <span className="text-red-500">*</span>}
             </label>
             <input
                 id={id}
@@ -289,12 +274,7 @@ export function FormField({
                 required={required}
                 min={min}
                 step={step}
-                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all"
-                style={{
-                    background: "#f8f9fb",
-                    border: "1px solid #e5e7eb",
-                    color: "#374151",
-                }}
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all bg-[#f8f9fb] border border-gray-200 text-gray-700"
             />
         </div>
     );
@@ -317,16 +297,15 @@ export function FormSelect({
 }) {
     return (
         <div>
-            <label className="block text-xs font-semibold mb-1.5" style={{ color: "#374151" }}>
-                {label} {required && <span style={{ color: "#ef4444" }}>*</span>}
+            <label className="block text-xs font-semibold mb-1.5 text-gray-700">
+                {label} {required && <span className="text-red-500">*</span>}
             </label>
             <select
                 id={id}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 required={required}
-                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none"
-                style={{ background: "#f8f9fb", border: "1px solid #e5e7eb", color: "#374151" }}
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none bg-[#f8f9fb] border border-gray-200 text-gray-700"
             >
                 <option value="">Pilih...</option>
                 {options.map((o) => (
@@ -356,7 +335,7 @@ export function FormTextarea({
 }) {
     return (
         <div>
-            <label className="block text-xs font-semibold mb-1.5" style={{ color: "#374151" }}>
+            <label className="block text-xs font-semibold mb-1.5 text-gray-700">
                 {label}
             </label>
             <textarea
@@ -365,8 +344,7 @@ export function FormTextarea({
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
                 rows={rows}
-                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none resize-none"
-                style={{ background: "#f8f9fb", border: "1px solid #e5e7eb", color: "#374151" }}
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none resize-none bg-[#f8f9fb] border border-gray-200 text-gray-700"
             />
         </div>
     );
@@ -375,8 +353,7 @@ export function FormTextarea({
 export function FormError({ message }: { message: string }) {
     return (
         <div
-            className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm"
-            style={{ background: "rgba(239,68,68,0.08)", color: "#ef4444" }}
+            className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm bg-red-500/[0.08] text-red-500"
         >
             ⚠️ {message}
         </div>
@@ -397,16 +374,18 @@ export function ModalActions({
             <button
                 type="button"
                 onClick={onCancel}
-                className="flex-1 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80"
-                style={{ border: "1px solid #e5e7eb", color: "#6b7280" }}
+                className="flex-1 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80 border border-gray-200 text-gray-500"
             >
                 Batal
             </button>
             <button
                 type="submit"
                 disabled={isSaving}
-                className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
-                style={{ background: isSaving ? "#9ca3af" : "linear-gradient(135deg, #1a1a2e, #16213e)" }}
+                className={`flex-1 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 ${
+                    isSaving
+                        ? "bg-gray-400"
+                        : "bg-gradient-to-br from-[#1a1a2e] to-[#16213e]"
+                }`}
             >
                 {isSaving ? "Menyimpan..." : label}
             </button>

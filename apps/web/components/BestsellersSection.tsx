@@ -35,7 +35,7 @@ export default function BestsellersSection() {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
+          <p className="font-semibold text-sm uppercase tracking-wide text-primary">
             Menu Unggulan
           </p>
           <h2 className="text-5xl font-bold text-secondary">
@@ -76,7 +76,7 @@ export default function BestsellersSection() {
                   <div className="relative h-64 bg-linear-to-br from-primary-50 to-primary-100 overflow-hidden flex items-center justify-center">
                     {/* Tags badge */}
                     {product.tags && (
-                      <div className="absolute top-3 right-3 text-white text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-md" style={{ backgroundColor: '#ABC4AA' }}>
+                      <div className="absolute top-3 right-3 text-white text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-md bg-primary">
                         {product.tags.split(",")[0].trim()}
                       </div>
                     )}

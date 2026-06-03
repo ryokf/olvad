@@ -11,17 +11,18 @@ type GLTFResult = GLTF & {
 }
 
 const BakeryShop = ({ ...props }) => {
-    const { nodes, materials } = useGLTF('./models/bakery_shop.glb') as GLTFResult
-
-    const modelRef = useRef(null);
+    const { nodes, materials } = useGLTF('./models/bakery_shop.glb') as unknown as GLTFResult
+    const modelRef = useRef<THREE.Group>(null);
 
     useGSAP(() => {
-        gsap.to(modelRef?.current?.rotation, {
-            y: -1,
-            duration: 1,
-            ease: "power4.out",
-        })
-    })
+        if (modelRef.current) {
+            gsap.to(modelRef.current.rotation, {
+                y: -1,
+                duration: 1,
+                ease: "power4.out",
+            });
+        }
+    });
 
 
     return (

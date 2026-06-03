@@ -183,16 +183,14 @@ export default function ProductsSection() {
                         placeholder="Cari nama produk..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-9 pr-4 py-2 rounded-xl text-sm outline-none w-52"
-                        style={{ background: "white", border: "1px solid #e5e7eb", color: "#374151" }}
+                        className="pl-9 pr-4 py-2 rounded-xl text-sm outline-none w-52 bg-white border border-gray-200 text-gray-700"
                     />
                 </div>
                 <select
                     id="products-filter-cat"
                     value={filterCat}
                     onChange={(e) => setFilterCat(e.target.value)}
-                    className="px-4 py-2 rounded-xl text-sm outline-none"
-                    style={{ background: "white", border: "1px solid #e5e7eb", color: "#374151" }}
+                    className="px-4 py-2 rounded-xl text-sm outline-none bg-white border border-gray-200 text-gray-700"
                 >
                     <option value="ALL">Semua Kategori</option>
                     {categories.map((c) => (
@@ -203,22 +201,20 @@ export default function ProductsSection() {
                     id="products-filter-avail"
                     value={availFilter}
                     onChange={(e) => setAvailFilter(e.target.value)}
-                    className="px-4 py-2 rounded-xl text-sm outline-none"
-                    style={{ background: "white", border: "1px solid #e5e7eb", color: "#374151" }}
+                    className="px-4 py-2 rounded-xl text-sm outline-none bg-white border border-gray-200 text-gray-700"
                 >
                     <option value="ALL">Semua Status</option>
                     <option value="AVAILABLE">✅ Tersedia</option>
                     <option value="UNAVAILABLE">❌ Tidak Tersedia</option>
                 </select>
-                <p className="text-sm ml-1" style={{ color: "#9ca3af" }}>
+                <p className="text-sm ml-1 text-gray-400">
                     {filteredProducts.length} produk
                 </p>
                 <div className="ml-auto">
                     <button
                         id="add-product-btn"
                         onClick={openCreate}
-                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
-                        style={{ background: "linear-gradient(135deg, #1a1a2e, #16213e)" }}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 bg-gradient-to-br from-[#1a1a2e] to-[#16213e]"
                     >
                         ＋ Tambah Menu
                     </button>
@@ -334,17 +330,13 @@ function ProductCard({
     return (
         <div
             id={`product-card-${product.id}`}
-            className="rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-md"
-            style={{
-                background: "white",
-                border: "1px solid #e5e7eb",
-                opacity: product.available ? 1 : 0.7,
-            }}
+            className={`rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-md bg-white border border-gray-200 ${
+                product.available ? "opacity-100" : "opacity-70"
+            }`}
         >
             {/* Image */}
             <div
-                className="relative h-40 flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, #f6faf4, #eef5e8)" }}
+                className="relative h-40 flex items-center justify-center bg-gradient-to-br from-[#f6faf4] to-[#eef5e8]"
             >
                 {product.photo ? (
                     <img
@@ -362,19 +354,17 @@ function ProductCard({
                 <button
                     id={`toggle-avail-${product.id}`}
                     onClick={onToggleAvailable}
-                    className="absolute top-2 right-2 px-2.5 py-1 rounded-full text-xs font-semibold transition-all hover:opacity-80"
-                    style={{
-                        background: product.available ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)",
-                        color: product.available ? "#10b981" : "#ef4444",
-                        backdropFilter: "blur(4px)",
-                    }}
+                    className={`absolute top-2 right-2 px-2.5 py-1 rounded-full text-xs font-semibold transition-all hover:opacity-80 backdrop-blur-sm ${
+                        product.available
+                            ? "bg-emerald-500/15 text-emerald-500"
+                            : "bg-red-500/15 text-red-500"
+                    }`}
                 >
                     {product.available ? "● Tersedia" : "● Habis"}
                 </button>
                 {/* Category badge */}
                 <div
-                    className="absolute bottom-2 left-2 px-2.5 py-1 rounded-full text-xs font-medium"
-                    style={{ background: "rgba(255,255,255,0.9)", color: "#6b7280" }}
+                    className="absolute bottom-2 left-2 px-2.5 py-1 rounded-full text-xs font-medium bg-white/90 text-gray-500"
                 >
                     {product.category?.name || "–"}
                 </div>
@@ -383,7 +373,7 @@ function ProductCard({
             {/* Content */}
             <div className="p-4 flex flex-col gap-3 flex-1">
                 <div>
-                    <p className="font-bold text-sm leading-tight" style={{ color: "#1a1a2e" }}>
+                    <p className="font-bold text-sm leading-tight text-[#1a1a2e]">
                         {product.name}
                     </p>
                     {product.tags && (
@@ -391,8 +381,7 @@ function ProductCard({
                             {product.tags.split(",").map((tag, i) => (
                                 <span
                                     key={i}
-                                    className="text-xs px-2 py-0.5 rounded-full"
-                                    style={{ background: "rgba(171,196,170,0.15)", color: "#588570" }}
+                                    className="text-xs px-2 py-0.5 rounded-full bg-primary/15 text-primary-700"
                                 >
                                     {tag.trim()}
                                 </span>
@@ -400,23 +389,21 @@ function ProductCard({
                         </div>
                     )}
                 </div>
-                <p className="text-base font-bold" style={{ color: "#abc4aa" }}>
+                <p className="text-base font-bold text-primary">
                     Rp {product.price.toLocaleString("id-ID")}
                 </p>
                 <div className="flex gap-2 mt-auto">
                     <button
                         id={`edit-product-${product.id}`}
                         onClick={onEdit}
-                        className="flex-1 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80"
-                        style={{ background: "rgba(99,102,241,0.1)", color: "#6366f1" }}
+                        className="flex-1 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80 bg-indigo-500/10 text-indigo-500"
                     >
                         ✏️ Edit
                     </button>
                     <button
                         id={`delete-product-${product.id}`}
                         onClick={onDelete}
-                        className="flex-1 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80"
-                        style={{ background: "rgba(239,68,68,0.1)", color: "#ef4444" }}
+                        className="flex-1 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80 bg-red-500/10 text-red-500"
                     >
                         🗑 Hapus
                     </button>

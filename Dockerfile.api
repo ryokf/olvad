@@ -1,0 +1,23 @@
+# Ubah dari node:18-alpine menjadi node:20-alpine
+FROM node:20-alpine
+
+# Set lokasi di dalam container
+WORKDIR /app
+
+# Salin seluruh project (termasuk folder apps, packages, dan file root)
+COPY . .
+
+# Install dependencies dari ROOT
+RUN npm install
+
+# Generate Prisma Client di folder API
+RUN cd apps/api && npx prisma generate
+
+# Build aplikasi API
+RUN cd apps/api && npm run build
+
+# Ekspos port NestJS
+EXPOSE 8082
+
+# Jalankan aplikasi API
+CMD ["sh", "-c", "cd apps/api && npm run start:prod"]

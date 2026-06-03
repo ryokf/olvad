@@ -9,15 +9,15 @@ interface OrderTableProps {
     onDeleteOrder: (id: number) => void;
 }
 
-const statusConfig: Record<string, { label: string; color: string; bg: string }> = {
-    ON_PROCESS: { label: "Diproses", color: "#f59e0b", bg: "rgba(245,158,11,0.1)" },
-    DONE: { label: "Selesai", color: "#10b981", bg: "rgba(16,185,129,0.1)" },
-    CANCELLED: { label: "Dibatalkan", color: "#ef4444", bg: "rgba(239,68,68,0.1)" },
+const statusConfig: Record<string, { label: string; className: string }> = {
+    ON_PROCESS: { label: "Diproses", className: "bg-amber-500/10 text-amber-600" },
+    DONE: { label: "Selesai", className: "bg-emerald-500/10 text-emerald-600" },
+    CANCELLED: { label: "Dibatalkan", className: "bg-red-500/10 text-red-600" },
 };
 
-const paymentStatusConfig: Record<string, { label: string; color: string; bg: string }> = {
-    UNPAID: { label: "Belum Bayar", color: "#ef4444", bg: "rgba(239,68,68,0.1)" },
-    PAID: { label: "Lunas", color: "#10b981", bg: "rgba(16,185,129,0.1)" },
+const paymentStatusConfig: Record<string, { label: string; className: string }> = {
+    UNPAID: { label: "Belum Bayar", className: "bg-red-500/10 text-red-600" },
+    PAID: { label: "Lunas", className: "bg-emerald-500/10 text-emerald-600" },
 };
 
 const paymentMethodMap: Record<string, string> = {
@@ -40,7 +40,7 @@ export default function OrderTable({
 }: OrderTableProps) {
     if (orders.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center py-24 gap-3 rounded-2xl" style={{ background: "white", border: "1px solid #e5e7eb" }}>
+            <div className="flex flex-col items-center justify-center py-24 gap-3 rounded-2xl bg-white border border-gray-200">
                 <span className="text-5xl">📭</span>
                 <p className="text-gray-500 font-medium">Tidak ada pesanan ditemukan</p>
             </div>
@@ -65,23 +65,22 @@ export default function OrderTable({
     };
 
     return (
-        <div className="rounded-2xl overflow-hidden" style={{ background: "white", border: "1px solid #e5e7eb", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
+        <div className="rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
             <div className="overflow-x-auto">
                 <table className="w-full">
                     <thead>
-                        <tr style={{ background: "#f8f9fb", borderBottom: "1px solid #e5e7eb" }}>
+                        <tr className="bg-[#f8f9fb] border-b border-gray-200">
                             {["ID", "Pelanggan", "Tipe", "Total", "Pembayaran", "Status Bayar", "Status Order", "Aksi"].map((h) => (
                                 <th
                                     key={h}
-                                    className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wider"
-                                    style={{ color: "#9ca3af" }}
+                                    className="px-5 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-gray-400"
                                 >
                                     {h}
                                 </th>
                             ))}
                         </tr>
                     </thead>
-                    <tbody className="divide-y" style={{ divideColor: "#f3f4f6" }}>
+                    <tbody className="divide-y divide-gray-100">
                         {orders.map((order) => {
                             const orderStatus = statusConfig[order.status] || statusConfig.ON_PROCESS;
                             const payStatus = paymentStatusConfig[order.paymentStatus || "UNPAID"] || paymentStatusConfig.UNPAID;
@@ -90,41 +89,38 @@ export default function OrderTable({
                                     key={order.id}
                                     id={`order-row-${order.id}`}
                                     onClick={() => onOpenDetail(order)}
-                                    className="cursor-pointer transition-colors"
-                                    style={{ borderBottom: "1px solid #f3f4f6" }}
-                                    onMouseEnter={(e) => (e.currentTarget.style.background = "#f8f9fb")}
-                                    onMouseLeave={(e) => (e.currentTarget.style.background = "white")}
+                                    className="cursor-pointer transition-colors border-b border-gray-100 bg-white hover:bg-[#f8f9fb]"
                                 >
                                     {/* ID */}
                                     <td className="px-5 py-4">
-                                        <span className="font-mono text-sm font-bold" style={{ color: "#abc4aa" }}>
+                                        <span className="font-mono text-sm font-bold text-primary">
                                             #{order.id}
                                         </span>
                                     </td>
 
                                     {/* Customer */}
                                     <td className="px-5 py-4">
-                                        <p className="font-semibold text-sm" style={{ color: "#1a1a2e" }}>
+                                        <p className="font-semibold text-sm text-[#1a1a2e]">
                                             {order.customerName || "-"}
                                         </p>
-                                        <p className="text-xs mt-0.5" style={{ color: "#9ca3af" }}>
+                                        <p className="text-xs mt-0.5 text-gray-400">
                                             {order.customerPhone || "-"}
                                         </p>
                                     </td>
 
                                     {/* Type */}
                                     <td className="px-5 py-4">
-                                        <span className="text-xs font-medium" style={{ color: "#6b7280" }}>
+                                        <span className="text-xs font-medium text-gray-500">
                                             {orderTypeMap[order.type] || order.type}
                                         </span>
                                     </td>
 
                                     {/* Total */}
                                     <td className="px-5 py-4">
-                                        <span className="font-semibold text-sm" style={{ color: "#1a1a2e" }}>
+                                        <span className="font-semibold text-sm text-[#1a1a2e]">
                                             Rp {(order.totalPrice || 0).toLocaleString("id-ID")}
                                         </span>
-                                        <p className="text-xs mt-0.5" style={{ color: "#9ca3af" }}>
+                                        <p className="text-xs mt-0.5 text-gray-400">
                                             {paymentMethodMap[order.paymentMethod] || order.paymentMethod}
                                         </p>
                                     </td>
@@ -132,8 +128,7 @@ export default function OrderTable({
                                     {/* Payment Method */}
                                     <td className="px-5 py-4">
                                         <span
-                                            className="text-xs font-medium px-2.5 py-1 rounded-full"
-                                            style={{ background: "rgba(99,102,241,0.1)", color: "#6366f1" }}
+                                            className="text-xs font-medium px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-500"
                                         >
                                             {paymentMethodMap[order.paymentMethod] || order.paymentMethod}
                                         </span>
@@ -144,8 +139,7 @@ export default function OrderTable({
                                         <button
                                             id={`pay-toggle-${order.id}`}
                                             onClick={(e) => handleQuickPayment(e, order)}
-                                            className="text-xs font-semibold px-2.5 py-1 rounded-full transition-all hover:opacity-80"
-                                            style={{ background: payStatus.bg, color: payStatus.color }}
+                                            className={`text-xs font-semibold px-2.5 py-1 rounded-full transition-all hover:opacity-80 ${payStatus.className}`}
                                             title="Klik untuk toggle status pembayaran"
                                         >
                                             {payStatus.label}
@@ -157,8 +151,7 @@ export default function OrderTable({
                                         <button
                                             id={`status-toggle-${order.id}`}
                                             onClick={(e) => handleQuickStatus(e, order)}
-                                            className="text-xs font-semibold px-2.5 py-1 rounded-full transition-all hover:opacity-80"
-                                            style={{ background: orderStatus.bg, color: orderStatus.color }}
+                                            className={`text-xs font-semibold px-2.5 py-1 rounded-full transition-all hover:opacity-80 ${orderStatus.className}`}
                                             title="Klik untuk cycle status order"
                                         >
                                             {orderStatus.label}
@@ -171,8 +164,7 @@ export default function OrderTable({
                                             <button
                                                 id={`view-order-${order.id}`}
                                                 onClick={(e) => { e.stopPropagation(); onOpenDetail(order); }}
-                                                className="w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-all hover:opacity-80"
-                                                style={{ background: "rgba(99,102,241,0.1)", color: "#6366f1" }}
+                                                className="w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-all hover:opacity-80 bg-indigo-500/10 text-indigo-500"
                                                 title="Lihat detail"
                                             >
                                                 👁
@@ -180,8 +172,7 @@ export default function OrderTable({
                                             <button
                                                 id={`delete-order-${order.id}`}
                                                 onClick={(e) => { e.stopPropagation(); onDeleteOrder(order.id as number); }}
-                                                className="w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-all hover:opacity-80"
-                                                style={{ background: "rgba(239,68,68,0.1)", color: "#ef4444" }}
+                                                className="w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-all hover:opacity-80 bg-red-500/10 text-red-500"
                                                 title="Hapus pesanan"
                                             >
                                                 🗑

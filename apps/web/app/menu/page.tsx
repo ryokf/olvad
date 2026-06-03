@@ -11,7 +11,7 @@ import { getAllProduct } from '@/services/product';
 import { getAllCategories } from '@/services/category';
 
 export default function MenuPage() {
-    const [activeCategory, setActiveCategory] = useState<string | null>(null);
+    const [activeCategory, setActiveCategory] = useState<number | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedProductId, setSelectedProductId] = useState<number>();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,7 +47,7 @@ export default function MenuPage() {
         fetchCategories()
     }, [])
 
-    if (!(products || categories)) return {}
+    if (!(products || categories)) return null;
 
     return (
         <div className="min-h-screen bg-white">

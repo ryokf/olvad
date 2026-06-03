@@ -5,9 +5,18 @@ import { Category } from '@olvad/types';
 
 interface CategoryFilterProps {
     categories: Category[];
-    activeCategory: string | null;
-    onCategoryChange: (categoryId: string | null) => void;
+    activeCategory: number | null;
+    onCategoryChange: (categoryId: number | null) => void;
 }
+
+const getCategoryIcon = (name: string) => {
+    const lowercase = name.toLowerCase();
+    if (lowercase.includes("kopi") || lowercase.includes("coffee") || lowercase.includes("minum") || lowercase.includes("drink")) return "☕";
+    if (lowercase.includes("roti") || lowercase.includes("bakery") || lowercase.includes("croissant") || lowercase.includes("bread")) return "🍞";
+    if (lowercase.includes("kue") || lowercase.includes("cake") || lowercase.includes("dessert")) return "🍰";
+    if (lowercase.includes("makan") || lowercase.includes("food") || lowercase.includes("nasi") || lowercase.includes("rice")) return "🍛";
+    return "🏷️";
+};
 
 export default function CategoryFilter({
     categories,
@@ -81,7 +90,7 @@ export default function CategoryFilter({
                                     : undefined
                             }
                         >
-                            <span className="text-xl mr-2">{category.icon}</span>
+                            <span className="text-xl mr-2">{getCategoryIcon(category.name)}</span>
                             {category.name}
                         </button>
                     ))}

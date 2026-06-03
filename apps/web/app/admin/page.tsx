@@ -43,35 +43,27 @@ export default function AdminDashboardPage() {
     if (!isAuthenticated) {
         return (
             <div
-                className="min-h-screen flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)" }}
+                className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]"
             >
                 <div className="w-full max-w-md px-6">
                     <div className="text-center mb-10">
                         <div
-                            className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4"
-                            style={{ background: "rgba(171,196,170,0.15)", border: "1px solid rgba(171,196,170,0.3)" }}
+                            className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4 bg-primary/15 border border-primary/30"
                         >
                             <span className="text-4xl">☕</span>
                         </div>
                         <h1 className="text-3xl font-bold text-white mb-1">Olvad Admin</h1>
-                        <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+                        <p className="text-sm text-white/50">
                             Dashboard Manajemen Lengkap
                         </p>
                     </div>
                     <div
-                        className="rounded-2xl p-8"
-                        style={{
-                            background: "rgba(255,255,255,0.05)",
-                            backdropFilter: "blur(20px)",
-                            border: "1px solid rgba(255,255,255,0.1)",
-                        }}
+                        className="rounded-2xl p-8 bg-white/5 backdrop-blur-[20px] border border-white/10"
                     >
                         <form onSubmit={handleLogin} className="space-y-5">
                             <div>
                                 <label
-                                    className="block text-sm font-medium mb-2"
-                                    style={{ color: "rgba(255,255,255,0.7)" }}
+                                    className="block text-sm font-medium mb-2 text-white/70"
                                 >
                                     Password Admin
                                 </label>
@@ -81,18 +73,13 @@ export default function AdminDashboardPage() {
                                     value={adminPassword}
                                     onChange={(e) => setAdminPassword(e.target.value)}
                                     placeholder="Masukkan password admin"
-                                    className="w-full px-4 py-3 rounded-xl text-white outline-none"
-                                    style={{
-                                        background: "rgba(255,255,255,0.07)",
-                                        border: "1px solid rgba(255,255,255,0.15)",
-                                    }}
+                                    className="w-full px-4 py-3 rounded-xl text-white outline-none bg-white/[0.07] border border-white/15"
                                     autoFocus
                                 />
                             </div>
                             {loginError && (
                                 <div
-                                    className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm"
-                                    style={{ background: "rgba(239,68,68,0.15)", color: "#fca5a5" }}
+                                    className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm bg-red-500/15 text-red-200"
                                 >
                                     <span>⚠️</span> {loginError}
                                 </div>
@@ -100,13 +87,12 @@ export default function AdminDashboardPage() {
                             <button
                                 id="admin-login-btn"
                                 type="submit"
-                                className="w-full py-3 rounded-xl font-semibold text-white transition-all hover:opacity-90 hover:scale-[1.02]"
-                                style={{ background: "linear-gradient(135deg, #abc4aa, #8fb597)" }}
+                                className="w-full py-3 rounded-xl font-semibold text-white transition-all hover:opacity-90 hover:scale-[1.02] bg-gradient-to-br from-primary-400 to-primary-500"
                             >
                                 Masuk ke Dashboard
                             </button>
                         </form>
-                        <p className="text-xs text-center mt-6" style={{ color: "rgba(255,255,255,0.3)" }}>
+                        <p className="text-xs text-center mt-6 text-white/30">
                             Hanya untuk staf yang berwenang
                         </p>
                     </div>
@@ -116,7 +102,7 @@ export default function AdminDashboardPage() {
     }
 
     return (
-        <div className="min-h-screen flex" style={{ background: "#f8f9fb", fontFamily: "var(--font-sans)" }}>
+        <div className="min-h-screen flex bg-[#f8f9fb]">
             <AdminSidebar
                 isOpen={sidebarOpen}
                 onToggle={() => setSidebarOpen(!sidebarOpen)}
@@ -126,33 +112,26 @@ export default function AdminDashboardPage() {
             />
 
             <div
-                className="flex-1 min-h-screen transition-all duration-300 flex flex-col"
-                style={{ marginLeft: sidebarOpen ? "260px" : "72px" }}
+                className={`flex-1 min-h-screen transition-all duration-300 flex flex-col ${sidebarOpen ? "ml-[260px]" : "ml-[72px]"}`}
             >
                 {/* Top bar */}
                 <header
-                    className="sticky top-0 z-20 flex items-center justify-between px-6 py-4"
-                    style={{
-                        background: "rgba(248,249,251,0.95)",
-                        backdropFilter: "blur(12px)",
-                        borderBottom: "1px solid #e5e7eb",
-                    }}
+                    className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#f8f9fb]/95 backdrop-blur-[12px] border-b border-gray-200"
                 >
                     <div>
-                        <h1 className="text-xl font-bold" style={{ color: "#1a1a2e" }}>
+                        <h1 className="text-xl font-bold text-[#1a1a2e]">
                             {activeTab === "orders" && "📋 Manajemen Pesanan"}
                             {activeTab === "products" && "🍞 Manajemen Menu"}
                             {activeTab === "categories" && "🏷️ Manajemen Kategori"}
                             {activeTab === "variants" && "🎛️ Manajemen Varian"}
                         </h1>
-                        <p className="text-xs mt-0.5" style={{ color: "#9ca3af" }}>
+                        <p className="text-xs mt-0.5 text-gray-400">
                             Olvad Coffee & Bakery — Admin Panel
                         </p>
                     </div>
                     <div className="flex items-center gap-2">
                         <div
-                            className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium"
-                            style={{ background: "rgba(171,196,170,0.15)", color: "#588570" }}
+                            className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium bg-primary/15 text-primary-700"
                         >
                             <span className="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse" />
                             Admin

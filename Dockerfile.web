@@ -1,0 +1,16 @@
+# Ubah dari node:18-alpine menjadi node:20-alpine
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY . .
+RUN npm install
+
+# Build aplikasi Web
+RUN cd apps/web && npm run build
+
+# Ekspos port Next.js
+EXPOSE 3000
+
+# Jalankan aplikasi Web
+CMD ["sh", "-c", "cd apps/web && npm run start"]

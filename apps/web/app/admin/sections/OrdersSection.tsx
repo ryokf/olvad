@@ -126,12 +126,11 @@ export default function OrdersSection() {
                             key={f.key}
                             id={`filter-${f.key.toLowerCase()}`}
                             onClick={() => setActiveFilter(f.key)}
-                            className="px-4 py-2 rounded-xl text-sm font-medium transition-all"
-                            style={{
-                                background: activeFilter === f.key ? "#1a1a2e" : "white",
-                                color: activeFilter === f.key ? "#abc4aa" : "#6b7280",
-                                border: activeFilter === f.key ? "1px solid rgba(171,196,170,0.3)" : "1px solid #e5e7eb",
-                            }}
+                            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all border ${
+                                activeFilter === f.key
+                                    ? "bg-[#1a1a2e] text-primary border-primary/30"
+                                    : "bg-white text-gray-500 border-gray-200"
+                            }`}
                         >
                             {f.label}
                         </button>
@@ -146,16 +145,14 @@ export default function OrdersSection() {
                             placeholder="Cari nama, HP, ID..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-9 pr-4 py-2 rounded-xl text-sm outline-none w-52"
-                            style={{ background: "white", border: "1px solid #e5e7eb", color: "#374151" }}
+                            className="pl-9 pr-4 py-2 rounded-xl text-sm outline-none w-52 bg-white border border-gray-200 text-gray-700"
                         />
                     </div>
                     <button
                         id="orders-refresh"
                         onClick={() => fetchOrders(true)}
                         disabled={isRefreshing}
-                        className="px-4 py-2 rounded-xl text-sm font-medium text-white transition-all hover:opacity-90 flex items-center gap-2"
-                        style={{ background: "#abc4aa" }}
+                        className="px-4 py-2 rounded-xl text-sm font-medium text-white transition-all hover:opacity-90 flex items-center gap-2 bg-primary"
                     >
                         <span className={isRefreshing ? "animate-spin inline-block" : ""}>🔄</span>
                         Refresh
@@ -205,8 +202,7 @@ export function ErrorState({ message, onRetry }: { message: string; onRetry: () 
             <p className="text-red-500 font-medium text-sm">{message}</p>
             <button
                 onClick={onRetry}
-                className="px-6 py-2 rounded-xl text-white text-sm"
-                style={{ background: "#abc4aa" }}
+                className="px-6 py-2 rounded-xl text-white text-sm bg-primary"
             >
                 Coba Lagi
             </button>

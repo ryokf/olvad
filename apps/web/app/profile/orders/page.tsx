@@ -145,8 +145,7 @@ export default function OrderHistoryPage() {
                         </p>
                         <button
                             onClick={() => router.push('/menu')}
-                            className="px-8 py-4 rounded-full font-bold text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
-                            style={{ backgroundColor: '#ABC4AA' }}
+                            className="px-8 py-4 rounded-full font-bold text-white shadow-lg hover:shadow-xl transition-all hover:scale-105 bg-primary"
                         >
                             Lihat Menu
                         </button>
@@ -282,8 +281,7 @@ export default function OrderHistoryPage() {
                                     {order.status === 'completed' && (
                                         <button
                                             onClick={() => handleReorder(order)}
-                                            className="flex-1 py-3 px-6 rounded-full font-semibold text-white shadow-md hover:shadow-lg transition-all hover:scale-105"
-                                            style={{ backgroundColor: '#ABC4AA' }}
+                                            className="flex-1 py-3 px-6 rounded-full font-semibold text-white shadow-md hover:shadow-lg transition-all hover:scale-105 bg-primary"
                                         >
                                             🔄 Pesan Lagi
                                         </button>

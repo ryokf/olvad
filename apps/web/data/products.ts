@@ -1,4 +1,5 @@
-import { Category, Product } from '@olvad/types';
+type Category = any;
+type Product = any;
 
 // Categories
 export const categories: Category[] = [

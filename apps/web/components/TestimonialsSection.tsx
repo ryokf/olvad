@@ -38,7 +38,7 @@ export default function TestimonialsSection() {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="font-semibold text-sm uppercase tracking-wide" style={{ color: '#ABC4AA' }}>
+          <p className="font-semibold text-sm uppercase tracking-wide text-primary">
             Testimoni
           </p>
           <h2 className="text-5xl font-bold text-secondary">

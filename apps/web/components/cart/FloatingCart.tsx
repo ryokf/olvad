@@ -15,8 +15,7 @@ export default function FloatingCart() {
             {/* Mobile: Floating Action Button */}
             <button
                 onClick={() => setIsDrawerOpen(true)}
-                className="md:hidden fixed bottom-6 right-6 z-40 rounded-full shadow-2xl text-white p-5 hover:scale-110 transition-transform animate-bounce-subtle"
-                style={{ backgroundColor: '#ABC4AA' }}
+                className="md:hidden fixed bottom-6 right-6 z-40 rounded-full shadow-2xl text-white p-5 hover:scale-110 transition-transform animate-bounce-subtle bg-primary"
             >
                 {/* Badge */}
                 <div className="absolute -top-2 -right-2 w-7 h-7 bg-red-500 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-lg animate-pulse">
@@ -42,8 +41,7 @@ export default function FloatingCart() {
                 <div className="max-w-7xl mx-auto px-6 pb-6">
                     <button
                         onClick={() => setIsDrawerOpen(true)}
-                        className="w-full rounded-2xl shadow-2xl text-white p-5 hover:scale-105 transition-all"
-                        style={{ backgroundColor: '#ABC4AA' }}
+                        className="w-full rounded-2xl shadow-2xl text-white p-5 hover:scale-105 transition-all bg-primary"
                     >
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-4">

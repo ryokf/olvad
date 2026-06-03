@@ -59,8 +59,7 @@ export default function CartDrawer({ isOpen, onClose }: Readonly<CartDrawerProps
                         </p>
                         <button
                             onClick={onClose}
-                            className="mt-6 px-8 py-3 rounded-full font-bold text-white transition-all shadow-lg hover:shadow-xl hover:scale-105"
-                            style={{ backgroundColor: '#ABC4AA' }}
+                            className="mt-6 px-8 py-3 rounded-full font-bold text-white transition-all shadow-lg hover:shadow-xl hover:scale-105 bg-primary"
                         >
                             Lihat Menu
                         </button>
@@ -211,8 +210,7 @@ export default function CartDrawer({ isOpen, onClose }: Readonly<CartDrawerProps
                             </div>
                             <a
                                 href="/checkout"
-                                className="block w-full py-4 rounded-full font-bold text-lg text-white transition-all shadow-lg hover:shadow-xl hover:scale-105 text-center"
-                                style={{ backgroundColor: '#ABC4AA' }}
+                                className="block w-full py-4 rounded-full font-bold text-lg text-white transition-all shadow-lg hover:shadow-xl hover:scale-105 text-center bg-primary"
                             >
                                 Lanjut ke Checkout
                             </a>

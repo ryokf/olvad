@@ -55,8 +55,7 @@ export default function ProductGrid({
                                     {category.name}
                                 </h2>
                                 <div
-                                    className="h-1 w-20 rounded-full mt-3"
-                                    style={{ backgroundColor: '#ABC4AA' }}
+                                    className="h-1 w-20 rounded-full mt-3 bg-primary"
                                 />
                             </div>
 

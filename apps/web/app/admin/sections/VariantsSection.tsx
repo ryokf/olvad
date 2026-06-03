@@ -183,45 +183,43 @@ export default function VariantsSection() {
         <div className="space-y-5">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
                 {/* Left: Product Picker */}
-                <div className="rounded-2xl overflow-hidden" style={{ background: "white", border: "1px solid #e5e7eb" }}>
-                    <div className="px-5 py-4" style={{ borderBottom: "1px solid #f3f4f6" }}>
-                        <p className="font-bold text-sm" style={{ color: "#1a1a2e" }}>
+                <div className="rounded-2xl overflow-hidden bg-white border border-gray-200">
+                    <div className="px-5 py-4 border-b border-gray-100">
+                        <p className="font-bold text-sm text-[#1a1a2e]">
                             Pilih Produk
                         </p>
-                        <p className="text-xs mt-0.5" style={{ color: "#9ca3af" }}>
+                        <p className="text-xs mt-0.5 text-gray-400">
                             Pilih produk untuk kelola variannya
                         </p>
                     </div>
                     {isLoadingProducts ? (
                         <LoadingState label="Memuat produk..." />
                     ) : (
-                        <div className="divide-y" style={{ divideColor: "#f3f4f6", maxHeight: "480px", overflowY: "auto" }}>
+                        <div className="divide-y divide-gray-100 max-h-[480px] overflow-y-auto">
                             {products.map((p) => (
                                 <button
                                     key={p.id}
                                     id={`pick-product-${p.id}`}
                                     onClick={() => setSelectedProduct(p)}
-                                    className="w-full flex items-center gap-3 px-5 py-3.5 text-left transition-all"
-                                    style={{
-                                        borderBottom: "1px solid #f3f4f6",
-                                        background: selectedProduct?.id === p.id ? "rgba(171,196,170,0.12)" : "transparent",
-                                        color: selectedProduct?.id === p.id ? "#588570" : "#374151",
-                                    }}
+                                    className={`w-full flex items-center gap-3 px-5 py-3.5 text-left transition-all border-b border-gray-100 ${
+                                        selectedProduct?.id === p.id
+                                            ? "bg-primary/12 text-primary-700"
+                                            : "bg-transparent text-gray-700"
+                                    }`}
                                 >
                                     <div
-                                        className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
-                                        style={{ background: "rgba(171,196,170,0.12)" }}
+                                        className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0 bg-primary/12"
                                     >
                                         🍞
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-semibold truncate">{p.name}</p>
-                                        <p className="text-xs" style={{ color: "#9ca3af" }}>
+                                        <p className="text-xs text-gray-400">
                                             {p.category?.name} · Rp {p.price.toLocaleString("id-ID")}
                                         </p>
                                     </div>
                                     {selectedProduct?.id === p.id && (
-                                        <span style={{ color: "#abc4aa" }}>›</span>
+                                        <span className="text-primary">›</span>
                                     )}
                                 </button>
                             ))}
@@ -233,8 +231,7 @@ export default function VariantsSection() {
                 <div className="lg:col-span-2 space-y-4">
                     {!selectedProduct ? (
                         <div
-                            className="rounded-2xl flex flex-col items-center justify-center py-24 gap-3"
-                            style={{ background: "white", border: "1px dashed #e5e7eb" }}
+                            className="rounded-2xl flex flex-col items-center justify-center py-24 gap-3 bg-white border border-dashed border-gray-200"
                         >
                             <span className="text-4xl">👈</span>
                             <p className="text-gray-400 text-sm">Pilih produk di sebelah kiri</p>
@@ -244,18 +241,17 @@ export default function VariantsSection() {
                             {/* Header */}
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="font-bold text-base" style={{ color: "#1a1a2e" }}>
+                                    <p className="font-bold text-base text-[#1a1a2e]">
                                         {selectedProduct.name}
                                     </p>
-                                    <p className="text-xs" style={{ color: "#9ca3af" }}>
+                                    <p className="text-xs text-gray-400">
                                         {variants.length} varian terdaftar
                                     </p>
                                 </div>
                                 <button
                                     id="add-variant-btn"
                                     onClick={openCreateVariant}
-                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white hover:opacity-90"
-                                    style={{ background: "linear-gradient(135deg, #1a1a2e, #16213e)" }}
+                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white hover:opacity-90 bg-gradient-to-br from-[#1a1a2e] to-[#16213e]"
                                 >
                                     ＋ Tambah Varian
                                 </button>
@@ -265,15 +261,13 @@ export default function VariantsSection() {
                                 <LoadingState label="Memuat varian..." />
                             ) : variants.length === 0 ? (
                                 <div
-                                    className="rounded-2xl flex flex-col items-center justify-center py-16 gap-3"
-                                    style={{ background: "white", border: "1px dashed #e5e7eb" }}
+                                    className="rounded-2xl flex flex-col items-center justify-center py-16 gap-3 bg-white border border-dashed border-gray-200"
                                 >
                                     <span className="text-3xl">🎛️</span>
                                     <p className="text-gray-400 text-sm">Belum ada varian untuk produk ini</p>
                                     <button
                                         onClick={openCreateVariant}
-                                        className="px-5 py-2 rounded-xl text-sm font-semibold text-white"
-                                        style={{ background: "#abc4aa" }}
+                                        className="px-5 py-2 rounded-xl text-sm font-semibold text-white bg-primary"
                                     >
                                         Tambah Varian
                                     </button>
@@ -389,21 +383,19 @@ function VariantCard({
     return (
         <div
             id={`variant-card-${variant.id}`}
-            className="rounded-2xl overflow-hidden"
-            style={{ background: "white", border: "1px solid #e5e7eb" }}
+            className="rounded-2xl overflow-hidden bg-white border border-gray-200"
         >
             {/* Variant header */}
             <div
-                className="flex items-center justify-between px-5 py-3.5"
-                style={{ background: "#f8f9fb", borderBottom: "1px solid #e5e7eb" }}
+                className="flex items-center justify-between px-5 py-3.5 bg-[#f8f9fb] border-b border-gray-200"
             >
                 <div className="flex items-center gap-3">
                     <span className="text-lg">🎛️</span>
                     <div>
-                        <p className="font-bold text-sm" style={{ color: "#1a1a2e" }}>
+                        <p className="font-bold text-sm text-[#1a1a2e]">
                             {variant.name}
                         </p>
-                        <p className="text-xs" style={{ color: "#9ca3af" }}>
+                        <p className="text-xs text-gray-400">
                             {variant.isSingleSelection ? "Pilih satu" : "Pilih banyak"} · {variant.options?.length || 0} opsi
                         </p>
                     </div>
@@ -412,24 +404,21 @@ function VariantCard({
                     <button
                         id={`add-option-${variant.id}`}
                         onClick={onAddOption}
-                        className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:opacity-80"
-                        style={{ background: "rgba(171,196,170,0.15)", color: "#588570" }}
+                        className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:opacity-80 bg-primary/15 text-primary-700"
                     >
                         ＋ Opsi
                     </button>
                     <button
                         id={`edit-variant-${variant.id}`}
                         onClick={onEdit}
-                        className="w-7 h-7 rounded-lg flex items-center justify-center text-xs transition-all hover:opacity-80"
-                        style={{ background: "rgba(99,102,241,0.1)", color: "#6366f1" }}
+                        className="w-7 h-7 rounded-lg flex items-center justify-center text-xs transition-all hover:opacity-80 bg-indigo-500/10 text-indigo-500"
                     >
                         ✏️
                     </button>
                     <button
                         id={`delete-variant-${variant.id}`}
                         onClick={onDelete}
-                        className="w-7 h-7 rounded-lg flex items-center justify-center text-xs transition-all hover:opacity-80"
-                        style={{ background: "rgba(239,68,68,0.1)", color: "#ef4444" }}
+                        className="w-7 h-7 rounded-lg flex items-center justify-center text-xs transition-all hover:opacity-80 bg-red-500/10 text-red-500"
                     >
                         🗑
                     </button>
@@ -438,7 +427,7 @@ function VariantCard({
 
             {/* Options list */}
             {variant.options && variant.options.length > 0 ? (
-                <div className="divide-y" style={{ divideColor: "#f3f4f6" }}>
+                <div className="divide-y divide-gray-100">
                     {variant.options.map((opt) => (
                         <div
                             key={opt.id}
@@ -447,16 +436,14 @@ function VariantCard({
                         >
                             <div className="flex items-center gap-3">
                                 <span
-                                    className="w-2 h-2 rounded-full"
-                                    style={{ background: "#abc4aa" }}
+                                    className="w-2 h-2 rounded-full bg-primary"
                                 />
-                                <span className="text-sm font-medium" style={{ color: "#374151" }}>
+                                <span className="text-sm font-medium text-gray-700">
                                     {opt.name}
                                 </span>
                                 {opt.addPrice > 0 && (
                                     <span
-                                        className="text-xs px-2 py-0.5 rounded-full"
-                                        style={{ background: "rgba(245,158,11,0.1)", color: "#f59e0b" }}
+                                        className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500"
                                     >
                                         +Rp {opt.addPrice.toLocaleString("id-ID")}
                                     </span>
@@ -466,16 +453,14 @@ function VariantCard({
                                 <button
                                     id={`edit-option-${opt.id}`}
                                     onClick={() => onEditOption(opt)}
-                                    className="w-7 h-7 rounded-lg flex items-center justify-center text-xs"
-                                    style={{ background: "rgba(99,102,241,0.1)", color: "#6366f1" }}
+                                    className="w-7 h-7 rounded-lg flex items-center justify-center text-xs bg-indigo-500/10 text-indigo-500"
                                 >
                                     ✏️
                                 </button>
                                 <button
                                     id={`delete-option-${opt.id}`}
                                     onClick={() => onDeleteOption(opt)}
-                                    className="w-7 h-7 rounded-lg flex items-center justify-center text-xs"
-                                    style={{ background: "rgba(239,68,68,0.1)", color: "#ef4444" }}
+                                    className="w-7 h-7 rounded-lg flex items-center justify-center text-xs bg-red-500/10 text-red-500"
                                 >
                                     🗑
                                 </button>
@@ -485,9 +470,9 @@ function VariantCard({
                 </div>
             ) : (
                 <div className="px-5 py-4 text-center">
-                    <p className="text-xs" style={{ color: "#9ca3af" }}>
+                    <p className="text-xs text-gray-400">
                         Belum ada opsi.{" "}
-                        <button onClick={onAddOption} className="underline" style={{ color: "#abc4aa" }}>
+                        <button onClick={onAddOption} className="underline text-primary">
                             Tambah opsi
                         </button>
                     </p>

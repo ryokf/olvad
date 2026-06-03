@@ -138,8 +138,7 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                     <p className="text-gray-600 mb-6">{error || 'Pesanan tidak ditemukan'}</p>
                     <button
                         onClick={() => router.push('/')}
-                        className="px-8 py-3 rounded-full font-bold text-white"
-                        style={{ backgroundColor: '#ABC4AA' }}
+                        className="px-8 py-3 rounded-full font-bold text-white bg-primary"
                     >
                         Kembali ke Home
                     </button>
@@ -513,9 +512,7 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                     >
                         Kembali ke Home
                     </button>
-                    <button className="py-4 px-6 rounded-full font-semibold text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
-                        style={{ backgroundColor: '#ABC4AA' }}
-                    >
+                    <button className="py-4 px-6 rounded-full font-semibold text-white shadow-lg hover:shadow-xl transition-all hover:scale-105 bg-primary">
                         Hubungi Kami
                     </button>
                 </div>
