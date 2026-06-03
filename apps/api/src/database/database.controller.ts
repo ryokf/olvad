@@ -4,6 +4,7 @@ import {
     OrderStatus,
     OrderType,
     PaymentMethod,
+    PaymentStatus,
 } from '../generated/prisma/enums';
 
 @Controller('/database')
@@ -425,13 +426,69 @@ export class DatabaseController {
         });
 
         // ==========================================
-        // 5. CREATE TRANSACTIONS (10 Order Random)
+        // 5. CREATE TRANSACTIONS (30 Order dengan berbagai skenario)
         // ==========================================
 
-        for (let i = 0; i < 10; i++) {
-            const randomUser = this.randomItem(allUsers);
+        // Data dummy untuk customer names dan phone
+        const customerNames = [
+            'Budi Santoso',
+            'Siti Rahayu',
+            'Ahmad Wijaya',
+            'Dewi Lestari',
+            'Roni Kusuma',
+            'Maya Sari',
+            'Eko Suryanto',
+            'Rina Wijaya',
+            'Hendra Kusuma',
+            'Lina Marlina',
+            'Bambang Irawan',
+            'Citra Dewi',
+            'Doni Setiawan',
+            'Eka Putri',
+            'Fajri Rahman',
+        ];
+
+        const phoneNumbers = [
+            '081234567890',
+            '082345678901',
+            '083456789012',
+            '084567890123',
+            '085678901234',
+            '081345678902',
+            '082456789013',
+            '083567890124',
+            '084678901235',
+            '085789012346',
+        ];
+
+        const pickupTimes = ['09:00', '10:30', '12:00', '14:30', '16:00', '17:30'];
+        const tableNumbers = [
+            'A1',
+            'A2',
+            'B1',
+            'B2',
+            'C1',
+            'C2',
+            'D1',
+            'D2',
+        ];
+        const deliveryAddresses = [
+            'Jl. Gatot Subroto No. 123, Semarang',
+            'Jl. Sudirman No. 45, Semarang',
+            'Jl. Ahmad Yani No. 67, Semarang',
+            'Jl. Imam Bonjol No. 89, Semarang',
+            'Jl. Diponegoro No. 101, Semarang',
+            'Jl. Pemuda No. 112, Semarang',
+        ];
+
+        for (let i = 0; i < 30; i++) {
             const randomProduct = this.randomItem(allProducts);
             const orderQty = this.randomNumber(1, 3);
+            const orderType = this.randomItem(Object.values(OrderType));
+            const paymentMethod = this.randomItem(Object.values(PaymentMethod));
+
+            // 50% dengan userId, 50% guest checkout
+            const randomUser = Math.random() > 0.5 ? this.randomItem(allUsers) : null;
 
             let variantTotalPrice = 0;
             const selectedVariantOptionsIds: number[] = [];
@@ -441,14 +498,12 @@ export class DatabaseController {
                 randomProduct.variants.forEach((variant) => {
                     if (variant.options.length > 0) {
                         if (variant.isSingleSelection) {
-                            // Jika single selection, pilih tepat 1 opsi
                             const randomOption = this.randomItem(
                                 variant.options,
                             );
                             selectedVariantOptionsIds.push(randomOption.id);
                             variantTotalPrice += randomOption.addPrice;
                         } else {
-                            // Jika multi selection (seperti Add-ons / Topping), acak mau nambah atau tidak (50% chance)
                             variant.options.forEach((opt) => {
                                 if (Math.random() > 0.5) {
                                     selectedVariantOptionsIds.push(opt.id);
@@ -463,18 +518,38 @@ export class DatabaseController {
             const subtotalPerItem = randomProduct.price + variantTotalPrice;
             const totalOrderPrice = subtotalPerItem * orderQty;
 
+            // Determine payment status: 70% paid, 30% unpaid
+            const paymentStatus =
+                Math.random() > 0.3 ? 'PAID' : 'UNPAID';
+
+            // Build order data dengan conditional fields berdasarkan order type
+            const orderData: any = {
+                userId: randomUser?.id || null,
+                customerName: this.randomItem(customerNames),
+                customerPhone: this.randomItem(phoneNumbers),
+                type: orderType,
+                paymentMethod: paymentMethod,
+                paymentStatus: paymentStatus,
+                status: this.randomItem(Object.values(OrderStatus)),
+                totalPrice: totalOrderPrice,
+                notes:
+                    i % 5 === 0
+                        ? 'Tolong siapkan secepatnya, pelanggan sedang menunggu!'
+                        : null,
+            };
+
+            // Add type-specific fields
+            if (orderType === 'DINE_IN') {
+                orderData.tableNumber = this.randomItem(tableNumbers);
+            } else if (orderType === 'PICK_UP') {
+                orderData.pickupTime = this.randomItem(pickupTimes);
+            } else if (orderType === 'DELIVERY') {
+                orderData.deliveryAddress = this.randomItem(deliveryAddresses);
+            }
+
             await this.prisma.order.create({
                 data: {
-                    userId: randomUser.id,
-                    type: this.randomItem(Object.values(OrderType)),
-                    paymentMethod: this.randomItem(
-                        Object.values(PaymentMethod),
-                    ),
-                    status: this.randomItem(Object.values(OrderStatus)),
-                    totalPrice: totalOrderPrice,
-                    message:
-                        i % 4 === 0 ? 'Tolong siapkan secepatnya ya!' : null,
-
+                    ...orderData,
                     detailOrders: {
                         create: {
                             productId: randomProduct.id,
@@ -498,8 +573,13 @@ export class DatabaseController {
         );
         return {
             message:
-                'Success! Database has been populated with varied Olvad menu.',
-            stats: { users: 5, orders: 10, products: allProducts.length },
+                'Success! Database has been populated with varied Olvad menu and realistic orders.',
+            stats: { 
+                users: 5, 
+                orders: 30, 
+                products: allProducts.length,
+                notes: 'Orders include mix of guest/registered users, all order types, and payment statuses'
+            },
         };
     }
 }

@@ -2,8 +2,9 @@ import { Product, ProductVariantOption } from './product';
 import { User } from './user';
 
 // ===== Enums =====
-export type OrderType = 'DELIVERY' | 'PICK_UP';
-export type PaymentMethod = 'CASH' | 'CASHLESS';
+export type OrderType = 'DELIVERY' | 'PICK_UP' | 'DINE_IN';
+export type PaymentMethod = 'QRIS' | 'TRANSFER' | 'CASHIER';
+export type PaymentStatus = 'UNPAID' | 'PAID';
 export type OrderStatus = 'ON_PROCESS' | 'DONE' | 'CANCELED';
 
 // ===== Detail Order Variant =====
@@ -28,13 +29,19 @@ export interface DetailOrder {
 // ===== Order =====
 export interface Order {
     id: number;
-    userId: number;
+    userId?: number | null; // Optional for guest checkout
+    customerName: string;
+    customerPhone: string;
     type: OrderType;
-    message?: string | null;
+    tableNumber?: string | null; // For dine-in orders
+    pickupTime?: string | null; // For pickup orders
+    deliveryAddress?: string | null; // For delivery orders
+    notes?: string | null;
     paymentMethod: PaymentMethod;
+    paymentStatus: PaymentStatus;
     totalPrice: number;
     status: OrderStatus;
-    user?: Partial<User>;
+    user?: Partial<User> | null;
     detailOrders?: DetailOrder[];
 }
 
@@ -43,6 +50,7 @@ export interface SelectedVariant {
     variantId: string;
     variantName: string;
     selectedOptions: string[];
+    selectedOptionIds: number[]; // IDs of selected ProductVariantOption
     additionalPrice: number;
 }
 

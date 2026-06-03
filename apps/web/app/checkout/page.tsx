@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
+import { createOrder } from '@/services/order';
+import type { CreateOrderPayload } from '@/services/order';
 
 type OrderType = 'dine-in' | 'pickup' | 'delivery';
 type PaymentMethod = 'qris' | 'transfer' | 'cashier';
@@ -12,6 +14,8 @@ export default function CheckoutPage() {
     const { items, subtotal, clearCart } = useCart();
     const [orderType, setOrderType] = useState<OrderType>('pickup');
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('qris');
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     // Form states
     const [name, setName] = useState('');
@@ -26,13 +30,76 @@ export default function CheckoutPage() {
     const deliveryFee = orderType === 'delivery' ? 15000 : 0;
     const total = subtotal + tax + deliveryFee;
 
-    const handlePlaceOrder = () => {
-        // Mock order creation
-        const orderId = `ORD-${Date.now()}`;
+    // Map frontend format to backend format
+    const mapOrderType = (type: OrderType): 'DINE_IN' | 'PICK_UP' | 'DELIVERY' => {
+        const typeMap: Record<OrderType, 'DINE_IN' | 'PICK_UP' | 'DELIVERY'> = {
+            'dine-in': 'DINE_IN',
+            'pickup': 'PICK_UP',
+            'delivery': 'DELIVERY',
+        };
+        return typeMap[type];
+    };
 
-        // Clear cart and redirect to order tracking
-        clearCart();
-        router.push(`/order/${orderId}`);
+    // Map frontend format to backend format
+    const mapPaymentMethod = (method: PaymentMethod): 'QRIS' | 'TRANSFER' | 'CASHIER' => {
+        const methodMap: Record<PaymentMethod, 'QRIS' | 'TRANSFER' | 'CASHIER'> = {
+            'qris': 'QRIS',
+            'transfer': 'TRANSFER',
+            'cashier': 'CASHIER',
+        };
+        return methodMap[method];
+    };
+
+    const handlePlaceOrder = async () => {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            // Build the order payload
+            const orderPayload: CreateOrderPayload = {
+                customerName: name,
+                customerPhone: phone,
+                type: mapOrderType(orderType),
+                paymentMethod: mapPaymentMethod(paymentMethod),
+                totalPrice: total,
+                status: 'ON_PROCESS',
+                detailOrders: items.map((item) => ({
+                    productId: item.product.id,
+                    qty: item.quantity,
+                    subtotalPrice: item.totalPrice,
+                    variantOptionIds: item.selectedVariants.flatMap(
+                        (variant) => variant.selectedOptionIds ?? []
+                    ),
+                })),
+            };
+
+            // Add type-specific fields
+            if (orderType === 'dine-in' && tableNumber) {
+                orderPayload.tableNumber = tableNumber;
+            } else if (orderType === 'pickup' && pickupTime) {
+                orderPayload.pickupTime = pickupTime;
+            } else if (orderType === 'delivery' && address) {
+                orderPayload.deliveryAddress = address;
+            }
+
+            // Add notes if provided
+            if (notes) {
+                orderPayload.notes = notes;
+            }
+
+            // Create the order
+            const createdOrder = await createOrder(orderPayload);
+
+            // Clear cart and redirect to order tracking
+            clearCart();
+            router.push(`/order/${createdOrder.id}`);
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : 'Gagal membuat pesanan';
+            setError(errorMessage);
+            console.error('Order creation error:', err);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const isFormValid = () => {
@@ -386,19 +453,26 @@ export default function CheckoutPage() {
 
                             <button
                                 onClick={handlePlaceOrder}
-                                disabled={!isFormValid()}
-                                className={`w-full mt-6 py-4 rounded-full font-bold text-lg text-white transition-all shadow-lg ${isFormValid()
+                                disabled={!isFormValid() || isLoading}
+                                className={`w-full mt-6 py-4 rounded-full font-bold text-lg text-white transition-all shadow-lg ${isFormValid() && !isLoading
                                     ? 'hover:scale-105 hover:shadow-xl'
                                     : 'opacity-50 cursor-not-allowed'
                                     }`}
                                 style={
-                                    isFormValid()
+                                    isFormValid() && !isLoading
                                         ? { backgroundColor: '#ABC4AA' }
                                         : { backgroundColor: '#6B7280' }
                                 }
                             >
-                                Proses Pesanan
+                                {isLoading ? 'Memproses...' : 'Proses Pesanan'}
                             </button>
+
+                            {error && (
+                                <div className="mt-3 p-4 bg-red-50 border-2 border-red-200 rounded-2xl">
+                                    <p className="text-sm text-red-700 font-semibold">❌ Terjadi Kesalahan</p>
+                                    <p className="text-sm text-red-600 mt-1">{error}</p>
+                                </div>
+                            )}
 
                             <p className="text-center text-xs text-gray-500 mt-3">
                                 *Pesanan akan diproses setelah pembayaran dikonfirmasi

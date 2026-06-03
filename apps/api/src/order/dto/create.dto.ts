@@ -12,6 +12,7 @@ import { Type } from 'class-transformer';
 import {
     OrderType,
     PaymentMethod,
+    PaymentStatus,
     OrderStatus,
 } from '../../generated/prisma/client';
 
@@ -37,9 +38,17 @@ export class DetailOrderItemDto {
 }
 
 export class CreateOrderDto {
-    @IsNotEmpty()
+    @IsOptional()
     @IsInt()
-    userId!: number;
+    userId?: number; // Optional for guest checkout
+
+    @IsNotEmpty()
+    @IsString()
+    customerName!: string;
+
+    @IsNotEmpty()
+    @IsString()
+    customerPhone!: string;
 
     @IsNotEmpty()
     @IsEnum(OrderType)
@@ -47,11 +56,27 @@ export class CreateOrderDto {
 
     @IsOptional()
     @IsString()
-    message?: string;
+    tableNumber?: string; // For dine-in orders
+
+    @IsOptional()
+    @IsString()
+    pickupTime?: string; // For pickup orders
+
+    @IsOptional()
+    @IsString()
+    deliveryAddress?: string; // For delivery orders
+
+    @IsOptional()
+    @IsString()
+    notes?: string;
 
     @IsNotEmpty()
     @IsEnum(PaymentMethod)
     paymentMethod!: PaymentMethod;
+
+    @IsOptional()
+    @IsEnum(PaymentStatus)
+    paymentStatus?: PaymentStatus; // Defaults to UNPAID in schema
 
     @IsNotEmpty()
     @IsInt()

@@ -109,9 +109,10 @@ function getAdditionalPrice(options: VariantOption[], optionNames: string[]): nu
 
 export default function ProductModal({ productId, isOpen, onClose }: Readonly<ProductModalProps>) {
     const { addItem } = useCart();
+    // State tracks selected options as { name, id }[] per variant ID
     const [selectedVariants, setSelectedVariants] = useState<
-        Record<string, string[]>
-    >({});
+        Record<string, { name: string; id: number }[]>
+    >({}); 
     const [quantity, setQuantity] = useState(1);
     const [specialInstructions, setSpecialInstructions] = useState('');
     const [product, setProduct] = useState<ProductDetail>()
@@ -144,18 +145,17 @@ export default function ProductModal({ productId, isOpen, onClose }: Readonly<Pr
 
     if (!isOpen || !product) return null;
 
-    const handleVariantChange = (variantId: string, optionName: string, isMultiple: boolean) => {
+    const handleVariantChange = (variantId: string, option: { name: string; id: number }, isMultiple: boolean) => {
         setSelectedVariants((prev) => {
             if (isMultiple) {
-                // Multiple selection (checkboxes)
                 const current = prev[variantId] || [];
-                const newSelection = current.includes(optionName)
-                    ? current.filter((o) => o !== optionName)
-                    : [...current, optionName];
+                const exists = current.some((o) => o.id === option.id);
+                const newSelection = exists
+                    ? current.filter((o) => o.id !== option.id)
+                    : [...current, option];
                 return { ...prev, [variantId]: newSelection };
             } else {
-                // Single selection (radio)
-                return { ...prev, [variantId]: [optionName] };
+                return { ...prev, [variantId]: [option] };
             }
         });
     };
@@ -163,7 +163,7 @@ export default function ProductModal({ productId, isOpen, onClose }: Readonly<Pr
     const calculateTotalPrice = (): number => {
         const variantTotal = product.variants.reduce((sum, variant) => {
             const selected = selectedVariants[variant.id] || [];
-            return sum + calculateOptionPrice(variant.options, selected);
+            return sum + calculateOptionPrice(variant.options, selected.map(o => o.name));
         }, 0);
 
         return (product.price + variantTotal) * quantity;
@@ -177,16 +177,18 @@ export default function ProductModal({ productId, isOpen, onClose }: Readonly<Pr
     // };
 
     const handleAddToCart = () => {
-        // if (!isValid()) return;
-
         const formattedVariants: SelectedVariant[] = product.variants
             .filter((v) => selectedVariants[v.id] && selectedVariants[v.id].length > 0)
-            .map((variant) => ({
-                variantId: variant.id.toString(),
-                variantName: variant.name,
-                selectedOptions: selectedVariants[variant.id],
-                additionalPrice: getAdditionalPrice(variant.options, selectedVariants[variant.id]),
-            }));
+            .map((variant) => {
+                const selected = selectedVariants[variant.id];
+                return {
+                    variantId: variant.id.toString(),
+                    variantName: variant.name,
+                    selectedOptions: selected.map(o => o.name),
+                    selectedOptionIds: selected.map(o => o.id),
+                    additionalPrice: getAdditionalPrice(variant.options, selected.map(o => o.name)),
+                };
+            });
 
         addItem(product, formattedVariants, quantity, specialInstructions || undefined);
         onClose();
@@ -250,14 +252,19 @@ export default function ProductModal({ productId, isOpen, onClose }: Readonly<Pr
 
                                 <div className="space-y-2">
                                     {variant.options.map((option) => {
-                                        const isSelected = selectedVariants[variant.id]?.includes(option.name) ?? false;
+                                        const selectedArr = selectedVariants[variant.id] || [];
+                                        const isSelected = selectedArr.some((o) => o.id === option.id);
                                         const isMultiple = !variant.isSingleSelection;
-                                        const handleClick = () => handleVariantChange(variant.id.toString(), option.name, isMultiple);
+                                        const handleClick = () => handleVariantChange(
+                                            variant.id.toString(),
+                                            { name: option.name, id: option.id },
+                                            isMultiple
+                                        );
 
                                         return isMultiple ? (
-                                            <CheckboxOptionButton key={option.name} option={option} isSelected={isSelected} onClick={handleClick} />
+                                            <CheckboxOptionButton key={option.id} option={option} isSelected={isSelected} onClick={handleClick} />
                                         ) : (
-                                            <VariantOptionButton key={option.name} option={option} isSelected={isSelected} onClick={handleClick} />
+                                            <VariantOptionButton key={option.id} option={option} isSelected={isSelected} onClick={handleClick} />
                                         );
                                     })}
                                 </div>

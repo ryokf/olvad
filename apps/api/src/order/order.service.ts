@@ -154,9 +154,15 @@ export class OrderService {
             const order = await this.prisma.order.create({
                 data: {
                     userId: data.userId,
+                    customerName: data.customerName,
+                    customerPhone: data.customerPhone,
                     type: data.type,
-                    message: data.message,
+                    tableNumber: data.tableNumber,
+                    pickupTime: data.pickupTime,
+                    deliveryAddress: data.deliveryAddress,
+                    notes: data.notes,
                     paymentMethod: data.paymentMethod,
+                    paymentStatus: data.paymentStatus || 'UNPAID',
                     totalPrice: data.totalPrice,
                     status: data.status,
                     detailOrders: {
@@ -217,8 +223,12 @@ export class OrderService {
                 },
                 data: {
                     type: data.type,
-                    message: data.message,
+                    tableNumber: data.tableNumber,
+                    pickupTime: data.pickupTime,
+                    deliveryAddress: data.deliveryAddress,
+                    notes: data.notes,
                     paymentMethod: data.paymentMethod,
+                    paymentStatus: data.paymentStatus,
                     status: data.status,
                 },
                 include: {

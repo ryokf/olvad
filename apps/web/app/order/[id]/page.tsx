@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { getOrder } from '@/services/order';
+import { Order } from '@olvad/types';
 
 interface OrderStatus {
     id: string;
@@ -13,38 +15,69 @@ interface OrderStatus {
 
 export default function OrderTrackingPage({ params }: { params: { id: string } }) {
     const router = useRouter();
-    const [currentStep, setCurrentStep] = useState(2); // Mock: currently being prepared
+    const [order, setOrder] = useState<Order | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [currentStep, setCurrentStep] = useState(0);
 
-    // Mock order data
-    const mockOrder = {
-        id: params.id,
-        date: new Date().toLocaleString('id-ID', {
-            dateStyle: 'long',
-            timeStyle: 'short',
-        }),
-        items: [
-            {
-                name: 'Kopi Susu Gula Aren',
-                quantity: 2,
-                variants: ['Ice', 'Large', 'Extra Shot'],
-                price: 70000,
-            },
-            {
-                name: 'Butter Croissant',
-                quantity: 1,
-                variants: ['Heated'],
-                price: 25000,
-            },
-        ],
-        subtotal: 95000,
-        tax: 9500,
-        deliveryFee: 0,
-        total: 104500,
-        orderType: 'Pick-up',
-        pickupTime: '09:00',
-        estimatedTime: 15, // minutes
-        customerName: 'John Doe',
-        customerPhone: '08123456789',
+    // Fetch order data on mount
+    useEffect(() => {
+        const fetchOrder = async () => {
+            try {
+                const orderId = parseInt(params.id);
+                const fetchedOrder = await getOrder(orderId);
+                setOrder(fetchedOrder);
+
+                // Determine current step based on payment and order status
+                if (fetchedOrder.paymentStatus === 'UNPAID') {
+                    setCurrentStep(0); // Waiting for payment
+                } else if (fetchedOrder.status === 'ON_PROCESS') {
+                    setCurrentStep(2); // Being prepared
+                } else if (fetchedOrder.status === 'DONE') {
+                    setCurrentStep(3); // Ready
+                } else {
+                    setCurrentStep(1); // Order received
+                }
+            } catch (err) {
+                const errorMessage = err instanceof Error ? err.message : 'Failed to load order';
+                setError(errorMessage);
+                console.error('Order fetch error:', err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchOrder();
+    }, [params.id]);
+
+    // Get order type display
+    const getOrderTypeDisplay = (type: string): string => {
+        const typeMap: Record<string, string> = {
+            'DINE_IN': 'Makan di Tempat',
+            'PICK_UP': 'Ambil Sendiri',
+            'DELIVERY': 'Diantar',
+        };
+        return typeMap[type] || type;
+    };
+
+    // Get order type icon
+    const getOrderTypeIcon = (type: string): string => {
+        const iconMap: Record<string, string> = {
+            'DINE_IN': '🍽️',
+            'PICK_UP': '🚶',
+            'DELIVERY': '🏍️',
+        };
+        return iconMap[type] || '📦';
+    };
+
+    // Get payment method display
+    const getPaymentMethodDisplay = (method: string): string => {
+        const methodMap: Record<string, string> = {
+            'QRIS': 'QRIS / E-Wallet',
+            'TRANSFER': 'Transfer Manual',
+            'CASHIER': 'Bayar di Kasir',
+        };
+        return methodMap[method] || method;
     };
 
     const orderStatuses: OrderStatus[] = [
@@ -85,6 +118,36 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
         },
     ];
 
+    if (isLoading) {
+        return (
+            <div className="min-h-screen bg-gray-50 pt-24 pb-12 flex items-center justify-center">
+                <div className="text-center">
+                    <div className="text-6xl mb-4">⏳</div>
+                    <p className="text-xl font-semibold text-gray-900">Memuat pesanan Anda...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (error || !order) {
+        return (
+            <div className="min-h-screen bg-gray-50 pt-24 pb-12 flex items-center justify-center">
+                <div className="bg-white rounded-3xl p-12 text-center shadow-lg max-w-md">
+                    <div className="text-6xl mb-4">❌</div>
+                    <h1 className="text-2xl font-bold text-gray-900 mb-3">Terjadi Kesalahan</h1>
+                    <p className="text-gray-600 mb-6">{error || 'Pesanan tidak ditemukan'}</p>
+                    <button
+                        onClick={() => router.push('/')}
+                        className="px-8 py-3 rounded-full font-bold text-white"
+                        style={{ backgroundColor: '#ABC4AA' }}
+                    >
+                        Kembali ke Home
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-gray-50 pt-24 pb-12">
             <div className="max-w-4xl mx-auto px-6">
@@ -92,7 +155,7 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                 <div className="text-center mb-12">
                     <div className="text-6xl mb-4">☕</div>
                     <h1 className="text-4xl font-bold text-secondary mb-2">
-                        Pesanan Anda Sedang Diproses!
+                        Pesanan Anda{order.paymentStatus === 'UNPAID' ? ' Menunggu Pembayaran!' : ' Sedang Diproses!'}
                     </h1>
                     <p className="text-secondary-300 text-lg">
                         Terima kasih telah memesan di Olvad Coffee & Bakery
@@ -103,12 +166,133 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                 <div className="bg-white rounded-3xl p-6 shadow-md mb-6 text-center">
                     <p className="text-sm text-secondary-300 mb-1">Order ID</p>
                     <p className="text-2xl font-bold text-secondary font-mono">
-                        {mockOrder.id}
+                        #{order.id}
                     </p>
                     <p className="text-sm text-secondary-300 mt-2">
-                        {mockOrder.date}
+                        {new Date().toLocaleString('id-ID', {
+                            dateStyle: 'long',
+                            timeStyle: 'short',
+                        })}
                     </p>
                 </div>
+
+                {/* Payment Status Alert */}
+                {order.paymentStatus === 'UNPAID' && (
+                    <div className="bg-amber-50 border-2 border-amber-200 rounded-3xl p-6 mb-6">
+                        <p className="text-center text-amber-900 font-semibold text-lg">
+                            ⚠️ Pesanan Anda belum dibayar
+                        </p>
+                    </div>
+                )}
+
+                {/* Payment Information Section */}
+                {order.paymentStatus === 'UNPAID' && (
+                    <div className="bg-white rounded-3xl p-8 shadow-md mb-6">
+                        <h2 className="text-2xl font-bold text-secondary mb-6 text-center">
+                            Konfirmasi Pembayaran
+                        </h2>
+
+                        {order.paymentMethod === 'QRIS' && (
+                            <div className="space-y-4">
+                                <div className="bg-gray-100 rounded-2xl p-8 flex justify-center">
+                                    {/* QRIS Barcode Placeholder */}
+                                    <div className="text-center">
+                                        <div className="text-6xl mb-3">📱</div>
+                                        <div className="bg-gray-300 rounded-xl w-48 h-48 flex items-center justify-center border-4 border-gray-400">
+                                            <p className="text-gray-600 text-sm text-center px-4">
+                                                QRIS Code akan ditampilkan di sini
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
+                                    <h3 className="font-bold text-blue-900 mb-2">📲 Instruksi Pembayaran:</h3>
+                                    <ol className="text-sm text-blue-900 space-y-2 ml-4 list-decimal">
+                                        <li>Buka aplikasi e-wallet Anda (GoPay, OVO, Dana, ShopeePay, dll)</li>
+                                        <li>Pindai barcode QRIS di atas</li>
+                                        <li>Konfirmasi jumlah Rp {order.totalPrice.toLocaleString('id-ID')}</li>
+                                        <li>Pembayaran akan langsung diproses</li>
+                                        <li>Pesanan Anda akan segera dibuat setelah pembayaran dikonfirmasi</li>
+                                    </ol>
+                                </div>
+
+                                <div className="text-center p-4 bg-gray-100 rounded-2xl">
+                                    <p className="font-semibold text-gray-900">Total Pembayaran:</p>
+                                    <p className="text-3xl font-bold text-secondary">
+                                        Rp {order.totalPrice.toLocaleString('id-ID')}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+
+                        {order.paymentMethod === 'TRANSFER' && (
+                            <div className="space-y-4">
+                                <div className="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
+                                    <h3 className="font-bold text-blue-900 mb-3">🏦 Pilih Bank untuk Transfer:</h3>
+
+                                    <div className="space-y-3">
+                                        <div className="bg-white p-4 rounded-xl border-2 border-gray-200">
+                                            <p className="font-semibold text-gray-900">BCA</p>
+                                            <p className="text-lg text-gray-700 font-mono mt-1">1234567890</p>
+                                            <p className="text-sm text-gray-600 mt-1">a.n. Olvad Coffee & Bakery</p>
+                                        </div>
+
+                                        <div className="bg-white p-4 rounded-xl border-2 border-gray-200">
+                                            <p className="font-semibold text-gray-900">Mandiri</p>
+                                            <p className="text-lg text-gray-700 font-mono mt-1">1234567890</p>
+                                            <p className="text-sm text-gray-600 mt-1">a.n. Olvad Coffee & Bakery</p>
+                                        </div>
+
+                                        <div className="bg-white p-4 rounded-xl border-2 border-gray-200">
+                                            <p className="font-semibold text-gray-900">BNI</p>
+                                            <p className="text-lg text-gray-700 font-mono mt-1">1234567890</p>
+                                            <p className="text-sm text-gray-600 mt-1">a.n. Olvad Coffee & Bakery</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-amber-50 rounded-2xl p-6 border-2 border-amber-200">
+                                    <h3 className="font-bold text-amber-900 mb-2">⏰ Instruksi Penting:</h3>
+                                    <ol className="text-sm text-amber-900 space-y-2 ml-4 list-decimal">
+                                        <li>Transfer ke nomor rekening di atas sebesar <strong>Rp {order.totalPrice.toLocaleString('id-ID')}</strong></li>
+                                        <li>Gunakan Order ID <strong>#{order.id}</strong> sebagai catatan transfer</li>
+                                        <li>Setelah transfer, kirimkan bukti ke WhatsApp: <strong>+62 xxx-xxxx-xxxx</strong></li>
+                                        <li>Admin akan mengkonfirmasi pembayaran dalam 5 menit</li>
+                                        <li>Pesanan Anda akan langsung dibuat setelah pembayaran dikonfirmasi</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        )}
+
+                        {order.paymentMethod === 'CASHIER' && (
+                            <div className="space-y-4">
+                                <div className="bg-green-50 rounded-2xl p-6 border-2 border-green-200">
+                                    <h3 className="font-bold text-green-900 mb-2">💰 Informasi Pembayaran:</h3>
+                                    <p className="text-sm text-green-900 mb-3">
+                                        Anda memilih untuk membayar langsung di kasir saat pengambilan pesanan.
+                                    </p>
+                                    <div className="text-center p-4 bg-white rounded-xl">
+                                        <p className="font-semibold text-gray-900">Total Pembayaran:</p>
+                                        <p className="text-3xl font-bold text-secondary">
+                                            Rp {order.totalPrice.toLocaleString('id-ID')}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
+                                    <h3 className="font-bold text-blue-900 mb-2">📝 Instruksi:</h3>
+                                    <ol className="text-sm text-blue-900 space-y-2 ml-4 list-decimal">
+                                        <li>Pesanan Anda akan dibuat segera setelah dikonfirmasi</li>
+                                        <li>Silakan ambil pesanan sesuai jadwal yang disepakati</li>
+                                        <li>Bayarkan di kasir saat pengambilan pesanan</li>
+                                        <li>Tunjukkan halaman ini atau Order ID <strong>#{order.id}</strong> ke barista</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {/* Status Stepper */}
                 <div className="bg-white rounded-3xl p-8 shadow-md mb-6">
@@ -200,20 +384,6 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                     </div>
                 </div>
 
-                {/* Estimated Time */}
-                <div className="bg-linear-to-r from-primary-400 to-primary-500 rounded-3xl p-8 shadow-lg text-white mb-6 text-center">
-                    <div className="text-5xl mb-3">⏱️</div>
-                    <h3 className="text-2xl font-bold mb-2">
-                        Estimasi Waktu
-                    </h3>
-                    <p className="text-4xl font-bold mb-2">
-                        {mockOrder.estimatedTime} Menit
-                    </p>
-                    <p className="text-primary-100">
-                        Pesananmu akan siap sekitar pukul {mockOrder.pickupTime}
-                    </p>
-                </div>
-
                 <div className="grid md:grid-cols-2 gap-6">
                     {/* Order Details */}
                     <div className="bg-white rounded-3xl p-6 shadow-md">
@@ -222,34 +392,34 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                         </h3>
 
                         <div className="space-y-4">
-                            {mockOrder.items.map((item, index) => (
+                            {order.detailOrders?.map((item, index) => (
                                 <div key={index} className="border-b border-gray-200 pb-3">
                                     <div className="flex justify-between mb-1">
                                         <span className="font-semibold text-secondary">
-                                            {item.quantity}x {item.name}
+                                            {item.qty}x {item.product?.name}
                                         </span>
                                         <span className="font-semibold text-secondary">
-                                            Rp {item.price.toLocaleString('id-ID')}
+                                            Rp {item.subtotalPrice.toLocaleString('id-ID')}
                                         </span>
                                     </div>
-                                    <div className="text-sm text-secondary-300">
-                                        {item.variants.join(', ')}
-                                    </div>
+                                    {item.variants && item.variants.length > 0 && (
+                                        <div className="text-sm text-secondary-300">
+                                            {item.variants.map((v, i) => (
+                                                <div key={i}>{v.productVariantOption?.name}</div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             ))}
 
                             <div className="pt-3 space-y-2">
                                 <div className="flex justify-between text-secondary-400">
                                     <span>Subtotal</span>
-                                    <span>Rp {mockOrder.subtotal.toLocaleString('id-ID')}</span>
-                                </div>
-                                <div className="flex justify-between text-secondary-400">
-                                    <span>Pajak (10%)</span>
-                                    <span>Rp {mockOrder.tax.toLocaleString('id-ID')}</span>
+                                    <span>Rp {order.totalPrice.toLocaleString('id-ID')}</span>
                                 </div>
                                 <div className="flex justify-between text-xl font-bold text-secondary pt-2 border-t-2 border-gray-200">
                                     <span>Total</span>
-                                    <span>Rp {mockOrder.total.toLocaleString('id-ID')}</span>
+                                    <span>Rp {order.totalPrice.toLocaleString('id-ID')}</span>
                                 </div>
                             </div>
                         </div>
@@ -258,37 +428,73 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                     {/* Customer Info */}
                     <div className="bg-white rounded-3xl p-6 shadow-md">
                         <h3 className="text-xl font-bold text-secondary mb-4">
-                            Informasi Pengambilan
+                            Informasi Pesanan
                         </h3>
 
                         <div className="space-y-4">
                             <div>
                                 <p className="text-sm text-secondary-300 mb-1">Tipe Pesanan</p>
                                 <p className="font-semibold text-secondary text-lg">
-                                    🚶 {mockOrder.orderType}
+                                    {getOrderTypeIcon(order.type)} {getOrderTypeDisplay(order.type)}
                                 </p>
                             </div>
 
-                            <div>
-                                <p className="text-sm text-secondary-300 mb-1">Waktu Pengambilan</p>
-                                <p className="font-semibold text-secondary text-lg">
-                                    ⏰ {mockOrder.pickupTime} WIB
-                                </p>
-                            </div>
+                            {order.type === 'PICK_UP' && order.pickupTime && (
+                                <div>
+                                    <p className="text-sm text-secondary-300 mb-1">Waktu Pengambilan</p>
+                                    <p className="font-semibold text-secondary text-lg">
+                                        ⏰ {order.pickupTime} WIB
+                                    </p>
+                                </div>
+                            )}
+
+                            {order.type === 'DINE_IN' && order.tableNumber && (
+                                <div>
+                                    <p className="text-sm text-secondary-300 mb-1">Nomor Meja</p>
+                                    <p className="font-semibold text-secondary text-lg">
+                                        🍽️ {order.tableNumber}
+                                    </p>
+                                </div>
+                            )}
+
+                            {order.type === 'DELIVERY' && order.deliveryAddress && (
+                                <div>
+                                    <p className="text-sm text-secondary-300 mb-1">Alamat Pengiriman</p>
+                                    <p className="font-semibold text-secondary">
+                                        📍 {order.deliveryAddress}
+                                    </p>
+                                </div>
+                            )}
 
                             <div>
                                 <p className="text-sm text-secondary-300 mb-1">Nama Pemesan</p>
                                 <p className="font-semibold text-secondary">
-                                    {mockOrder.customerName}
+                                    {order.customerName}
                                 </p>
                             </div>
 
                             <div>
                                 <p className="text-sm text-secondary-300 mb-1">Nomor WhatsApp</p>
                                 <p className="font-semibold text-secondary">
-                                    {mockOrder.customerPhone}
+                                    {order.customerPhone}
                                 </p>
                             </div>
+
+                            <div>
+                                <p className="text-sm text-secondary-300 mb-1">Metode Pembayaran</p>
+                                <p className="font-semibold text-secondary">
+                                    {getPaymentMethodDisplay(order.paymentMethod)}
+                                </p>
+                            </div>
+
+                            {order.notes && (
+                                <div>
+                                    <p className="text-sm text-secondary-300 mb-1">Catatan</p>
+                                    <p className="font-semibold text-secondary text-sm">
+                                        {order.notes}
+                                    </p>
+                                </div>
+                            )}
 
                             <div className="bg-primary-50 rounded-2xl p-4 mt-4">
                                 <p className="text-sm text-primary-800">
@@ -321,8 +527,8 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                         <div>
                             <h4 className="font-bold text-blue-900 mb-2">Tips:</h4>
                             <ul className="text-sm text-blue-900 space-y-1">
-                                <li>• Tunjukkan halaman ini ke barista saat mengambil pesanan</li>
-                                <li>• Simpan Order ID untuk referensi</li>
+                                <li>• {order.paymentStatus === 'UNPAID' ? 'Segera lakukan pembayaran agar pesanan diproses' : 'Tunjukkan halaman ini ke barista saat mengambil pesanan'}</li>
+                                <li>• Simpan Order ID <strong>#{order.id}</strong> untuk referensi</li>
                                 <li>• Jika ada kendala, hubungi kami via WhatsApp</li>
                             </ul>
                         </div>
@@ -332,3 +538,4 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
         </div>
     );
 }
+

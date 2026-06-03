@@ -19,11 +19,18 @@ datasource db {
 enum OrderType {
   DELIVERY @map("delivery")
   PICK_UP  @map("pick-up")
+  DINE_IN  @map("dine-in")
 }
 
 enum PaymentMethod {
-  CASH     @map("cash")
-  CASHLESS @map("cashless")
+  QRIS     @map("qris")
+  TRANSFER @map("transfer")
+  CASHIER  @map("cashier")
+}
+
+enum PaymentStatus {
+  UNPAID @map("unpaid")
+  PAID   @map("paid")
 }
 
 enum OrderStatus {
@@ -32,15 +39,23 @@ enum OrderStatus {
   CANCELED   @map("canceled")
 }
 
+enum UserRole {
+  CUSTOMER @map("customer")
+  CASHIER  @map("cashier")
+  ADMIN    @map("admin")
+  KDS      @map("kds")
+}
+
 // --- MODELS ---
 
 model User {
-  id       Int     @id @default(autoincrement())
-  username String  @unique @db.VarChar(50)
-  email    String  @unique @db.VarChar(50)
-  photo    String? @db.Text // Menggunakan Text untuk string panjang/URL
-  address  String? @db.Text
-  password String  @db.Text
+  id       Int      @id @default(autoincrement())
+  username String   @unique @db.VarChar(50)
+  email    String   @unique @db.VarChar(50)
+  photo    String?  @db.Text // Menggunakan Text untuk string panjang/URL
+  address  String?  @db.Text
+  password String   @db.Text
+  role     UserRole @default(CUSTOMER)
 
   // Relasi
   orders Order[]
@@ -77,16 +92,22 @@ model Product {
 }
 
 model Order {
-  id            Int           @id @default(autoincrement())
-  userId        Int           @map("user_id")
-  type          OrderType
-  message       String?       @db.Text
-  paymentMethod PaymentMethod @map("payment_method")
-  totalPrice    Int           @map("total_price")
-  status        OrderStatus
+  id               Int            @id @default(autoincrement())
+  userId           Int?           @map("user_id")
+  customerName     String         @db.VarChar(100) @map("customer_name")  // Required for guest checkout
+  customerPhone    String         @db.VarChar(20)  @map("customer_phone") // Required for guest checkout
+  type             OrderType
+  tableNumber      String?        @db.VarChar(50)  @map("table_number")   // Optional, for dine-in
+  pickupTime       String?        @db.VarChar(50)  @map("pickup_time")    // Optional, for pickup
+  deliveryAddress  String?        @db.Text         @map("delivery_address") // Optional, for delivery
+  notes            String?        @db.Text         // General notes/requests
+  paymentMethod    PaymentMethod  @map("payment_method")
+  paymentStatus    PaymentStatus  @default(UNPAID) @map("payment_status")
+  totalPrice       Int            @map("total_price")
+  status           OrderStatus
 
   // Relasi
-  user         User          @relation(fields: [userId], references: [id])
+  user         User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
   detailOrders DetailOrder[]
 
   @@map("orders")
