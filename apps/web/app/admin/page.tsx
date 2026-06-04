@@ -43,31 +43,31 @@ export default function AdminDashboardPage() {
     if (!isAuthenticated) {
         return (
             <div
-                className="min-h-screen flex items-center justify-center bg-gradient-to-br from-secondary-900 via-[#2d2722] to-secondary-950 relative overflow-hidden"
+                className="min-h-screen flex items-center justify-center bg-[#faf9f6] relative overflow-hidden"
             >
                 {/* Decorative Blobs */}
-                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary-400/10 rounded-full blur-3xl animate-pulse pointer-events-none" />
-                <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-tertiary-400/10 rounded-full blur-3xl animate-pulse pointer-events-none" />
+                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary-100 rounded-full blur-3xl animate-pulse pointer-events-none opacity-40" />
+                <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-tertiary-100 rounded-full blur-3xl animate-pulse pointer-events-none opacity-40" />
 
                 <div className="w-full max-w-md px-6 relative z-10">
                     <div className="text-center mb-8">
                         <div
-                            className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4 bg-primary/10 border border-primary/20"
+                            className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4 bg-primary-100 border border-primary-200"
                         >
                             <span className="text-4xl">☕</span>
                         </div>
-                        <h1 className="font-display text-4xl font-bold text-white mb-1">Olvad Admin</h1>
-                        <p className="text-sm text-white/50">
+                        <h1 className="font-display text-4xl font-bold text-secondary-800 mb-1">Olvad Admin</h1>
+                        <p className="text-sm font-semibold text-secondary-400">
                             Dashboard Manajemen Lengkap
                         </p>
                     </div>
                     <div
-                        className="rounded-3xl p-8 bg-white/[0.03] backdrop-blur-[20px] border border-white/10 shadow-2xl"
+                        className="rounded-3xl p-8 bg-white border border-secondary-100 shadow-xl"
                     >
                         <form onSubmit={handleLogin} className="space-y-5">
                             <div>
                                 <label
-                                    className="block text-sm font-semibold mb-2 text-white/70"
+                                    className="block text-sm font-bold mb-2 text-secondary-700"
                                 >
                                     Password Admin
                                 </label>
@@ -77,13 +77,13 @@ export default function AdminDashboardPage() {
                                     value={adminPassword}
                                     onChange={(e) => setAdminPassword(e.target.value)}
                                     placeholder="Masukkan password admin"
-                                    className="w-full px-4 py-3.5 rounded-xl text-white outline-none bg-white/[0.05] border border-white/10 focus:border-primary-400 focus:ring-2 focus:ring-primary-400 transition-all placeholder:text-white/20"
+                                    className="w-full px-4 py-3.5 rounded-xl text-secondary-800 outline-none bg-secondary-50/50 border border-secondary-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-400 transition-all placeholder:text-secondary-300"
                                     autoFocus
                                 />
                             </div>
                             {loginError && (
                                 <div
-                                    className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm bg-red-500/15 text-red-200 border border-red-500/20"
+                                    className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm bg-red-50 text-red-600 border border-red-200/50"
                                 >
                                     <span>⚠️</span> {loginError}
                                 </div>
@@ -91,12 +91,12 @@ export default function AdminDashboardPage() {
                             <button
                                 id="admin-login-btn"
                                 type="submit"
-                                className="w-full py-3.5 rounded-xl font-bold text-white transition-all btn-hover hover:scale-[1.02] bg-gradient-to-br from-primary-400 to-primary-500 shadow-lg shadow-primary-500/20"
+                                className="w-full py-3.5 rounded-xl font-bold text-white transition-all btn-hover hover:scale-[1.02] bg-secondary hover:bg-secondary-700 shadow-md shadow-secondary-900/15"
                             >
                                 Masuk ke Dashboard
                             </button>
                         </form>
-                        <p className="text-xs text-center mt-6 text-white/30">
+                        <p className="text-xs font-semibold text-center mt-6 text-secondary-400">
                             Hanya untuk staf yang berwenang
                         </p>
                     </div>

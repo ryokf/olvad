@@ -58,16 +58,16 @@ export default function OrderDetailModal({
             >
                 {/* Header */}
                 <div
-                    className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-gradient-to-r from-secondary-800 to-secondary-900 border-b border-secondary-700/50"
+                    className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-white border-b border-secondary-100"
                 >
                     <div>
-                        <p className="text-xs font-semibold text-secondary-300">Detail Pesanan</p>
-                        <h2 className="text-xl font-bold text-white font-mono">#{order.id}</h2>
+                        <p className="text-xs font-bold text-secondary-400">Detail Pesanan</p>
+                        <h2 className="text-xl font-bold text-secondary-800 font-mono">#{order.id}</h2>
                     </div>
                     <button
                         id="modal-close-btn"
                         onClick={onClose}
-                        className="w-9 h-9 rounded-xl flex items-center justify-center text-white transition-all hover:bg-white/20 bg-white/10"
+                        className="w-9 h-9 rounded-xl flex items-center justify-center text-secondary-500 transition-all hover:bg-secondary-100 bg-secondary-50"
                     >
                         ✕
                     </button>
@@ -138,7 +138,7 @@ export default function OrderDetailModal({
                             disabled={!hasChanges || isSaving}
                             className={`w-full py-3 rounded-xl font-bold text-sm transition-all border ${
                                 hasChanges
-                                    ? "bg-gradient-to-br from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white border-transparent cursor-pointer shadow-md shadow-primary-500/10"
+                                    ? "bg-secondary hover:bg-secondary-700 text-white border-transparent cursor-pointer shadow-md shadow-secondary-900/10"
                                     : "bg-secondary-100 text-secondary-400 border-transparent cursor-not-allowed"
                             }`}
                         >

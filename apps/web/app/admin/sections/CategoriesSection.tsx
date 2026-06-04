@@ -223,12 +223,12 @@ export function Modal({
                 onClick={(e) => e.stopPropagation()}
             >
                 <div
-                    className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-secondary-800 to-secondary-900 border-b border-secondary-700/50"
+                    className="flex items-center justify-between px-6 py-4 bg-white border-b border-secondary-100"
                 >
-                    <h2 className="text-white font-bold text-base">{title}</h2>
+                    <h2 className="text-secondary-800 font-bold text-base">{title}</h2>
                     <button
                         onClick={onClose}
-                        className="w-8 h-8 rounded-xl flex items-center justify-center text-white/60 hover:text-white hover:bg-white/20 transition-all bg-white/10"
+                        className="w-8 h-8 rounded-xl flex items-center justify-center text-secondary-500 hover:text-secondary-800 hover:bg-secondary-100 transition-all bg-secondary-50"
                     >
                         ✕
                     </button>

@@ -336,7 +336,7 @@ function ProductCard({
         >
             {/* Image */}
             <div
-                className="relative h-40 flex items-center justify-center bg-gradient-to-br from-[#f6faf4] to-[#eef5e8]"
+                className="relative h-40 flex items-center justify-center bg-primary-100/40"
             >
                 {product.photo ? (
                     <img
