@@ -43,27 +43,31 @@ export default function AdminDashboardPage() {
     if (!isAuthenticated) {
         return (
             <div
-                className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]"
+                className="min-h-screen flex items-center justify-center bg-gradient-to-br from-secondary-900 via-[#2d2722] to-secondary-950 relative overflow-hidden"
             >
-                <div className="w-full max-w-md px-6">
-                    <div className="text-center mb-10">
+                {/* Decorative Blobs */}
+                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary-400/10 rounded-full blur-3xl animate-pulse pointer-events-none" />
+                <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-tertiary-400/10 rounded-full blur-3xl animate-pulse pointer-events-none" />
+
+                <div className="w-full max-w-md px-6 relative z-10">
+                    <div className="text-center mb-8">
                         <div
-                            className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4 bg-primary/15 border border-primary/30"
+                            className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4 bg-primary/10 border border-primary/20"
                         >
                             <span className="text-4xl">☕</span>
                         </div>
-                        <h1 className="text-3xl font-bold text-white mb-1">Olvad Admin</h1>
+                        <h1 className="font-display text-4xl font-bold text-white mb-1">Olvad Admin</h1>
                         <p className="text-sm text-white/50">
                             Dashboard Manajemen Lengkap
                         </p>
                     </div>
                     <div
-                        className="rounded-2xl p-8 bg-white/5 backdrop-blur-[20px] border border-white/10"
+                        className="rounded-3xl p-8 bg-white/[0.03] backdrop-blur-[20px] border border-white/10 shadow-2xl"
                     >
                         <form onSubmit={handleLogin} className="space-y-5">
                             <div>
                                 <label
-                                    className="block text-sm font-medium mb-2 text-white/70"
+                                    className="block text-sm font-semibold mb-2 text-white/70"
                                 >
                                     Password Admin
                                 </label>
@@ -73,13 +77,13 @@ export default function AdminDashboardPage() {
                                     value={adminPassword}
                                     onChange={(e) => setAdminPassword(e.target.value)}
                                     placeholder="Masukkan password admin"
-                                    className="w-full px-4 py-3 rounded-xl text-white outline-none bg-white/[0.07] border border-white/15"
+                                    className="w-full px-4 py-3.5 rounded-xl text-white outline-none bg-white/[0.05] border border-white/10 focus:border-primary-400 focus:ring-2 focus:ring-primary-400 transition-all placeholder:text-white/20"
                                     autoFocus
                                 />
                             </div>
                             {loginError && (
                                 <div
-                                    className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm bg-red-500/15 text-red-200"
+                                    className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm bg-red-500/15 text-red-200 border border-red-500/20"
                                 >
                                     <span>⚠️</span> {loginError}
                                 </div>
@@ -87,7 +91,7 @@ export default function AdminDashboardPage() {
                             <button
                                 id="admin-login-btn"
                                 type="submit"
-                                className="w-full py-3 rounded-xl font-semibold text-white transition-all hover:opacity-90 hover:scale-[1.02] bg-gradient-to-br from-primary-400 to-primary-500"
+                                className="w-full py-3.5 rounded-xl font-bold text-white transition-all btn-hover hover:scale-[1.02] bg-gradient-to-br from-primary-400 to-primary-500 shadow-lg shadow-primary-500/20"
                             >
                                 Masuk ke Dashboard
                             </button>
@@ -102,7 +106,7 @@ export default function AdminDashboardPage() {
     }
 
     return (
-        <div className="min-h-screen flex bg-[#f8f9fb]">
+        <div className="min-h-screen flex bg-[#faf9f6]">
             <AdminSidebar
                 isOpen={sidebarOpen}
                 onToggle={() => setSidebarOpen(!sidebarOpen)}
@@ -116,24 +120,24 @@ export default function AdminDashboardPage() {
             >
                 {/* Top bar */}
                 <header
-                    className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#f8f9fb]/95 backdrop-blur-[12px] border-b border-gray-200"
+                    className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#faf9f6]/95 backdrop-blur-[12px] border-b border-secondary-100/80"
                 >
                     <div>
-                        <h1 className="text-xl font-bold text-[#1a1a2e]">
+                        <h1 className="text-xl font-bold text-secondary-800">
                             {activeTab === "orders" && "📋 Manajemen Pesanan"}
                             {activeTab === "products" && "🍞 Manajemen Menu"}
                             {activeTab === "categories" && "🏷️ Manajemen Kategori"}
                             {activeTab === "variants" && "🎛️ Manajemen Varian"}
                         </h1>
-                        <p className="text-xs mt-0.5 text-gray-400">
+                        <p className="text-xs mt-0.5 text-secondary-400">
                             Olvad Coffee & Bakery — Admin Panel
                         </p>
                     </div>
                     <div className="flex items-center gap-2">
                         <div
-                            className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium bg-primary/15 text-primary-700"
+                            className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-primary-100 text-primary-800 border border-primary-200/50"
                         >
-                            <span className="w-2 h-2 rounded-full bg-green-400 inline-block animate-pulse" />
+                            <span className="w-2 h-2 rounded-full bg-primary-500 inline-block animate-pulse" />
                             Admin
                         </div>
                     </div>

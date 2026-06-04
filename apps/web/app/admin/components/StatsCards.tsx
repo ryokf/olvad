@@ -15,10 +15,10 @@ export default function StatsCards({ stats }: { stats: Stats }) {
             label: "Total Pesanan",
             value: stats.total,
             icon: "📋",
-            iconBg: "bg-indigo-500/10",
-            textClass: "text-indigo-600",
-            borderClass: "border-indigo-500/20",
-            shadowClass: "shadow-indigo-500/5",
+            iconBg: "bg-tertiary-100/60",
+            textClass: "text-tertiary-700",
+            borderClass: "border-tertiary-200/50",
+            shadowClass: "shadow-tertiary-400/5",
             format: "number",
         },
         {
@@ -26,10 +26,10 @@ export default function StatsCards({ stats }: { stats: Stats }) {
             label: "Belum Bayar",
             value: stats.unpaid,
             icon: "⏳",
-            iconBg: "bg-amber-500/10",
-            textClass: "text-amber-600",
-            borderClass: "border-amber-500/20",
-            shadowClass: "shadow-amber-500/5",
+            iconBg: "bg-amber-100/60",
+            textClass: "text-amber-700",
+            borderClass: "border-amber-200/50",
+            shadowClass: "shadow-amber-400/5",
             format: "number",
         },
         {
@@ -37,10 +37,10 @@ export default function StatsCards({ stats }: { stats: Stats }) {
             label: "Diproses",
             value: stats.onProcess,
             icon: "🔥",
-            iconBg: "bg-red-500/10",
-            textClass: "text-red-600",
-            borderClass: "border-red-500/20",
-            shadowClass: "shadow-red-500/5",
+            iconBg: "bg-orange-100/60",
+            textClass: "text-orange-700",
+            borderClass: "border-orange-200/50",
+            shadowClass: "shadow-orange-400/5",
             format: "number",
         },
         {
@@ -48,10 +48,10 @@ export default function StatsCards({ stats }: { stats: Stats }) {
             label: "Selesai",
             value: stats.done,
             icon: "✅",
-            iconBg: "bg-emerald-500/10",
-            textClass: "text-emerald-600",
-            borderClass: "border-emerald-500/20",
-            shadowClass: "shadow-emerald-500/5",
+            iconBg: "bg-primary-100/60",
+            textClass: "text-primary-700",
+            borderClass: "border-primary-200/50",
+            shadowClass: "shadow-primary-400/5",
             format: "number",
         },
         {
@@ -59,10 +59,10 @@ export default function StatsCards({ stats }: { stats: Stats }) {
             label: "Total Revenue",
             value: stats.revenue,
             icon: "💰",
-            iconBg: "bg-primary/10",
-            textClass: "text-primary-700",
-            borderClass: "border-primary/20",
-            shadowClass: "shadow-primary/5",
+            iconBg: "bg-primary/20",
+            textClass: "text-primary-800",
+            borderClass: "border-primary/30",
+            shadowClass: "shadow-primary-500/5",
             format: "currency",
         },
     ];
@@ -89,7 +89,7 @@ export default function StatsCards({ stats }: { stats: Stats }) {
                             ? `Rp ${card.value.toLocaleString("id-ID")}`
                             : card.value}
                     </p>
-                    <p className="text-xs font-medium mt-1 text-gray-400">
+                    <p className="text-xs font-semibold mt-1 text-secondary-400">
                         {card.label}
                     </p>
                 </div>

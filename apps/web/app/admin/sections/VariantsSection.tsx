@@ -183,43 +183,43 @@ export default function VariantsSection() {
         <div className="space-y-5">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
                 {/* Left: Product Picker */}
-                <div className="rounded-2xl overflow-hidden bg-white border border-gray-200">
-                    <div className="px-5 py-4 border-b border-gray-100">
-                        <p className="font-bold text-sm text-[#1a1a2e]">
+                <div className="rounded-2xl overflow-hidden bg-white border border-secondary-100 shadow-[0_2px_8px_rgba(103,93,80,0.03)]">
+                    <div className="px-5 py-4 border-b border-secondary-100/80 bg-secondary-50/20">
+                        <p className="font-bold text-sm text-secondary-800">
                             Pilih Produk
                         </p>
-                        <p className="text-xs mt-0.5 text-gray-400">
+                        <p className="text-xs mt-0.5 text-secondary-400">
                             Pilih produk untuk kelola variannya
                         </p>
                     </div>
                     {isLoadingProducts ? (
                         <LoadingState label="Memuat produk..." />
                     ) : (
-                        <div className="divide-y divide-gray-100 max-h-[480px] overflow-y-auto">
+                        <div className="divide-y divide-secondary-100/50 max-h-[480px] overflow-y-auto">
                             {products.map((p) => (
                                 <button
                                     key={p.id}
                                     id={`pick-product-${p.id}`}
                                     onClick={() => setSelectedProduct(p)}
-                                    className={`w-full flex items-center gap-3 px-5 py-3.5 text-left transition-all border-b border-gray-100 ${
+                                    className={`w-full flex items-center gap-3 px-5 py-3.5 text-left transition-all border-b border-secondary-100/30 ${
                                         selectedProduct?.id === p.id
-                                            ? "bg-primary/12 text-primary-700"
-                                            : "bg-transparent text-gray-700"
+                                            ? "bg-primary-100/50 text-primary-800 border-l-4 border-primary font-bold"
+                                            : "bg-transparent text-secondary-700 hover:bg-secondary-50/50"
                                     }`}
                                 >
                                     <div
-                                        className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0 bg-primary/12"
+                                        className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0 bg-primary-100 text-primary-700 border border-primary-200/20"
                                     >
                                         🍞
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-semibold truncate">{p.name}</p>
-                                        <p className="text-xs text-gray-400">
+                                        <p className="text-xs text-secondary-400">
                                             {p.category?.name} · Rp {p.price.toLocaleString("id-ID")}
                                         </p>
                                     </div>
                                     {selectedProduct?.id === p.id && (
-                                        <span className="text-primary">›</span>
+                                        <span className="text-primary font-bold">›</span>
                                     )}
                                 </button>
                             ))}
@@ -241,17 +241,17 @@ export default function VariantsSection() {
                             {/* Header */}
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="font-bold text-base text-[#1a1a2e]">
+                                    <p className="font-bold text-base text-secondary-800 font-display">
                                         {selectedProduct.name}
                                     </p>
-                                    <p className="text-xs text-gray-400">
+                                    <p className="text-xs text-secondary-400">
                                         {variants.length} varian terdaftar
                                     </p>
                                 </div>
                                 <button
                                     id="add-variant-btn"
                                     onClick={openCreateVariant}
-                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white hover:opacity-90 bg-gradient-to-br from-[#1a1a2e] to-[#16213e]"
+                                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white transition-all btn-hover hover:scale-[1.01] bg-secondary hover:bg-secondary-700 shadow-md shadow-secondary-900/10"
                                 >
                                     ＋ Tambah Varian
                                 </button>
@@ -383,19 +383,19 @@ function VariantCard({
     return (
         <div
             id={`variant-card-${variant.id}`}
-            className="rounded-2xl overflow-hidden bg-white border border-gray-200"
+            className="rounded-2xl overflow-hidden bg-white border border-secondary-100 shadow-[0_2px_8px_rgba(103,93,80,0.03)]"
         >
             {/* Variant header */}
             <div
-                className="flex items-center justify-between px-5 py-3.5 bg-[#f8f9fb] border-b border-gray-200"
+                className="flex items-center justify-between px-5 py-3.5 bg-secondary-50/50 border-b border-secondary-100"
             >
                 <div className="flex items-center gap-3">
                     <span className="text-lg">🎛️</span>
                     <div>
-                        <p className="font-bold text-sm text-[#1a1a2e]">
+                        <p className="font-bold text-sm text-secondary-800">
                             {variant.name}
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-secondary-400">
                             {variant.isSingleSelection ? "Pilih satu" : "Pilih banyak"} · {variant.options?.length || 0} opsi
                         </p>
                     </div>
@@ -404,21 +404,23 @@ function VariantCard({
                     <button
                         id={`add-option-${variant.id}`}
                         onClick={onAddOption}
-                        className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all hover:opacity-80 bg-primary/15 text-primary-700"
+                        className="px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:bg-primary-100 bg-primary-50 text-primary-700 border border-primary-200/40"
                     >
                         ＋ Opsi
                     </button>
                     <button
                         id={`edit-variant-${variant.id}`}
                         onClick={onEdit}
-                        className="w-7 h-7 rounded-lg flex items-center justify-center text-xs transition-all hover:opacity-80 bg-indigo-500/10 text-indigo-500"
+                        className="w-7 h-7 rounded-lg flex items-center justify-center text-xs transition-all hover:bg-primary-100 bg-primary-50 text-primary-600 border border-primary-200/30"
+                        title="Edit Varian"
                     >
                         ✏️
                     </button>
                     <button
                         id={`delete-variant-${variant.id}`}
                         onClick={onDelete}
-                        className="w-7 h-7 rounded-lg flex items-center justify-center text-xs transition-all hover:opacity-80 bg-red-500/10 text-red-500"
+                        className="w-7 h-7 rounded-lg flex items-center justify-center text-xs transition-all hover:bg-red-100 bg-red-50 text-red-600 border border-red-200/30"
+                        title="Hapus Varian"
                     >
                         🗑
                     </button>
@@ -427,23 +429,23 @@ function VariantCard({
 
             {/* Options list */}
             {variant.options && variant.options.length > 0 ? (
-                <div className="divide-y divide-gray-100">
+                <div className="divide-y divide-secondary-100/50">
                     {variant.options.map((opt) => (
                         <div
                             key={opt.id}
                             id={`option-row-${opt.id}`}
-                            className="flex items-center justify-between px-5 py-3"
+                            className="flex items-center justify-between px-5 py-3 hover:bg-secondary-50/20 transition-colors"
                         >
                             <div className="flex items-center gap-3">
                                 <span
-                                    className="w-2 h-2 rounded-full bg-primary"
+                                    className="w-2 h-2 rounded-full bg-primary-400"
                                 />
-                                <span className="text-sm font-medium text-gray-700">
+                                <span className="text-sm font-semibold text-secondary-800">
                                     {opt.name}
                                 </span>
                                 {opt.addPrice > 0 && (
                                     <span
-                                        className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500"
+                                        className="text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200/40 font-semibold"
                                     >
                                         +Rp {opt.addPrice.toLocaleString("id-ID")}
                                     </span>
@@ -453,14 +455,14 @@ function VariantCard({
                                 <button
                                     id={`edit-option-${opt.id}`}
                                     onClick={() => onEditOption(opt)}
-                                    className="w-7 h-7 rounded-lg flex items-center justify-center text-xs bg-indigo-500/10 text-indigo-500"
+                                    className="w-7 h-7 rounded-lg flex items-center justify-center text-xs bg-primary-50 hover:bg-primary-100 text-primary-600 border border-primary-200/30"
                                 >
                                     ✏️
                                 </button>
                                 <button
                                     id={`delete-option-${opt.id}`}
                                     onClick={() => onDeleteOption(opt)}
-                                    className="w-7 h-7 rounded-lg flex items-center justify-center text-xs bg-red-500/10 text-red-500"
+                                    className="w-7 h-7 rounded-lg flex items-center justify-center text-xs bg-red-50 hover:bg-red-100 text-red-600 border border-red-200/30"
                                 >
                                     🗑
                                 </button>
@@ -470,9 +472,9 @@ function VariantCard({
                 </div>
             ) : (
                 <div className="px-5 py-4 text-center">
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-secondary-400">
                         Belum ada opsi.{" "}
-                        <button onClick={onAddOption} className="underline text-primary">
+                        <button onClick={onAddOption} className="underline text-primary hover:text-primary-600 font-semibold">
                             Tambah opsi
                         </button>
                     </p>

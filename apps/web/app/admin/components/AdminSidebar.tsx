@@ -26,26 +26,26 @@ export default function AdminSidebar({
 }: SidebarProps) {
     return (
         <aside
-            className={`fixed top-0 left-0 h-full z-30 flex flex-col transition-all duration-300 overflow-hidden bg-gradient-to-b from-[#1a1a2e] to-[#16213e] border-r border-white/10 ${
+            className={`fixed top-0 left-0 h-full z-30 flex flex-col transition-all duration-300 overflow-hidden bg-gradient-to-b from-secondary-900 to-secondary-950 border-r border-secondary-800 ${
                 isOpen ? "w-[260px]" : "w-[72px]"
             }`}
         >
             {/* Logo / Toggle */}
             <div
-                className="flex items-center gap-3 px-4 py-5 border-b border-white/10"
+                className="flex items-center gap-3 px-4 py-5 border-b border-secondary-800"
             >
                 <button
                     id="sidebar-toggle"
                     onClick={onToggle}
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all hover:opacity-80 bg-primary/15"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all hover:opacity-90 bg-primary/10 text-primary-400"
                     title="Toggle Sidebar"
                 >
                     <span className="text-xl">☕</span>
                 </button>
                 {isOpen && (
                     <div className="overflow-hidden whitespace-nowrap">
-                        <p className="text-white font-bold text-sm leading-tight">Olvad Admin</p>
-                        <p className="text-xs text-white/35">
+                        <p className="text-white font-bold text-sm leading-tight font-display">Olvad Admin</p>
+                        <p className="text-xs text-secondary-400">
                             Management Panel
                         </p>
                     </div>
@@ -55,7 +55,7 @@ export default function AdminSidebar({
             {/* Section label */}
             {isOpen && (
                 <div className="px-4 pt-5 pb-1">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-white/25">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-secondary-500">
                         Menu
                     </p>
                 </div>
@@ -72,18 +72,18 @@ export default function AdminSidebar({
                             onClick={() => onTabChange(item.key)}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all border ${
                                 isActive
-                                    ? "bg-primary/20 border-primary/30 text-primary"
-                                    : "bg-transparent border-transparent text-white/55"
+                                    ? "bg-primary/10 border-primary/20 text-primary-400"
+                                    : "bg-transparent border-transparent text-secondary-300 hover:text-white hover:bg-secondary-800/40"
                             }`}
                             title={item.desc}
                         >
                             <span className="text-xl flex-shrink-0">{item.icon}</span>
                             {isOpen && (
                                 <div className="overflow-hidden">
-                                    <p className="text-sm font-medium leading-tight">{item.label}</p>
+                                    <p className="text-sm font-semibold leading-tight">{item.label}</p>
                                     <p
                                         className={`text-xs leading-tight mt-0.5 ${
-                                            isActive ? "text-primary/70" : "text-white/30"
+                                            isActive ? "text-primary-400/80" : "text-secondary-500"
                                         }`}
                                     >
                                         {item.desc}
@@ -96,15 +96,15 @@ export default function AdminSidebar({
             </nav>
 
             {/* Footer */}
-            <div className="p-3 border-t border-white/10">
+            <div className="p-3 border-t border-secondary-800">
                 <button
                     id="admin-logout-btn"
                     onClick={onLogout}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all hover:opacity-80 text-white/35"
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all hover:bg-red-500/10 hover:text-red-400 text-secondary-400"
                     title="Keluar"
                 >
                     <span className="text-xl flex-shrink-0">🚪</span>
-                    {isOpen && <span className="text-sm">Keluar</span>}
+                    {isOpen && <span className="text-sm font-semibold">Keluar</span>}
                 </button>
             </div>
         </aside>

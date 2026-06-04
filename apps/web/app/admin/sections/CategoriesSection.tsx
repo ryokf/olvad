@@ -97,7 +97,7 @@ export default function CategoriesSection() {
                 <button
                     id="add-category-btn"
                     onClick={openCreate}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 bg-gradient-to-br from-[#1a1a2e] to-[#16213e]"
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white transition-all btn-hover hover:scale-[1.01] bg-secondary hover:bg-secondary-700 shadow-md shadow-secondary-900/10"
                 >
                     ＋ Tambah Kategori
                 </button>
@@ -115,18 +115,18 @@ export default function CategoriesSection() {
                         <div
                             key={cat.id}
                             id={`category-card-${cat.id}`}
-                            className="rounded-2xl p-5 flex flex-col gap-3 transition-all hover:shadow-md bg-white border border-gray-200"
+                            className="rounded-2xl p-5 flex flex-col gap-3 transition-all hover:shadow-md bg-white border border-secondary-100 shadow-[0_2px_8px_rgba(103,93,80,0.03)]"
                         >
                             <div
-                                className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl bg-primary/15"
+                                className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl bg-primary-100/60 text-primary-700"
                             >
                                 🏷️
                             </div>
                             <div className="flex-1">
-                                <p className="font-bold text-base text-[#1a1a2e]">
+                                <p className="font-bold text-base text-secondary-800">
                                     {cat.name}
                                 </p>
-                                <p className="text-xs mt-1 text-gray-400">
+                                <p className="text-xs mt-1 font-mono font-bold text-secondary-400">
                                     ID: #{cat.id}
                                 </p>
                             </div>
@@ -134,14 +134,14 @@ export default function CategoriesSection() {
                                 <button
                                     id={`edit-cat-${cat.id}`}
                                     onClick={() => openEdit(cat)}
-                                    className="flex-1 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80 bg-indigo-500/10 text-indigo-500"
+                                    className="flex-1 py-2 rounded-xl text-xs font-bold transition-all hover:bg-primary-100 bg-primary-50 text-primary-600 border border-primary-200/40"
                                 >
                                     ✏️ Edit
                                 </button>
                                 <button
                                     id={`delete-cat-${cat.id}`}
                                     onClick={() => handleDelete(cat)}
-                                    className="flex-1 py-2 rounded-xl text-xs font-semibold transition-all hover:opacity-80 bg-red-500/10 text-red-500"
+                                    className="flex-1 py-2 rounded-xl text-xs font-bold transition-all hover:bg-red-100 bg-red-50 text-red-600 border border-red-200/40"
                                 >
                                     🗑 Hapus
                                 </button>
@@ -184,13 +184,13 @@ export default function CategoriesSection() {
 export function EmptyState({ label, onAdd }: { label: string; onAdd: () => void }) {
     return (
         <div
-            className="flex flex-col items-center justify-center py-24 gap-4 rounded-2xl bg-white border border-gray-200"
+            className="flex flex-col items-center justify-center py-24 gap-4 rounded-2xl bg-white border border-secondary-100 shadow-sm"
         >
             <span className="text-5xl">📭</span>
-            <p className="text-gray-500 font-medium">{label}</p>
+            <p className="text-secondary-500 font-semibold">{label}</p>
             <button
                 onClick={onAdd}
-                className="px-6 py-2.5 rounded-xl text-white text-sm font-semibold bg-primary"
+                className="px-6 py-2.5 rounded-xl text-white text-sm font-bold bg-primary hover:bg-primary-600 transition-all shadow-md shadow-primary-500/10"
             >
                 Tambah Baru
             </button>
@@ -215,7 +215,7 @@ export function Modal({
             onClick={onClose}
         >
             <div
-                className="w-full rounded-2xl overflow-hidden bg-white shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
+                className="w-full rounded-2xl overflow-hidden bg-white shadow-[0_20px_60px_rgba(103,93,80,0.15)]"
                 style={{
                     maxWidth: wide ? "720px" : "480px",
                     animation: "fadeInUp 0.2s ease-out",
@@ -223,12 +223,12 @@ export function Modal({
                 onClick={(e) => e.stopPropagation()}
             >
                 <div
-                    className="flex items-center justify-between px-6 py-4 bg-gradient-to-br from-[#1a1a2e] to-[#16213e] border-b border-white/10"
+                    className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-secondary-800 to-secondary-900 border-b border-secondary-700/50"
                 >
                     <h2 className="text-white font-bold text-base">{title}</h2>
                     <button
                         onClick={onClose}
-                        className="w-8 h-8 rounded-xl flex items-center justify-center text-white/60 hover:text-white transition-all bg-white/10"
+                        className="w-8 h-8 rounded-xl flex items-center justify-center text-white/60 hover:text-white hover:bg-white/20 transition-all bg-white/10"
                     >
                         ✕
                     </button>
@@ -262,7 +262,7 @@ export function FormField({
 }) {
     return (
         <div>
-            <label className="block text-xs font-semibold mb-1.5 text-gray-700">
+            <label className="block text-xs font-bold mb-1.5 text-secondary-600">
                 {label} {required && <span className="text-red-500">*</span>}
             </label>
             <input
@@ -274,7 +274,7 @@ export function FormField({
                 required={required}
                 min={min}
                 step={step}
-                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all bg-[#f8f9fb] border border-gray-200 text-gray-700"
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all bg-secondary-50/50 border border-secondary-200 focus:border-primary-400 focus:ring-2 focus:ring-primary-400 text-secondary-800 placeholder:text-secondary-300"
             />
         </div>
     );
@@ -297,7 +297,7 @@ export function FormSelect({
 }) {
     return (
         <div>
-            <label className="block text-xs font-semibold mb-1.5 text-gray-700">
+            <label className="block text-xs font-bold mb-1.5 text-secondary-600">
                 {label} {required && <span className="text-red-500">*</span>}
             </label>
             <select
@@ -305,7 +305,7 @@ export function FormSelect({
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 required={required}
-                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none bg-[#f8f9fb] border border-gray-200 text-gray-700"
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none bg-secondary-50/50 border border-secondary-200 text-secondary-800 focus:border-primary-400 focus:ring-2 focus:ring-primary-400"
             >
                 <option value="">Pilih...</option>
                 {options.map((o) => (
@@ -335,7 +335,7 @@ export function FormTextarea({
 }) {
     return (
         <div>
-            <label className="block text-xs font-semibold mb-1.5 text-gray-700">
+            <label className="block text-xs font-bold mb-1.5 text-secondary-600">
                 {label}
             </label>
             <textarea
@@ -344,7 +344,7 @@ export function FormTextarea({
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
                 rows={rows}
-                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none resize-none bg-[#f8f9fb] border border-gray-200 text-gray-700"
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none resize-none bg-secondary-50/50 border border-secondary-200 text-secondary-800 focus:border-primary-400 focus:ring-2 focus:ring-primary-400"
             />
         </div>
     );
@@ -353,7 +353,7 @@ export function FormTextarea({
 export function FormError({ message }: { message: string }) {
     return (
         <div
-            className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm bg-red-500/[0.08] text-red-500"
+            className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm bg-red-50 text-red-600 border border-red-200/50"
         >
             ⚠️ {message}
         </div>
@@ -374,17 +374,17 @@ export function ModalActions({
             <button
                 type="button"
                 onClick={onCancel}
-                className="flex-1 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80 border border-gray-200 text-gray-500"
+                className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all hover:bg-secondary-50 border border-secondary-200 text-secondary-500"
             >
                 Batal
             </button>
             <button
                 type="submit"
                 disabled={isSaving}
-                className={`flex-1 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 ${
+                className={`flex-1 py-2.5 rounded-xl text-sm font-bold text-white transition-all border border-transparent shadow-md shadow-secondary-900/10 ${
                     isSaving
                         ? "bg-gray-400"
-                        : "bg-gradient-to-br from-[#1a1a2e] to-[#16213e]"
+                        : "bg-secondary hover:bg-secondary-700"
                 }`}
             >
                 {isSaving ? "Menyimpan..." : label}
