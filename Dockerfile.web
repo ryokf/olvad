@@ -1,4 +1,3 @@
-# Ubah dari node:18-alpine menjadi node:20-alpine
 FROM node:20-alpine
 
 WORKDIR /app
@@ -6,7 +5,12 @@ WORKDIR /app
 COPY . .
 RUN npm install
 
-# Build aplikasi Web
+# --- TAMBAHKAN DUA BARIS INI ---
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+# -------------------------------
+
+# Build aplikasi Web (Sekarang Next.js akan menanamkan URL dari ARG ke dalam bundle)
 RUN cd apps/web && npm run build
 
 # Ekspos port Next.js

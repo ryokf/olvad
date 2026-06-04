@@ -20,4 +20,5 @@ RUN cd apps/api && npm run build
 EXPOSE 8082
 
 # Jalankan aplikasi API
-CMD ["sh", "-c", "cd apps/api && npm run start:prod"]
+# Hapus baris CMD lama, ganti dengan baris ini:
+CMD ["sh", "-c", "cd apps/api && node dist/src/main.js || node dist/main.js"]
