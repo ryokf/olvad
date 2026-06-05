@@ -4,7 +4,7 @@ import { User } from './user';
 // ===== Enums =====
 export type OrderType = 'DELIVERY' | 'PICK_UP' | 'DINE_IN';
 export type PaymentMethod = 'QRIS' | 'TRANSFER' | 'CASHIER';
-export type PaymentStatus = 'UNPAID' | 'PAID';
+export type PaymentStatus = 'UNPAID' | 'AWAITING_VERIFICATION' | 'PAID';
 export type OrderStatus = 'ON_PROCESS' | 'DONE' | 'CANCELED';
 
 // ===== Detail Order Variant =====
@@ -39,6 +39,7 @@ export interface Order {
     notes?: string | null;
     paymentMethod: PaymentMethod;
     paymentStatus: PaymentStatus;
+    paymentProof?: string | null;
     totalPrice: number;
     status: OrderStatus;
     user?: Partial<User> | null;

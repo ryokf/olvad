@@ -29,8 +29,35 @@ export default function OrderDetailModal({
     onDelete,
 }: OrderDetailModalProps) {
     const [orderStatus, setOrderStatus] = useState(order.status);
-    const [paymentStatus, setPaymentStatus] = useState(order.paymentStatus || "UNPAID");
+    const [paymentStatus, setPaymentStatus] = useState(order.paymentStatus || 'UNPAID');
     const [isSaving, setIsSaving] = useState(false);
+    const [isVerifying, setIsVerifying] = useState(false);
+    const [verifyError, setVerifyError] = useState<string | null>(null);
+
+    const handleVerifyPayment = async () => {
+        setIsVerifying(true);
+        setVerifyError(null);
+        try {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/order/${order.id}/verify-payment`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'x-user-role': 'admin',
+                    },
+                },
+            );
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data.message || 'Gagal memverifikasi');
+            }
+            await onUpdate(order.id as number, { paymentStatus: 'PAID' } as any);
+        } catch (err) {
+            setVerifyError(err instanceof Error ? err.message : 'Terjadi kesalahan');
+        } finally {
+            setIsVerifying(false);
+        }
+    };
 
     const handleSave = async () => {
         setIsSaving(true);
@@ -82,21 +109,23 @@ export default function OrderDetailModal({
                             <label className="block text-xs font-bold mb-2 text-secondary-500">
                                 Status Pembayaran
                             </label>
-                            <div className="flex gap-2">
-                                {["UNPAID", "PAID"].map((s) => (
+                            <div className="flex gap-2 flex-wrap">
+                                {['UNPAID', 'AWAITING_VERIFICATION', 'PAID'].map((s) => (
                                     <button
                                         key={s}
                                         id={`payment-status-${s.toLowerCase()}`}
-                                        onClick={() => setPaymentStatus(s as "UNPAID" | "PAID")}
-                                        className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all border ${
+                                        onClick={() => setPaymentStatus(s as any)}
+                                        className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all border ${
                                             paymentStatus === s
-                                                ? s === "PAID"
-                                                    ? "bg-primary text-white border-primary"
-                                                    : "bg-red-500 text-white border-red-500"
-                                                : "bg-white text-secondary-400 border-secondary-200/60 hover:bg-secondary-50"
+                                                ? s === 'PAID'
+                                                    ? 'bg-primary text-white border-primary'
+                                                    : s === 'AWAITING_VERIFICATION'
+                                                    ? 'bg-blue-500 text-white border-blue-500'
+                                                    : 'bg-red-500 text-white border-red-500'
+                                                : 'bg-white text-secondary-400 border-secondary-200/60 hover:bg-secondary-50'
                                         }`}
                                     >
-                                        {s === "PAID" ? "✅ Lunas" : "⏳ Belum Bayar"}
+                                        {s === 'PAID' ? '✅ Lunas' : s === 'AWAITING_VERIFICATION' ? '⏳ Verifikasi' : '🔴 Belum Bayar'}
                                     </button>
                                 ))}
                             </div>
@@ -168,10 +197,50 @@ export default function OrderDetailModal({
                             <div className="flex items-center justify-between py-3 px-4 rounded-xl bg-primary-50/50 border border-primary-100/30">
                                 <span className="text-sm font-bold text-secondary-800">Total</span>
                                 <span className="text-lg font-extrabold text-primary-700">
-                                    Rp {(order.totalPrice || 0).toLocaleString("id-ID")}
+                                    Rp {(order.totalPrice || 0).toLocaleString('id-ID')}
                                 </span>
                             </div>
                         </div>
+
+                        {/* Bukti Transfer Section */}
+                        {order.paymentProof && (
+                            <div className="mt-4 pt-4 border-t border-secondary-100">
+                                <h4 className="font-bold text-sm text-secondary-700 mb-3">🧾 Bukti Transfer</h4>
+                                <div className="rounded-xl overflow-hidden border-2 border-secondary-100 mb-4">
+                                    <img
+                                        src={`${process.env.NEXT_PUBLIC_API_URL}${order.paymentProof}`}
+                                        alt="Bukti Transfer"
+                                        className="w-full object-contain max-h-64 bg-gray-50"
+                                    />
+                                </div>
+                                <a
+                                    href={`${process.env.NEXT_PUBLIC_API_URL}${order.paymentProof}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block text-center text-xs text-blue-600 hover:underline mb-3"
+                                >
+                                    🔍 Lihat gambar ukuran penuh
+                                </a>
+
+                                {order.paymentStatus === 'AWAITING_VERIFICATION' && (
+                                    <>
+                                        {verifyError && (
+                                            <p className="mb-2 text-xs text-red-600 bg-red-50 rounded-lg p-2">
+                                                ❌ {verifyError}
+                                            </p>
+                                        )}
+                                        <button
+                                            id="modal-verify-btn"
+                                            onClick={handleVerifyPayment}
+                                            disabled={isVerifying}
+                                            className="w-full py-3 rounded-xl text-sm font-bold transition-all bg-emerald-600 hover:bg-emerald-700 text-white disabled:opacity-50"
+                                        >
+                                            {isVerifying ? '⏳ Memverifikasi...' : '✅ Verifikasi & Tandai Lunas'}
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+                        )}
                     </div>
 
                     {/* Order Items */}

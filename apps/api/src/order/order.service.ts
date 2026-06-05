@@ -263,6 +263,53 @@ export class OrderService {
         }
     }
 
+    async uploadPaymentProof(id: number, fileUrl: string): Promise<Order> {
+        try {
+            const order = await this.prisma.order.update({
+                where: { id },
+                data: {
+                    paymentProof: fileUrl,
+                    paymentStatus: 'AWAITING_VERIFICATION',
+                } as any,
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            username: true,
+                            email: true,
+                            photo: true,
+                            address: true,
+                        },
+                    },
+                    detailOrders: {
+                        include: {
+                            product: {
+                                select: {
+                                    id: true,
+                                    name: true,
+                                    photo: true,
+                                    price: true,
+                                },
+                            },
+                            variants: {
+                                include: {
+                                    productVariantOption: {
+                                        include: {
+                                            variant: true,
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            });
+            return order;
+        } catch (error) {
+            this.handlePrismaError(error, id);
+        }
+    }
+
     async deleteOrder(id: number): Promise<Order> {
         try {
             // First delete all detail order variants

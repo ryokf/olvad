@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -16,6 +18,10 @@ import { OrderModule } from './order/order.module';
         ConfigModule.forRoot({
             isGlobal: true,
         }),
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, '..', 'uploads'),
+            serveRoot: '/uploads',
+        }),
         UserModule,
         ProductModule,
         DatabaseModule,
@@ -28,3 +34,4 @@ import { OrderModule } from './order/order.module';
     providers: [AppService],
 })
 export class AppModule {}
+

@@ -29,8 +29,9 @@ enum PaymentMethod {
 }
 
 enum PaymentStatus {
-  UNPAID @map("unpaid")
-  PAID   @map("paid")
+  UNPAID                @map("unpaid")
+  AWAITING_VERIFICATION @map("awaiting_verification")
+  PAID                  @map("paid")
 }
 
 enum OrderStatus {
@@ -92,22 +93,23 @@ model Product {
 }
 
 model Order {
-  id               Int            @id @default(autoincrement())
-  userId           Int?           @map("user_id")
-  customerName     String         @db.VarChar(100) @map("customer_name")  // Required for guest checkout
-  customerPhone    String         @db.VarChar(20)  @map("customer_phone") // Required for guest checkout
-  type             OrderType
-  tableNumber      String?        @db.VarChar(50)  @map("table_number")   // Optional, for dine-in
-  pickupTime       String?        @db.VarChar(50)  @map("pickup_time")    // Optional, for pickup
-  deliveryAddress  String?        @db.Text         @map("delivery_address") // Optional, for delivery
-  notes            String?        @db.Text         // General notes/requests
-  paymentMethod    PaymentMethod  @map("payment_method")
-  paymentStatus    PaymentStatus  @default(UNPAID) @map("payment_status")
-  totalPrice       Int            @map("total_price")
-  status           OrderStatus
+  id              Int           @id @default(autoincrement())
+  userId          Int?          @map("user_id")
+  customerName    String        @map("customer_name") @db.VarChar(100) // Required for guest checkout
+  customerPhone   String        @map("customer_phone") @db.VarChar(20) // Required for guest checkout
+  type            OrderType
+  tableNumber     String?       @map("table_number") @db.VarChar(50) // Optional, for dine-in
+  pickupTime      String?       @map("pickup_time") @db.VarChar(50) // Optional, for pickup
+  deliveryAddress String?       @map("delivery_address") @db.Text // Optional, for delivery
+  notes           String?       @db.Text // General notes/requests
+  paymentMethod   PaymentMethod @map("payment_method")
+  paymentStatus   PaymentStatus @default(UNPAID) @map("payment_status")
+  paymentProof    String?       @map("payment_proof") @db.Text
+  totalPrice      Int           @map("total_price")
+  status          OrderStatus
 
   // Relasi
-  user         User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user         User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
   detailOrders DetailOrder[]
 
   @@map("orders")

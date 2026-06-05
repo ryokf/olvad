@@ -5,17 +5,31 @@ import {
     Get,
     Param,
     ParseIntPipe,
+    Patch,
     Post,
     Put,
+    UploadedFile,
     UseGuards,
+    UseInterceptors,
     Request,
     BadRequestException,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { existsSync, mkdirSync } from 'fs';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create.dto';
 import { UpdateOrderDto } from './dto/update.dto';
 import { Order } from '@olvad/types';
-import { RoleGuard, createRoleGuard } from '../common/guards/auth.guard';
+import { createRoleGuard } from '../common/guards/auth.guard';
+
+const UPLOAD_DIR = './uploads/receipts';
+
+// Pastikan folder upload tersedia saat modul diload
+if (!existsSync(UPLOAD_DIR)) {
+    mkdirSync(UPLOAD_DIR, { recursive: true });
+}
 
 @Controller('order')
 export class OrderController {
@@ -86,6 +100,56 @@ export class OrderController {
     }
 
     /**
+     * Upload payment proof - Open to everyone (customer uploads transfer receipt)
+     * Accepts multipart/form-data with field name "file"
+     */
+    @Patch('/:id/upload-proof')
+    @UseInterceptors(
+        FileInterceptor('file', {
+            storage: diskStorage({
+                destination: UPLOAD_DIR,
+                filename: (_req, file, cb) => {
+                    const uniqueSuffix =
+                        Date.now() + '-' + Math.round(Math.random() * 1e9);
+                    cb(null, `receipt-${uniqueSuffix}${extname(file.originalname)}`);
+                },
+            }),
+            fileFilter: (_req, file, cb) => {
+                if (!file.mimetype.match(/\/(jpg|jpeg|png|webp)$/)) {
+                    return cb(
+                        new BadRequestException(
+                            'Hanya file gambar (jpg, jpeg, png, webp) yang diizinkan',
+                        ),
+                        false,
+                    );
+                }
+                cb(null, true);
+            },
+            limits: { fileSize: 5 * 1024 * 1024 }, // 5MB max
+        }),
+    )
+    async uploadProof(
+        @Param('id', ParseIntPipe) id: number,
+        @UploadedFile() file: Express.Multer.File,
+    ): Promise<Order> {
+        if (!file) {
+            throw new BadRequestException('File bukti transfer tidak ditemukan');
+        }
+        const fileUrl = `/uploads/receipts/${file.filename}`;
+        return this.orderService.uploadPaymentProof(id, fileUrl);
+    }
+
+    /**
+     * Verify payment - Restricted to admin and cashier
+     * Changes paymentStatus from AWAITING_VERIFICATION to PAID
+     */
+    @Patch('/:id/verify-payment')
+    @UseGuards(createRoleGuard(['admin', 'cashier']))
+    async verifyPayment(@Param('id', ParseIntPipe) id: number): Promise<Order> {
+        return this.orderService.updateOrder(id, { paymentStatus: 'PAID' } as any);
+    }
+
+    /**
      * Delete order - Restricted to admin only
      * Requires x-user-role header = admin
      */
@@ -96,4 +160,3 @@ export class OrderController {
         return order;
     }
 }
-

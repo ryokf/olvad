@@ -19,6 +19,10 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentStep, setCurrentStep] = useState(0);
+    const [uploadFile, setUploadFile] = useState<File | null>(null);
+    const [uploadPreview, setUploadPreview] = useState<string | null>(null);
+    const [isUploading, setIsUploading] = useState(false);
+    const [uploadError, setUploadError] = useState<string | null>(null);
 
     // Fetch order data on mount
     useEffect(() => {
@@ -31,6 +35,8 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                 // Determine current step based on payment and order status
                 if (fetchedOrder.paymentStatus === 'UNPAID') {
                     setCurrentStep(0); // Waiting for payment
+                } else if (fetchedOrder.paymentStatus === 'AWAITING_VERIFICATION') {
+                    setCurrentStep(1); // Awaiting verification
                 } else if (fetchedOrder.status === 'ON_PROCESS') {
                     setCurrentStep(2); // Being prepared
                 } else if (fetchedOrder.status === 'DONE') {
@@ -49,6 +55,47 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
 
         fetchOrder();
     }, [params.id]);
+
+    // Handle file selection with preview
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0] || null;
+        setUploadFile(file);
+        setUploadError(null);
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => setUploadPreview(reader.result as string);
+            reader.readAsDataURL(file);
+        } else {
+            setUploadPreview(null);
+        }
+    };
+
+    // Handle payment proof upload
+    const handleUpload = async () => {
+        if (!file || !order) return;
+        setIsUploading(true);
+        setUploadError(null);
+        const formData = new FormData();
+        formData.append('file', file);
+        try {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/order/${order.id}/upload-proof`,
+                { method: 'PATCH', body: formData },
+            );
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data.message || 'Gagal mengunggah bukti');
+            }
+            window.location.reload();
+        } catch (err) {
+            setUploadError(err instanceof Error ? err.message : 'Gagal mengunggah bukti');
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    // Shorthand for file state
+    const file = uploadFile;
 
     // Get order type display
     const getOrderTypeDisplay = (type: string): string => {
@@ -184,6 +231,19 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                     </div>
                 )}
 
+                {/* AWAITING VERIFICATION Banner */}
+                {order.paymentStatus === 'AWAITING_VERIFICATION' && (
+                    <div className="bg-blue-50 border-2 border-blue-300 rounded-3xl p-6 mb-6 flex items-center gap-4">
+                        <div className="text-4xl animate-spin" style={{ animationDuration: '3s' }}>⏳</div>
+                        <div>
+                            <p className="font-bold text-blue-900 text-lg">Bukti sedang diverifikasi</p>
+                            <p className="text-blue-700 text-sm mt-1">
+                                Admin kami sedang mengecek bukti transfer Anda. Mohon tunggu sebentar — biasanya kurang dari 5 menit.
+                            </p>
+                        </div>
+                    </div>
+                )}
+
                 {/* Payment Information Section */}
                 {order.paymentStatus === 'UNPAID' && (
                     <div className="bg-white rounded-3xl p-8 shadow-md mb-6">
@@ -234,19 +294,19 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                                         <div className="bg-white p-4 rounded-xl border-2 border-gray-200">
                                             <p className="font-semibold text-gray-900">BCA</p>
                                             <p className="text-lg text-gray-700 font-mono mt-1">1234567890</p>
-                                            <p className="text-sm text-gray-600 mt-1">a.n. Olvad Coffee & Bakery</p>
+                                            <p className="text-sm text-gray-600 mt-1">a.n. Olvad Coffee &amp; Bakery</p>
                                         </div>
 
                                         <div className="bg-white p-4 rounded-xl border-2 border-gray-200">
                                             <p className="font-semibold text-gray-900">Mandiri</p>
                                             <p className="text-lg text-gray-700 font-mono mt-1">1234567890</p>
-                                            <p className="text-sm text-gray-600 mt-1">a.n. Olvad Coffee & Bakery</p>
+                                            <p className="text-sm text-gray-600 mt-1">a.n. Olvad Coffee &amp; Bakery</p>
                                         </div>
 
                                         <div className="bg-white p-4 rounded-xl border-2 border-gray-200">
                                             <p className="font-semibold text-gray-900">BNI</p>
                                             <p className="text-lg text-gray-700 font-mono mt-1">1234567890</p>
-                                            <p className="text-sm text-gray-600 mt-1">a.n. Olvad Coffee & Bakery</p>
+                                            <p className="text-sm text-gray-600 mt-1">a.n. Olvad Coffee &amp; Bakery</p>
                                         </div>
                                     </div>
                                 </div>
@@ -256,10 +316,59 @@ export default function OrderTrackingPage({ params }: { params: { id: string } }
                                     <ol className="text-sm text-amber-900 space-y-2 ml-4 list-decimal">
                                         <li>Transfer ke nomor rekening di atas sebesar <strong>Rp {order.totalPrice.toLocaleString('id-ID')}</strong></li>
                                         <li>Gunakan Order ID <strong>#{order.id}</strong> sebagai catatan transfer</li>
-                                        <li>Setelah transfer, kirimkan bukti ke WhatsApp: <strong>+62 xxx-xxxx-xxxx</strong></li>
-                                        <li>Admin akan mengkonfirmasi pembayaran dalam 5 menit</li>
-                                        <li>Pesanan Anda akan langsung dibuat setelah pembayaran dikonfirmasi</li>
+                                        <li>Unggah bukti transfer di bawah ini — admin akan memverifikasi dalam 5 menit</li>
                                     </ol>
+                                </div>
+
+                                {/* Upload Proof Form */}
+                                <div className="bg-white rounded-2xl p-6 border-2 border-gray-200 shadow-sm">
+                                    <h3 className="font-bold text-gray-900 mb-4">📤 Unggah Bukti Transfer</h3>
+
+                                    {/* Preview */}
+                                    {uploadPreview && (
+                                        <div className="mb-4 rounded-xl overflow-hidden border-2 border-gray-200">
+                                            <img
+                                                src={uploadPreview}
+                                                alt="Preview bukti transfer"
+                                                className="w-full max-h-56 object-contain bg-gray-50"
+                                            />
+                                        </div>
+                                    )}
+
+                                    <label
+                                        htmlFor="proof-upload"
+                                        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors"
+                                    >
+                                        <div className="text-center">
+                                            <div className="text-3xl mb-2">{uploadPreview ? '🔄' : '📷'}</div>
+                                            <p className="text-sm text-gray-600 font-semibold">
+                                                {uploadPreview ? 'Ganti foto' : 'Klik untuk memilih foto'}
+                                            </p>
+                                            <p className="text-xs text-gray-400 mt-1">JPG, PNG, WebP — maks. 5MB</p>
+                                        </div>
+                                        <input
+                                            id="proof-upload"
+                                            type="file"
+                                            accept="image/jpg,image/jpeg,image/png,image/webp"
+                                            className="hidden"
+                                            onChange={handleFileChange}
+                                        />
+                                    </label>
+
+                                    {uploadError && (
+                                        <p className="mt-3 text-sm text-red-600 bg-red-50 rounded-xl p-3">
+                                            ❌ {uploadError}
+                                        </p>
+                                    )}
+
+                                    <button
+                                        id="upload-proof-btn"
+                                        onClick={handleUpload}
+                                        disabled={!file || isUploading}
+                                        className="mt-4 w-full py-3 rounded-full font-bold text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed bg-primary hover:shadow-lg hover:scale-[1.02] active:scale-100"
+                                    >
+                                        {isUploading ? '⏳ Mengunggah...' : '✅ Kirim Bukti Pembayaran'}
+                                    </button>
                                 </div>
                             </div>
                         )}
